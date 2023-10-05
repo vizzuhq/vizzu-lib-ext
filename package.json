@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "packageManager": "yarn@3.6.1",
+  "workspaces": [
+    "plugins/**/*"
+  ],
+  "scripts": {
+    "postinstall": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "typescript": "^5.2.2"
+  }
+}
