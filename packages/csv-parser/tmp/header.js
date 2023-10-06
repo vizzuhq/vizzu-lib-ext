@@ -112,8 +112,6 @@ function calculateDifferencePercentage(headerTypes, dataList) {
 const diffPercentage = calculateDifferencePercentage(headerTypes, allData);
 console.log("Row and header type difference percentage: ", diffPercentage);
 
-
-
 const percentPoint = {
   "uniqueHeader": 1,
   "onlyString": 3,
