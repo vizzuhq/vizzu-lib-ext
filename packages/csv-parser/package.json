@@ -11,15 +11,15 @@
     "clear": "node build/clear.js",
     "test": "vitest"
   },
-  "dependencies": {
-    "d3": "^7.8.5"
-  },
   "devDependencies": {
-    "@types/d3": "^7.4.0",
+    "@types/d3": "^7.4.1",
     "@types/node": "^20.8.2",
     "esbuild": "^0.19.4",
     "ts-standard": "^12.0.2",
     "typescript": "^5.2.2",
     "vitest": "^0.34.2"
+  },
+  "dependencies": {
+    "d3": "^7.8.5"
   }
 }

@@ -1,8 +1,11 @@
-import { DSVRowArray, csvParse, dsv } from "d3";
+import { DSVRowArray, csvParse } from "d3";
+import { headerDetect } from "./headerDetect";
 
 
 export class DataParser {
-  _data: Object | null = null;  
+  _data: Object | null = null;
+  _isHeader: boolean = true;
+  private probabilityVariable = 0.5;
 
   public get data(): Object | null {
     return this._data;
@@ -12,7 +15,10 @@ export class DataParser {
     if (source.startsWith("http")) {
       source = await this.fetchData(source);
     }
-
+    const headerProbability = headerDetect(source);
+    if (headerProbability < this.probabilityVariable) {
+      this._isHeader = false;
+    }
     const parsedInput = csvParse(source);
     this._data = { series: this.buildData(parsedInput) };
   }
@@ -35,6 +41,10 @@ export class DataParser {
       return "";
     }
     return await response.text();
+  }
+
+  get hasHeader(): boolean {
+    return this._isHeader;
   }
 
 }
