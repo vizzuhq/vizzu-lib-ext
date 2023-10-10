@@ -1,6 +1,5 @@
-import { DSVRowArray, csvParse } from "d3";
+import { parse } from "csv-parse/sync";
 import { headerDetect } from "./headerDetect";
-
 
 export class DataParser {
   _data: Object | null = null;
@@ -19,18 +18,21 @@ export class DataParser {
     if (headerProbability < this.probabilityVariable) {
       this._isHeader = false;
     }
-    const parsedInput = csvParse(source);
+    const parsedInput = parse(source);
     this._data = { series: this.buildData(parsedInput) };
   }
 
-  private buildData(records: DSVRowArray<string>): Object | null {
+  private buildData(records: string[][] | { [x: string]: any; }[]): Object | null {
     if (records.length === 0) {
       return null;
     }
-    const series = Object.entries(records[0]).map((entry, i) => ({
-      name: entry[0],
-      values: records.map((record) => record[entry[0]]),
-    }));
+    const series = Object.keys(records[0]).map((key: string) => {
+      const entry = records[0][key];
+      return {
+        name: entry[0],
+        values: records.map((record: { [x: string]: any; }) => record[entry[0]]),
+      };
+    });
     return series;
   }
 
@@ -46,5 +48,4 @@ export class DataParser {
   get hasHeader(): boolean {
     return this._isHeader;
   }
-
 }

@@ -43,7 +43,7 @@ const generateData = (
   let data = "";
   for (let i = 0; i < row; i++) {
     for (let j = 0; j < column; j++) {
-      if (i > 0 && emptycols && Math.random() > 0.89) {
+      if (emptycols && Math.random() > 0.89) {
         if (types !== false && types[j] === "string") {
           data += '""';
         }

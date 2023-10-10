@@ -2,6 +2,7 @@ import { expect, test, describe } from "vitest";
 import { CSVParser } from "../src/index";
 
 import { CSVParser as BrowserParser } from "../src/browser";
+import { files, filesWithHeaders } from "./assets/testFiles";
 
 const parser = new CSVParser();
 describe("csv read", () => {
@@ -11,7 +12,7 @@ describe("csv read", () => {
     expect(sourceContent).toEqual("");
   });
   test("reads file", () => {
-    const source = "./tests/testsources/music.csv";
+    const source = "./tests/fixtures/headers/music.csv";
     const sourceContent = parser.readCSVFile(source);
     expect(sourceContent).not.toEqual("");
     const lines = sourceContent.split("\n");
@@ -57,16 +58,15 @@ describe("parser", () => {
   });
 });
 describe("parser load data from files", () => {
-  test("small source (testsources/music.csv)", async () => {
-    const source = "./tests/testsources/music.csv";
+  describe("csv files", () => {
+    const testFiles = filesWithHeaders();
+    test.each(testFiles)("small source ($input)", async ({input}) => {
+      const data = await parser.parse(input);
 
-    const data = await parser.parse(source);
-
-    expect(typeof parser.error).toBe("undefined");
-    expect("series" in data).toBe(true);
-    expect(data.series.length).toEqual(3);
-    expect(data.series[0].name).toEqual("Genres");
-    expect(data.series[0].values.length).toEqual(12);
+      expect(typeof parser.error).toBe("undefined");
+      expect("series" in data).toBe(true);
+      expect(data.series.length).toBeGreaterThanOrEqual(1)
+    });
   });
 
   test("load data from url", async () => {

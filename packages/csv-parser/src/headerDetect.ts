@@ -1,3 +1,5 @@
+import { parse }  from "csv-parse/sync";
+
 const IMPORTANCEWEIGHT = {
   uniqueHeaderProbalility: 1,
   headerTypesProbability: 5,
@@ -23,11 +25,14 @@ const getType = (value: string | number): string => {
   }
 };
 
-const simpleParseData = (data: string, delimeter: string = ","): string[][] => {
-  return data
-    .replace("\n\n", "\n")
-    .split("\n")
-    .map((line) => line.split(delimeter));
+const simpleParseData = (data: string, delimiter: string = ","): string[][] => {
+  return parse(data, {
+    delimiter: delimiter, 
+    skip_empty_lines: true,  
+    columns: false, 
+    comment: "#", 
+    skip_records_with_error: true,})
+    
 };
 
 const percentOfUniqueItems = (rowValues: string[]): number => {
@@ -90,14 +95,14 @@ const convertValuesToTypes = (rowValues: string[][]): string[][] => {
   });
 };
 
-export const headerDetect = (data: string, delimeter: string = ","): number => {
-  const parsedData = simpleParseData(data, delimeter);
+export const headerDetect = (data: string, delimiter: string = ","): number => {
+  const parsedData = simpleParseData(data, delimiter);
   if (parsedData.length < 2) return 0;
 
   const headers = parsedData.shift();
   if (!headers) return 0;
 
-  const probabilites = [];
+  const probabilites: number[] = [];
   let probabilitesCount = 0;
   const uniqueHeaderProbalility = percentOfUniqueItems(headers);
   probabilites.push(uniqueHeaderProbalility * (IMPORTANCEWEIGHT.uniqueHeaderProbalility | 1));
