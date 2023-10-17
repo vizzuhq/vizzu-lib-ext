@@ -50,12 +50,14 @@ const customSeparator = {
   },
   excepted: {
     series: [
-      { name: 'a', values: ['1', '7', '13', '19'] },
-      { name: 'b', values: ['2', '8', '14', '20'] },
-      { name: 'c', values: ['3', '9', '15', '21'] },
-      { name: 'd', values: ['4', '10', '16', '22'] },
-      { name: 'e', values: ['5', '11', '17', '23'] },
-      { name: 'f', values: ['6', '12', '18', '24'] }
+      { name: 'a', values: [1, 7, 13, 19] },
+      { name: 'b', values: [2, 8, 14, 20] },
+      { name: 'c', values: [3, 9, 15, 21] },
+      { name: 'd', values: [4, 10, 16, 22] },
+      { name: 'e', values: [5, 11, 17, 23] },
+      { name: 'f', values: [6, 12, 18, 24] }
     ]
   }
 }
+
+vizzuHookTestCases.push(customSeparator)

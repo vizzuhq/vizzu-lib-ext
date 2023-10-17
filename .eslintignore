@@ -1,0 +1,8 @@
+build
+node_modules
+dist
+.vscode
+.yarn
+**/tmp/
+**/dist/
+**/demo/

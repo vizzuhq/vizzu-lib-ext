@@ -6,10 +6,18 @@
   ],
   "scripts": {
     "postinstall": "husky install",
+    "format": "yarn format-check && yarn lint",
     "format-fix": "npx prettier -w plugins package.json",
-    "format-check": "npx prettier -c plugins package.json"
+    "format-check": "npx prettier -c plugins package.json",
+    "lint": "npx eslint ."
   },
   "devDependencies": {
+    "@types/jest": "^29.5.5",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard": "^17.1.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
@@ -22,8 +30,17 @@
     "printWidth": 100,
     "trailingComma": "none"
   },
-  "extends": [
-    "standard",
-    "prettier"
-  ]
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "jest": true
+    },
+    "extends": [
+      "standard",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": "latest"
+    }
+  }
 }

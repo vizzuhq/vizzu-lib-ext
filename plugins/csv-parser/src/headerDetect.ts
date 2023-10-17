@@ -105,7 +105,7 @@ export const headerDetect = (data: string, delimiter: string = ','): number => {
   if (!headers) return 0
 
   const missingHeaderElements = []
-  for (let headerKey = 0; headerKey < headers.length; headerKey++) {
+  for (let headerKey:number = 0; headerKey < headers.length; headerKey++) {
     const header = headers[headerKey]
     if (!header) {
       missingHeaderElements.push(headerKey)

@@ -3,7 +3,6 @@ import { emptyDatas } from './assets/emptyDatas'
 import { headerDetect } from '../src/headerDetect'
 import { moreDataCsv } from './assets/dataWithHeader'
 import {
-  files,
   filesCustomSeparator,
   filesWithHeaders,
   filesWithoutHeaders
@@ -24,7 +23,7 @@ describe('header probabilites detect', () => {
   describe('with empty data', () => {
     test.each(moreDataCsv)(
       `$description -> excepted toBeGreaterThanOrEqual: ( $excepted.header)`,
-      ({ description, input, excepted, separator }) => {
+      ({ input, excepted, separator }) => {
         const probabilites = headerDetect(input, separator)
         expect(probabilites).toBeGreaterThanOrEqual(excepted.header)
       }
@@ -33,7 +32,7 @@ describe('header probabilites detect', () => {
   describe('with empty data without header', () => {
     test.each(moreDataCsv)(
       `$description -> excepted: (<$excepted.noheader)`,
-      ({ description, input, excepted, separator }) => {
+      ({ input, excepted, separator }) => {
         const withoutHeader = input.split('\n').slice(1).join('\n')
         const probabilites = headerDetect(withoutHeader, separator)
         expect(probabilites).toBeLessThanOrEqual(excepted?.noheader)

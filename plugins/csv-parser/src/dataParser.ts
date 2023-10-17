@@ -21,14 +21,14 @@ interface hookContex {
       csv?: csvTypes
       series?: {
         name: string
-        values: any[]
+        values: number[] | string[]
       }[]
     }
   }
 }
 interface dataSeries {
   name: string
-  values: any[]
+  values: number[] | string[]
 }
 interface dataType {
   series: dataSeries[]
@@ -67,7 +67,7 @@ export class DataParser {
     return {
       setAnimParams: async (ctx: hookContex, next: nextType) => {
         if (Array.isArray(ctx.target)) {
-          for (const { target, options } of ctx.target) {
+          for (const { target } of ctx.target) {
             if (!target || !('data' in target) || !target.data) continue
             if (!('csv' in target.data) || !target.data.csv) continue
             const csvOptions = target.data.csv
@@ -91,9 +91,9 @@ export class DataParser {
                 if (
                   'values' in item &&
                   item.values &&
-                  item.values.every((value: any) => !isNaN(value))
+                  item.values.every((value: string | number) => !isNaN(Number(value)))
                 ) {
-                  item.values = item.values.map((value: any) => +value)
+                  item.values = item.values.map((value: string | number) => Number(value))
                 }
                 return item
               }
@@ -195,14 +195,13 @@ export class DataParser {
     }
     const header: string[] = this._headers ?? this._getHeader(records)
     const series: dataSeries[] = []
-
     for (let column = 0; column < records[0].length; column++) {
       const headerName =
         (header[column].length > 0 && header[column]) || this._emptyColumnPrefix + (column + 1)
 
       series.push({
         name: headerName,
-        values: records.map((record: { [x: string]: any }) => record[column])
+        values: records.map((record) => record[column])
       })
     }
 

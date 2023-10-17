@@ -5,7 +5,7 @@ import { Options } from 'csv-parse/.'
 interface dataType {
   series: {
     name: string
-    values: any[]
+    values: string[] | number[]
   }[]
 }
 
