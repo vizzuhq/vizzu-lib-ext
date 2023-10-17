@@ -4,6 +4,8 @@ let chart;
 
 window.addEventListener("load", async function () {
   const result = this.document.getElementById("result");
+  const parserInfo = this.document.getElementById("parserInfo");
+  const vizzu = this.document.getElementById("vizzu");
 
   const button = document.getElementById("testBTN");
   const textContent = document.getElementById("textArea");
@@ -13,7 +15,7 @@ window.addEventListener("load", async function () {
 
     //destroy chart if it exists
     if (chart) chart.detach();
-
+    vizzu.classList.remove("hide");
     //create new chart and add csv parser
     chart = new Vizzu("vizzu");
     chart.feature(new CSVParser(), true);
@@ -33,7 +35,8 @@ window.addEventListener("load", async function () {
         },
       });
 
-      result.innerHTML = "Loading...";
+      result.innerHTML = "";
+      parserInfo.innerHTML = "Loading...";
 
       // parse csv text content for the more information (header, delimiter, series)
       const parser = new CSVParser();
@@ -50,11 +53,13 @@ window.addEventListener("load", async function () {
 
       // delimiter detection
       const delimiter = parser.delimiter;
-      content += `<b>Delimiter</b>: <code>${JSON.stringify(
+      content += `<b>The delimiter is <code>${JSON.stringify(
         delimiter
-      )}</code></p>`;
+      )}</code></b></p>`;
 
-      content += "<p><b>Series:</b><br>";
+      parserInfo.innerHTML = content;
+
+      content = "<p><b>Series:</b><br>";
 
       // series detection and animation
       const animate = () => {
@@ -71,7 +76,9 @@ window.addEventListener("load", async function () {
           content += `Name: <b>${seriesItem.name}</b><br>`;
           content += `Type: <b>${seriesItem.type}</b><br>`;
           if (seriesItem.type === "dimension") {
-            content += `Categories: <b>${seriesItem.categories.join(",")}</b>`;
+            content += `Categories: <b>${JSON.stringify(
+              seriesItem.categories
+            )}</b>`;
           } else {
             content += `Data range: <b>${seriesItem.range.min} - ${seriesItem.range.max}</b>`;
           }
@@ -81,20 +88,32 @@ window.addEventListener("load", async function () {
         result.innerHTML = content;
 
         // animate chart
-        const x = data.series
-          .filter((seriesItem) => seriesItem.type === "dimension")
-          .shift();
+        const dimensions = data.series.filter(
+          (seriesItem) => seriesItem.type === "dimension" 
+        );
+        let x = dimensions.shift();
+
+        const measures = data.series.filter(
+          (seriesItem) => seriesItem.type === "measure"
+        );
+        let y = measures.pop();
+
         if (!x) {
-          console.error("No x axis");
-          return;
+          if (measures.length > 0) {
+            x = measures.shift();
+          } else {
+            console.error("No x axis");
+            return;
+          }
         }
 
-        const y = data.series
-          .filter((seriesItem) => seriesItem.type === "measure")
-          .pop();
         if (!y) {
-          console.error("No y axis");
-          return;
+          if (dimensions.length > 0) {
+            y = dimensions.pop();
+          } else {
+            console.error("No y axis");
+            return;
+          }
         }
 
         chart.animate({
@@ -102,11 +121,10 @@ window.addEventListener("load", async function () {
             channels: {
               y: {
                 set: [y.name],
-                //range: {max: y.range.max},
               },
               x: {
-                set: [x.name], 
-                range: { max: Math.min(10, x.categories.length) },
+                set: [x.name],
+                range: { max: Math.min(10, x?.categories?.length || 10) },
               },
             },
             color: { set: [x.name] },
