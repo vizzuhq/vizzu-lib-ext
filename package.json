@@ -6,7 +6,8 @@
   ],
   "scripts": {
     "postinstall": "husky install",
-    "fix-format": "npx prettier -w plugins package.json"
+    "format-fix": "npx prettier -w plugins package.json",
+    "format-check": "npx prettier -c plugins package.json"
   },
   "devDependencies": {
     "husky": "^8.0.3",

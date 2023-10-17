@@ -9,7 +9,7 @@ class Vizzu {
   async animate() {
     if (this._feature) {
       const { setAnimParams } = this._feature.hooks
-      const ctx = { target:  [{ target: arguments[0], options: null }] }
+      const ctx = { target: [{ target: arguments[0], options: null }] }
       await setAnimParams(ctx, () => {})
 
       this._data = ctx.target[0].target.data
