@@ -5,11 +5,24 @@
     "plugins/**/*"
   ],
   "scripts": {
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "fix-format": "npx prettier -w plugins package.json"
   },
   "devDependencies": {
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
     "typescript": "^5.2.2"
-  }
+  },
+  "prettier": {
+    "semi": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "printWidth": 100,
+    "trailingComma": "none"
+  },
+  "extends": [
+    "standard",
+    "prettier"
+  ]
 }
