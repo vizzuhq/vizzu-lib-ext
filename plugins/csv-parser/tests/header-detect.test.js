@@ -2,11 +2,7 @@ import { expect, test, describe } from 'vitest'
 import { emptyDatas } from './assets/emptyDatas'
 import { headerDetect } from '../src/headerDetect'
 import { moreDataCsv } from './assets/dataWithHeader'
-import {
-  filesCustomSeparator,
-  filesWithHeaders,
-  filesWithoutHeaders
-} from './assets/testFiles'
+import { filesCustomSeparator, filesWithHeaders, filesWithoutHeaders } from './assets/testFiles'
 import fs from 'fs'
 
 describe('header probabilites detect', () => {

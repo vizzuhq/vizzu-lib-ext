@@ -11,6 +11,7 @@ const getType = (value: string | number): string => {
   if (!value || value === '') return 'undefined'
   if (typeof value === 'number') return 'number'
   if (typeof value !== 'string') return 'string'
+
   try {
     // remove special langue number formatters (e.g. 1 000 000,01)
     const formattedValue = value
@@ -89,9 +90,11 @@ const convertValuesToTypes = (
   return filteredValues.map((rowData, rowKey) => {
     return rowData.map((element, dataIndex) => {
       const currentType = getType(element)
+
       if (currentType === 'undefined' && rowKey > 0) {
         return getType(filteredValues[rowKey - 1][dataIndex])
       }
+
       return currentType
     })
   })
@@ -105,7 +108,7 @@ export const headerDetect = (data: string, delimiter: string = ','): number => {
   if (!headers) return 0
 
   const missingHeaderElements = []
-  for (let headerKey:number = 0; headerKey < headers.length; headerKey++) {
+  for (let headerKey: number = 0; headerKey < headers.length; headerKey++) {
     const header = headers[headerKey]
     if (!header) {
       missingHeaderElements.push(headerKey)

@@ -40,20 +40,22 @@ window.addEventListener('load', async function () {
 
       // parse csv text content for the more information (header, delimiter, series)
       const parser = new CSVParser()
+      window.parser = parser
       const parsedData = await parser.parse(contentText)
 
       // header detection
       let content = ''
       const hasHeader = parser.hasHeader
+
       if (hasHeader) {
-        content += '<p><b>Header is detected</b><br>'
+        content += `<p><b>Header is detected</b><br>`
       } else {
-        content += '<p>Header is not detected</b><br>'
+        content += `<p>Header is not detected</b><br>`
       }
 
       // delimiter detection
       const delimiter = parser.delimiter
-      content += `<b>The delimiter is <code>${JSON.stringify(delimiter)}</code></b></p>`
+      content += `<b>The detected delimiter is <code>${JSON.stringify(delimiter)}</code></b></p>`
 
       parserInfo.innerHTML = content
 

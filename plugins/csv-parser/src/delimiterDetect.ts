@@ -12,28 +12,23 @@ export const delimiterDetect = (data: string): string => {
     lines.pop()
   }
 
-  const delimiters = ['\t', ';', ',', '|', '^', '~', ':', ' ', '`']
+  const standardDelimiters = ['\t', ';', ',', '|', '^', '~', ':', ' ', '`']
   const results: { [key: string]: number } = {}
   const resultByLine: { [key: string]: number[] } = {}
-  delimiters.forEach((delimiter) => {
-    results[delimiter] = 0
-    resultByLine[delimiter] = []
-  })
 
   lines.forEach((line) => {
-    delimiters.forEach((delimiter) => {
+    standardDelimiters.forEach((delimiter) => {
       const count = line.split(delimiter).length
-      resultByLine[delimiter].push(count - 1)
-      results[delimiter] += count - 1
-    })
-  })
+      if (count === 1) return
 
-  // clean is 0 result
-  Object.keys(results).forEach((key) => {
-    if (results[key] === 0) {
-      delete results[key]
-      delete resultByLine[key]
-    }
+      if (!results[delimiter]) {
+        results[delimiter] = 0
+        resultByLine[delimiter] = []
+      }
+
+      results[delimiter] += count - 1
+      resultByLine[delimiter].push(count - 1)
+    })
   })
 
   const possibleDelimiters = Object.keys(results)
@@ -41,13 +36,11 @@ export const delimiterDetect = (data: string): string => {
     return possibleDelimiters[0]
   }
 
-  // Calculate the average of all the numbers
   const calculateMean = (values: number[]): number => {
     const mean = values.reduce((sum, current) => sum + current) / values.length
     return mean
   }
 
-  // Calculate variance
   const calculateVariance = (values: number[]): number => {
     const average = calculateMean(values)
     const squareDiffs = values.map((value: number): number => {
@@ -59,12 +52,10 @@ export const delimiterDetect = (data: string): string => {
     return variance
   }
 
-  // Calculate stand deviation
   const calculateSD = (variance: number): number => {
     return Math.sqrt(variance)
   }
 
-  // Test it
   const varianceElements = Object.keys(resultByLine)
     .map((key) => {
       const line = resultByLine[key]
@@ -82,7 +73,7 @@ export const delimiterDetect = (data: string): string => {
 
   if (varianceElements.length > 1) {
     const variancedKeys = varianceElements.map((element) => element.delimiter)
-    delimiters.forEach((delimiter) => {
+    standardDelimiters.forEach((delimiter) => {
       if (variancedKeys.includes(delimiter)) {
         return delimiter
       }

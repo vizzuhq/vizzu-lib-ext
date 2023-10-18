@@ -5,10 +5,9 @@ await esbuild.build({
   entryPoints: ['src/index.ts'],
   bundle: true,
   minify: true,
-  sourcemap: true,
+  sourcemap: false,
   platform: 'node',
   format: 'esm',
-  outfile: 'dist/mjs/index.js',
   plugins: [
     polyfillNode({
       globals: {
@@ -16,14 +15,15 @@ await esbuild.build({
         Buffer: true
       }
     })
-  ]
+  ],
+  outfile: 'dist/mjs/index.js'
 })
 
 await esbuild.build({
-  entryPoints: ['src/browser.ts'],
+  entryPoints: ['src/index.ts'],
   bundle: true,
   minify: true,
-  sourcemap: true,
+  sourcemap: false,
   platform: 'browser',
   target: 'es6',
   format: 'cjs',
