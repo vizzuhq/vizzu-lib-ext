@@ -79,45 +79,48 @@ export class DataParser {
 
 		return {
 			setAnimParams: async (ctx: hookContex, next: nextType) => {
-				if (Array.isArray(ctx.target)) {
-					for (const { target } of ctx.target) {
-						if (!target || !('data' in target) || !target.data) continue
+				if (!Array.isArray(ctx.target)) {
+					next()
+					return
+				}
 
-						if (!('csv' in target.data) || !target.data.csv) continue
+				for (const { target } of ctx.target) {
+					if (!target || !('data' in target) || !target.data) continue
 
-						const csvOptions = target.data.csv
-						if (!('url' in csvOptions) && !('content' in csvOptions)) continue
+					if (!('csv' in target.data) || !target.data.csv) continue
 
-						if ('options' in csvOptions && csvOptions.options) {
-							this._setOptions(csvOptions.options)
-						}
+					const csvOptions = target.data.csv
+					if (!('url' in csvOptions) && !('content' in csvOptions)) continue
 
-						const data = await this.parse(csvOptions.url || csvOptions.content)
-						if (!data || !('series' in data) || !data.series) {
-							throw new Error('Invalid data')
-						}
-
-						if (!this._isHeader && !this._autoheader) {
-							throw new Error('CSV file has no header')
-						}
-
-						data.series = data.series.map(
-							(item: {
-								name: string
-								values: number[] | string[]
-							}): { name: string; values: string[] | number[] } => {
-								if (
-									'values' in item &&
-									item.values &&
-									item.values.every((value: string | number) => !isNaN(Number(value)))
-								) {
-									item.values = item.values.map((value: string | number) => Number(value))
-								}
-								return item
-							}
-						)
-						target.data = data
+					if ('options' in csvOptions && csvOptions.options) {
+						this._setOptions(csvOptions.options)
 					}
+
+					const data = await this.parse(csvOptions.url || csvOptions.content)
+					if (!data || !('series' in data) || !data.series) {
+						throw new Error('Invalid data')
+					}
+
+					if (!this._isHeader && !this._autoheader) {
+						throw new Error('CSV file has no header')
+					}
+
+					data.series = data.series.map(
+						(item: {
+							name: string
+							values: number[] | string[]
+						}): { name: string; values: string[] | number[] } => {
+							if (
+								'values' in item &&
+								item.values &&
+								item.values.every((value: string | number) => !isNaN(Number(value)))
+							) {
+								item.values = item.values.map((value: string | number) => Number(value))
+							}
+							return item
+						}
+					)
+					target.data = data
 				}
 				next()
 			}
