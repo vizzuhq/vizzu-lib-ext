@@ -1,32 +1,5 @@
 const column = Math.round(Math.random() * 10) + 4
-const alphabet = [
-	'A',
-	'B',
-	'C',
-	'D',
-	'E',
-	'F',
-	'G',
-	'H',
-	'I',
-	'J',
-	'K',
-	'L',
-	'M',
-	'N',
-	'O',
-	'P',
-	'Q',
-	'R',
-	'S',
-	'T',
-	'U',
-	'V',
-	'W',
-	'X',
-	'Y',
-	'Z'
-]
+const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i))
 const header = '"' + [...Array(column).keys()].map((key) => alphabet[key]).join('","') + '"\n'
 
 const generateData = (
