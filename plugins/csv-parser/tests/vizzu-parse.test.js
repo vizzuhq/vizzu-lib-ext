@@ -8,8 +8,8 @@ const chart = new Vizzu()
 chart.feature(new CSVParser())
 
 describe('Vizzu hook CSVParser', () => {
-  test.each(vizzuHookTestCases)('$description', async ({ data, excepted }) => {
-    await chart.animate({ data: data })
-    expect(chart.data).toEqual(excepted)
-  })
+	test.each(vizzuHookTestCases)('$description', async ({ data, excepted }) => {
+		await chart.animate({ data: data })
+		expect(chart.data).toEqual(excepted)
+	})
 })
