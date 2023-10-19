@@ -1,7 +1,7 @@
 import { expect, test, describe } from 'vitest'
-import { CSVParser } from '../src/index'
+import { CSVParser } from '../src/node'
 
-import { CSVParser as BrowserParser } from '../src/browser'
+import { CSVParser as BrowserParser } from '../src/index'
 import { filesCustomCharset, filesCustomSeparator, filesWithHeaders } from './assets/testFiles'
 
 const parser = new CSVParser()

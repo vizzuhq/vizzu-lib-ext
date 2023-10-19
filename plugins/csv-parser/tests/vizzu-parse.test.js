@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest'
 
-import { CSVParser } from '../src/browser'
+import { CSVParser } from '../src/index'
 import Vizzu from './assets/mocks/vizzu'
 import { vizzuHookTestCases } from './assets/vizzu-hook-test-cases'
 
