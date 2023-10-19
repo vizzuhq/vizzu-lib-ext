@@ -12,7 +12,7 @@ Accepted extension plugins can be found in folders.
 
 Our currently available plugins:
 
-	- [Vizzu csv parser](plugins/csv-parser/) - Pars and convert data from CSV source to Vizzu data series strucure
+- [Vizzu csv parser](plugins/csv-parser/) - Pars and convert data from CSV source to Vizzu data series strucure
 
 ## Contribution
 
