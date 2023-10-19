@@ -63,6 +63,17 @@ The plugin accepts two input parameters as a data source: 'content' for plain CS
 
 All parameters are optional and have default values if not explicitly provided.
 
+## Get information
+
+if you want to extract information from the csv, it's there. You can request a parameter in the following way.
+
+```javascript
+chart.feature.csvParser.hasHeader
+chart.feature.csvParser.delimiter
+chart.feature.csvParser.data
+```
+Three pieces of data can be extracted, the separator (which was specified or automatically recognized), whether the file contains this header or not, and the Vizzu-compatible parsed data.
+
 ## License
 
 Copyright © 2021-2023 [Vizzu Inc.](https://vizzuhq.com)
