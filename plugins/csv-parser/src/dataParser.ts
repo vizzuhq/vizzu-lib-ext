@@ -67,6 +67,14 @@ export class DataParser {
 		return this.parserOptions.delimiter?.toString() || ','
 	}
 
+	get api() {
+		return {
+			hasHeader: this.hasHeader,
+			delimiter: this.delimiter,
+			data: this.data
+		}
+	}
+
 	get hooks() {
 		this._headers = null
 		this._autoheader = true
