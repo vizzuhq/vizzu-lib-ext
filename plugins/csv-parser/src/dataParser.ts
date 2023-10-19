@@ -52,7 +52,7 @@ export class DataParser {
 	}
 
 	meta = {
-		name: 'CSVParser'
+		name: 'csvParser'
 	}
 
 	get hasHeader(): boolean {
