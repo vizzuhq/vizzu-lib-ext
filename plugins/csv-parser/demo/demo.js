@@ -24,7 +24,7 @@ window.addEventListener('load', async function () {
 		// set chart options with csv text content
 		const contentText = textContent.value
 		if (contentText && contentText.length > 0) {
-			chart.animate({
+			await chart.animate({
 				data: {
 					csv: {
 						content: contentText,
@@ -39,22 +39,21 @@ window.addEventListener('load', async function () {
 			parserInfo.innerHTML = 'Loading...'
 
 			// parse csv text content for the more information (header, delimiter, series)
-			const parser = new CSVParser()
+			/* 			const parser = new CSVParser()
 			window.parser = parser
-			const parsedData = await parser.parse(contentText)
+			const parsedData = await parser.parse(contentText) */
 
 			// header detection
 			let content = ''
-			const hasHeader = parser.hasHeader
+			const hasHeader = chart.feature.csvParser.hasHeader
 
 			if (hasHeader) {
 				content += `<p><b>Header is detected</b><br>`
 			} else {
 				content += `<p>Header is not detected</b><br>`
 			}
-
 			// delimiter detection
-			const delimiter = parser.delimiter
+			const delimiter = chart.feature.csvParser.delimiter
 			content += `<b>The detected delimiter is <code>${JSON.stringify(delimiter)}</code></b></p>`
 
 			parserInfo.innerHTML = content
@@ -62,71 +61,62 @@ window.addEventListener('load', async function () {
 			content = '<p><b>Series:</b><br>'
 
 			// series detection and animation
-			const animate = () => {
-				const data = chart.data
+			const data = chart.data
 
-				// wait for data to be loaded
-				if (parsedData.series.length !== data.series.length) {
-					setTimeout(animate, 50)
+			// show series information
+			data.series.forEach((seriesItem) => {
+				content += `Name: <b>${seriesItem.name}</b><br>`
+				content += `Type: <b>${seriesItem.type}</b><br>`
+				if (seriesItem.type === 'dimension') {
+					content += `Categories: <b>${JSON.stringify(seriesItem.categories)}</b>`
+				} else {
+					content += `Data range: <b>${seriesItem.range.min} - ${seriesItem.range.max}</b>`
+				}
+				content += '</p>'
+			})
+
+			result.innerHTML = content
+
+			// animate chart
+			const dimensions = data.series.filter((seriesItem) => seriesItem.type === 'dimension')
+			let x = dimensions.shift()
+
+			const measures = data.series.filter((seriesItem) => seriesItem.type === 'measure')
+			let y = measures.pop()
+
+			if (!x) {
+				if (measures.length > 0) {
+					x = measures.shift()
+				} else {
+					console.error('No x axis')
 					return
 				}
-
-				// show series information
-				data.series.forEach((seriesItem) => {
-					content += `Name: <b>${seriesItem.name}</b><br>`
-					content += `Type: <b>${seriesItem.type}</b><br>`
-					if (seriesItem.type === 'dimension') {
-						content += `Categories: <b>${JSON.stringify(seriesItem.categories)}</b>`
-					} else {
-						content += `Data range: <b>${seriesItem.range.min} - ${seriesItem.range.max}</b>`
-					}
-					content += '</p>'
-				})
-
-				result.innerHTML = content
-
-				// animate chart
-				const dimensions = data.series.filter((seriesItem) => seriesItem.type === 'dimension')
-				let x = dimensions.shift()
-
-				const measures = data.series.filter((seriesItem) => seriesItem.type === 'measure')
-				let y = measures.pop()
-
-				if (!x) {
-					if (measures.length > 0) {
-						x = measures.shift()
-					} else {
-						console.error('No x axis')
-						return
-					}
-				}
-
-				if (!y) {
-					if (dimensions.length > 0) {
-						y = dimensions.pop()
-					} else {
-						console.error('No y axis')
-						return
-					}
-				}
-
-				chart.animate({
-					config: {
-						channels: {
-							y: {
-								set: [y.name]
-							},
-							x: {
-								set: [x.name],
-								range: { max: Math.min(10, x?.categories?.length || 10) }
-							}
-						},
-						color: { set: [x.name] }
-					},
-					data: { filter: null }
-				})
 			}
-			animate()
+
+			if (!y) {
+				if (dimensions.length > 0) {
+					y = dimensions.pop()
+				} else {
+					console.error('No y axis')
+					return
+				}
+			}
+
+			chart.animate({
+				config: {
+					channels: {
+						y: {
+							set: [y.name]
+						},
+						x: {
+							set: [x.name],
+							range: { max: Math.min(10, x?.categories?.length || 10) }
+						}
+					},
+					color: { set: [x.name] }
+				},
+				data: { filter: null }
+			})
 		}
 	})
 })
