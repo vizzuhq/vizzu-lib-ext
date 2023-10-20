@@ -52,7 +52,7 @@ export class DataParser {
 	}
 
 	meta = {
-		name: 'CSVParser'
+		name: 'csvParser'
 	}
 
 	get hasHeader(): boolean {
@@ -65,6 +65,14 @@ export class DataParser {
 
 	get delimiter(): string {
 		return this.parserOptions.delimiter?.toString() || ','
+	}
+
+	get api() {
+		return {
+			hasHeader: this.hasHeader,
+			delimiter: this.delimiter,
+			data: this.data
+		}
 	}
 
 	get hooks() {
