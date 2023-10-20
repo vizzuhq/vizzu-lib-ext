@@ -13,9 +13,10 @@ window.addEventListener('load', async function () {
 	button.addEventListener('click', async function (event) {
 		event.preventDefault()
 
+		result.innerHTML = ''
+		parserInfo.innerHTML = 'Loading...'
 		//destroy chart if it exists
 		if (chart) chart.detach()
-		vizzu.classList.remove('hide')
 		//create new chart and add csv parser
 		chart = new Vizzu('vizzu')
 		chart.feature(new CSVParser(), true)
@@ -24,6 +25,8 @@ window.addEventListener('load', async function () {
 		// set chart options with csv text content
 		const contentText = textContent.value
 		if (contentText && contentText.length > 0) {
+			vizzu.classList.remove('hide')
+
 			await chart.animate({
 				data: {
 					csv: {
@@ -34,9 +37,6 @@ window.addEventListener('load', async function () {
 					}
 				}
 			})
-
-			result.innerHTML = ''
-			parserInfo.innerHTML = 'Loading...'
 
 			// header detection
 			let content = ''
@@ -112,6 +112,10 @@ window.addEventListener('load', async function () {
 				},
 				data: { filter: null }
 			})
+		}
+		else {
+			vizzu.classList.remove('hide')
+			parserInfo.innerHTML = 'Load error.'
 		}
 	})
 })
