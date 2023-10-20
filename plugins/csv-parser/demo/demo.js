@@ -38,11 +38,6 @@ window.addEventListener('load', async function () {
 			result.innerHTML = ''
 			parserInfo.innerHTML = 'Loading...'
 
-			// parse csv text content for the more information (header, delimiter, series)
-			/* 			const parser = new CSVParser()
-			window.parser = parser
-			const parsedData = await parser.parse(contentText) */
-
 			// header detection
 			let content = ''
 			const hasHeader = chart.feature.csvParser.hasHeader
