@@ -86,52 +86,55 @@ export class DataParser {
 		}
 
 		return {
-			setAnimParams: async (ctx: hookContex, next: nextType) => {
-				if (!Array.isArray(ctx.target)) {
-					next()
-					return
-				}
-
-				for (const { target } of ctx.target) {
-					if (!target || !('data' in target) || !target.data) continue
-
-					if (!('csv' in target.data) || !target.data.csv) continue
-
-					const csvOptions = target.data.csv
-					if (!('url' in csvOptions) && !('content' in csvOptions)) continue
-
-					if ('options' in csvOptions && csvOptions.options) {
-						this._setOptions(csvOptions.options)
+			setAnimParams: Object.assign(
+				async (ctx: hookContex, next: nextType) => {
+					if (!Array.isArray(ctx.target)) {
+						next()
+						return
 					}
 
-					const data = await this.parse(csvOptions.url || csvOptions.content)
-					if (!data || !('series' in data) || !data.series) {
-						throw new Error('Invalid data')
-					}
+					for (const { target } of ctx.target) {
+						if (!target || !('data' in target) || !target.data) continue
 
-					if (!this._isHeader && !this._autoheader) {
-						throw new Error('CSV file has no header')
-					}
+						if (!('csv' in target.data) || !target.data.csv) continue
 
-					data.series = data.series.map(
-						(item: {
-							name: string
-							values: number[] | string[]
-						}): { name: string; values: string[] | number[] } => {
-							if (
-								'values' in item &&
-								item.values &&
-								item.values.every((value: string | number) => !isNaN(Number(value)))
-							) {
-								item.values = item.values.map((value: string | number) => Number(value))
-							}
-							return item
+						const csvOptions = target.data.csv
+						if (!('url' in csvOptions) && !('content' in csvOptions)) continue
+
+						if ('options' in csvOptions && csvOptions.options) {
+							this._setOptions(csvOptions.options)
 						}
-					)
-					target.data = data
-				}
-				next()
-			}
+
+						const data = await this.parse(csvOptions.url || csvOptions.content)
+						if (!data || !('series' in data) || !data.series) {
+							throw new Error('Invalid data')
+						}
+
+						if (!this._isHeader && !this._autoheader) {
+							throw new Error('CSV file has no header')
+						}
+
+						data.series = data.series.map(
+							(item: {
+								name: string
+								values: number[] | string[]
+							}): { name: string; values: string[] | number[] } => {
+								if (
+									'values' in item &&
+									item.values &&
+									item.values.every((value: string | number) => !isNaN(Number(value)))
+								) {
+									item.values = item.values.map((value: string | number) => Number(value))
+								}
+								return item
+							}
+						)
+						target.data = data
+					}
+					next()
+				},
+				{ priority: 0.999 }
+			)
 		}
 	}
 
@@ -229,8 +232,8 @@ export class DataParser {
 				(header[column].length > 0 && header[column]) || this._emptyColumnPrefix + (column + 1)
 
 			series.push({
-				name: headerName,
-				values: records.map((record) => record[column])
+				name: headerName.trim(),
+				values: records.map((record) => record[column] || '')
 			})
 		}
 		return { series: series }

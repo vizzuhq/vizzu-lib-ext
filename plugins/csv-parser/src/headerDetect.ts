@@ -15,6 +15,7 @@ const getType = (value: string | number): string => {
 	try {
 		// remove special langue number formatters (e.g. 1 000 000,01)
 		const formattedValue = value
+			.trim()
 			.replace(/\s/g, '')
 			.replace(/,/g, '.')
 			.replace(/^[−–—]/, '-')
@@ -33,7 +34,8 @@ const simpleParseData = (data: string, delimiter: string = ','): string[][] => {
 		columns: false,
 		comment: '#',
 		relax_column_count: true,
-		skip_records_with_error: true
+		skip_records_with_error: true,
+		trim: true
 	})
 }
 
