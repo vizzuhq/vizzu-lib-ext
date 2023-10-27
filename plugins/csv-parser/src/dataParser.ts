@@ -2,6 +2,8 @@ import { Options, parse } from 'csv-parse/sync'
 import { headerDetect } from './headerDetect'
 import { delimiterDetect } from './delimiterDetect'
 
+import * as Anim from 'vizzu/dist/types/anim.js'
+
 export interface optionsTypes {
 	delimiter?: string
 	encoding?: BufferEncoding
@@ -11,21 +13,16 @@ export interface optionsTypes {
 	hasHeader?: boolean
 }
 export interface csvTypes {
-	url: string
-	content: string
+	url?: string
+	content?: string
 	options?: optionsTypes
 }
-export interface hookContex {
-	target: {
-		data: {
-			csv?: csvTypes
-			series?: {
-				name: string
-				values: number[] | string[]
-			}[]
-		}
-	}
+
+export type hookContexts = {
+	target: Anim.AnimTarget & { data: { csv?: csvTypes } }
+	options?: Anim.ControlOptions
 }
+
 export interface dataSeries {
 	name: string
 	values: number[] | string[]
@@ -87,7 +84,7 @@ export class DataParser {
 
 		return {
 			setAnimParams: Object.assign(
-				async (ctx: hookContex, next: nextType) => {
+				async (ctx: hookContexts, next: nextType) => {
 					if (!Array.isArray(ctx.target)) {
 						next()
 						return
@@ -98,14 +95,14 @@ export class DataParser {
 
 						if (!('csv' in target.data) || !target.data.csv) continue
 
-						const csvOptions = target.data.csv
+						const csvOptions: csvTypes = target.data.csv
 						if (!('url' in csvOptions) && !('content' in csvOptions)) continue
 
 						if ('options' in csvOptions && csvOptions.options) {
 							this._setOptions(csvOptions.options)
 						}
 
-						const data = await this.parse(csvOptions.url || csvOptions.content)
+						const data = await this.parse(csvOptions.url || csvOptions.content || '')
 						if (!data || !('series' in data) || !data.series) {
 							throw new Error('Invalid data')
 						}

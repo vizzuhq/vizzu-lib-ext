@@ -5,7 +5,9 @@
 	"private": true,
 	"exports": {
 		".": {
+			"types": "./dist/types/index.d.ts",
 			"import": "./dist/mjs/index.js",
+			"default": "./dist/mjs/index.js",
 			"require": "./dist/cjs/index.js"
 		}
 	},
@@ -15,10 +17,12 @@
 	],
 	"main": "dist/cjs/index.js",
 	"module": "dist/mjs/index.js",
+	"types": "./dist/types/index.d.ts",
 	"scripts": {
 		"build": "npm run clear && node build/build.js",
 		"clear": "node build/clear.js",
-		"test": "vitest"
+		"test": "vitest",
+		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.23.0",
