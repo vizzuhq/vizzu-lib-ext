@@ -112,8 +112,7 @@ window.addEventListener('load', async function () {
 				},
 				data: { filter: null }
 			})
-		}
-		else {
+		} else {
 			vizzu.classList.remove('hide')
 			parserInfo.innerHTML = 'Load error.'
 		}
