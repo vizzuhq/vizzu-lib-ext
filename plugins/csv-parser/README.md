@@ -1,8 +1,9 @@
 # Vizzu CSV parser plugin
 
-This plugin enables CSV file parsing and transformation into Vizzu-compatible data.
-
-It provides an opportunity for automatic delimiter recognition and checks that the file has a header.
+This plugin enables you to parse CSV files and transform them into Vizzu compatible data. It's designed with features like:
+- Automatic delimiter recognition
+- Header availability check
+- Flexible input parameters
 
 ## Install
 
@@ -21,7 +22,8 @@ import { CSVParser } from "@vizzu/csv-parser";
 chart.features(new CSVParser(), true);
 ```
 
-You can then pass the data to it in two ways, either via HTTP or as plain text:
+You can pass your data in one of two ways.<be></br> 
+**Via plain text:**
 
 ```javascript
 chart.animate({
@@ -36,7 +38,7 @@ chart.animate({
 })
 ```
 
-or via URL:
+**Via URL:**
 
 ```javascript
 chart.animate({
@@ -52,27 +54,30 @@ chart.animate({
 
 ```
 
-The plugin accepts two input parameters as a data source: 'content' for plain CSV text and 'url' for a reference to the CSV file. Additionally, it accepts an 'options' parameter, which can have the following properties:
+The plugin accepts two input parameters as a data source: 
+- **'content'** for plain CSV text
+- **'url'** for a reference to the CSV file
 
-- encoding: The character encoding of the file. Default value: utf-8.
-- delimiter: The delimiter used in the CSV file. Default value: ','.
-- hasHeader: A boolean value (true or false) to manually specify whether the file contains a header. Default value: false.
-- headers: You can specify headers if they are not present in the CSV.
-- autoheader: A boolean value (true or false). If set to true, missing headers will be generated automatically; if set to false, they will not. Default value: true.
-- emptyColumnPrefix: A string that defines the prefix for any empty columns. Default value: 'Column'.
+Additionally, it accepts an **'options'** parameter with various properties to customize the behavior of the parser:
+- *encoding:* The character encoding of the file. Default value: utf-8.
+- *delimiter:* The delimiter used in the CSV file. Default value: ','.
+- *hasHeader:* A boolean value specifying whether the file contains a header. The default value is false.
+- *headers:* An array of strings providing headers if they are not present in the CSV file.
+- *autoheader:* A boolean value indicating whether to generate headers automatically if they are missing. The default value is true.
+- *emptyColumnPrefix:* A string defining the prefix for any empty columns. The default value is 'Column'.
 
-All parameters are optional and have default values if not explicitly provided.
+All parameters are optional, with default values applied if not provided.
 
-## Get information
+## Extracting information
 
-if you want to extract information from the csv, it's there. You can request a parameter in the following way.
+You can easily extract specific details from the csv by requesting a parameter in the following way.
 
 ```javascript
 chart.feature.csvParser.hasHeader
 chart.feature.csvParser.delimiter
 chart.feature.csvParser.data
 ```
-Three pieces of data can be extracted, the separator (which was specified or automatically recognized), whether the file contains this header or not, and the Vizzu-compatible parsed data.
+Three pieces of data can be extracted: the separator (that was specified or automatically recognized), whether the file contains a header or not, and the parsed data structured for Vizzu.
 
 ## License
 
