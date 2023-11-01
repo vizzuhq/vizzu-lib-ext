@@ -3589,6 +3589,10 @@ vitest@^0.34.2:
     vite-node "0.34.6"
     why-is-node-running "^2.2.2"
 
+"vizzu@https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.tgz":
+  version "0.8.1"
+  resolved "https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.tgz#65b169662d6435ef187ea0be0dd32cefb633bd59"
+
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/which-boxed-primitive/-/which-boxed-primitive-1.0.2.tgz#13757bc89b209b049fe5d86430e21cf40a89a8e6"
