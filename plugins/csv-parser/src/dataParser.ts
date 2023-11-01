@@ -3,6 +3,7 @@ import { headerDetect } from './headerDetect'
 import { delimiterDetect } from './delimiterDetect'
 
 import * as Anim from 'vizzu/dist/types/anim.js'
+
 import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins.js'
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
 import vizzu from 'vizzu'
@@ -20,6 +21,7 @@ export interface csvTypes {
 	content?: string
 	options?: optionsTypes
 }
+
 export type AnimTarget = PrepareAnimationContext | { data: { csv?: csvTypes } }
 
 declare module 'vizzu' {
