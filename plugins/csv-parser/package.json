@@ -38,7 +38,6 @@
 		"vizzu": "https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.tgz"
 	},
 	"dependencies": {
-		"csv-parse": "^5.5.2",
-		"vizzu": "https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.tgz"
+		"csv-parse": "^5.5.2"
 	}
 }

@@ -1,6 +1,8 @@
 /// <reference types="node" />
 import { Options } from 'csv-parse/sync';
-import * as Anim from 'vizzu/dist/types/anim.js';
+import { Anim, Data, Config, Styles } from 'vizzu';
+import { Plugin, PluginHooks } from 'vizzu/dist/plugins.js';
+import { AnimCompleting } from 'vizzu/dist/animcompleting';
 export interface optionsTypes {
     delimiter?: string;
     encoding?: BufferEncoding;
@@ -14,14 +16,18 @@ export interface csvTypes {
     content?: string;
     options?: optionsTypes;
 }
-export type hookContexts = {
-    target: Anim.AnimTarget & {
-        data: {
-            csv?: csvTypes;
-        };
+export interface AnimTarget {
+    data?: Data.Set | {
+        csv: csvTypes;
     };
-    options?: Anim.ControlOptions;
-};
+    config?: Config.Chart;
+    style?: Styles.Chart | null;
+}
+declare module 'vizzu' {
+    interface Vizzu {
+        animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting;
+    }
+}
 export interface dataSeries {
     name: string;
     values: number[] | string[];
@@ -29,10 +35,7 @@ export interface dataSeries {
 export interface dataType {
     series: dataSeries[];
 }
-export interface nextType {
-    (): void;
-}
-export declare class DataParser {
+export declare class DataParser implements Plugin {
     private _data;
     private _headers;
     private _autoheader;
@@ -52,11 +55,7 @@ export declare class DataParser {
         delimiter: string;
         data: dataType;
     };
-    get hooks(): {
-        setAnimParams: ((ctx: hookContexts, next: nextType) => Promise<void>) & {
-            priority: number;
-        };
-    };
+    get hooks(): PluginHooks;
     private _setOptions;
     parse(input: string, options?: Options): Promise<dataType | null>;
     setSource(source: string): Promise<void>;

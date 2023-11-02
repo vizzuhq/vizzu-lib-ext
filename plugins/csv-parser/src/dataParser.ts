@@ -2,11 +2,9 @@ import { Options, parse } from 'csv-parse/sync'
 import { headerDetect } from './headerDetect'
 import { delimiterDetect } from './delimiterDetect'
 
-import * as Anim from 'vizzu/dist/types/anim.js'
-
+import { Anim, Data, Config, Styles } from 'vizzu'
 import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins.js'
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
-import vizzu from 'vizzu'
 
 export interface optionsTypes {
 	delimiter?: string
@@ -22,16 +20,17 @@ export interface csvTypes {
 	options?: optionsTypes
 }
 
-export type AnimTarget = PrepareAnimationContext | { data: { csv?: csvTypes } }
+export interface AnimTarget {
+	data?: Data.Set | { csv: csvTypes }
+	config?: Config.Chart
+	style?: Styles.Chart | null
+}
 
 declare module 'vizzu' {
 	export interface Vizzu {
 		animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting
 	}
-
-	export type PrepareAnimationContext = AnimTarget
 }
-
 export interface dataSeries {
 	name: string
 	values: number[] | string[]
