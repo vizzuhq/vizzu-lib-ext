@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { Options } from 'csv-parse/sync';
-import { Anim, Data, Config, Styles } from 'vizzu';
+import { Anim } from 'vizzu';
 import { Plugin, PluginHooks } from 'vizzu/dist/plugins.js';
 import { AnimCompleting } from 'vizzu/dist/animcompleting';
 export interface optionsTypes {
@@ -16,13 +16,11 @@ export interface csvTypes {
     content?: string;
     options?: optionsTypes;
 }
-export interface AnimTarget {
-    data?: Data.Set | {
+export type AnimTarget = Anim.AnimTarget | {
+    data: {
         csv: csvTypes;
     };
-    config?: Config.Chart;
-    style?: Styles.Chart | null;
-}
+};
 declare module 'vizzu' {
     interface Vizzu {
         animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting;

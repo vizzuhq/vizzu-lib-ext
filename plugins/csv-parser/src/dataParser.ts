@@ -2,7 +2,7 @@ import { Options, parse } from 'csv-parse/sync'
 import { headerDetect } from './headerDetect'
 import { delimiterDetect } from './delimiterDetect'
 
-import { Anim, Data, Config, Styles } from 'vizzu'
+import { Anim } from 'vizzu'
 import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins.js'
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
 
@@ -20,11 +20,7 @@ export interface csvTypes {
 	options?: optionsTypes
 }
 
-export interface AnimTarget {
-	data?: Data.Set | { csv: csvTypes }
-	config?: Config.Chart
-	style?: Styles.Chart | null
-}
+export type AnimTarget = Anim.AnimTarget | { data: { csv: csvTypes } }
 
 declare module 'vizzu' {
 	export interface Vizzu {
