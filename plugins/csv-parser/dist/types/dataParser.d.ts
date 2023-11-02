@@ -16,11 +16,14 @@ export interface csvTypes {
     content?: string;
     options?: optionsTypes;
 }
-export type AnimTarget = Anim.AnimTarget | {
-    data: {
-        csv: csvTypes;
+export interface csvTarget {
+    target: {
+        data: {
+            csv: csvTypes;
+        };
     };
-};
+}
+export type AnimTarget = Array<Anim.AnimTarget | csvTarget>;
 declare module 'vizzu' {
     interface Vizzu {
         animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting;
