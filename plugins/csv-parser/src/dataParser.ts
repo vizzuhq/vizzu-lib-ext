@@ -5,6 +5,7 @@ import { delimiterDetect } from './delimiterDetect'
 import { Anim } from 'vizzu'
 import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins.js'
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
+import { MergeDeep } from 'type-fest'
 
 export interface optionsTypes {
 	delimiter?: string
@@ -28,7 +29,7 @@ export interface csvTarget {
 	}
 }
 
-export type AnimTarget = Array<Anim.AnimTarget | csvTarget>
+export type AnimTarget = MergeDeep<Anim.AnimTarget, Array<csvTarget>>
 
 declare module 'vizzu' {
 	export interface Vizzu {
@@ -118,22 +119,6 @@ export class DataParser implements Plugin {
 						if (!this._isHeader && !this._autoheader) {
 							throw new Error('CSV file has no header')
 						}
-
-						data.series = data.series.map(
-							(item: {
-								name: string
-								values: number[] | string[]
-							}): { name: string; values: string[] | number[] } => {
-								if (
-									'values' in item &&
-									item.values &&
-									item.values.every((value: string | number) => !isNaN(Number(value)))
-								) {
-									item.values = item.values.map((value: string | number) => Number(value))
-								}
-								return item
-							}
-						)
 						target.data = data
 					}
 					next()
@@ -169,14 +154,40 @@ export class DataParser implements Plugin {
 		}
 	}
 
-	public async parse(input: string, options: Options = {}): Promise<dataType | null> {
+	public convertNumbers(data: dataType): dataType {
+		if (!data || !('series' in data) || !data.series) return data
+
+		data.series = data.series.map(
+			(item: {
+				name: string
+				values: number[] | string[]
+			}): { name: string; values: string[] | number[] } => {
+				if (
+					'values' in item &&
+					item.values &&
+					item.values.every((value: string | number) => !isNaN(Number(value)))
+				) {
+					item.values = item.values.map((value: string | number) => Number(value))
+				}
+				return item
+			}
+		)
+		return data
+	}
+
+	public async parse(input: string, options: Options = {}, convert = true): Promise<dataType | null> {
 		if (!input) return null
 
 		if (options) {
 			this.parserOptions = { ...this.parserOptions, ...options }
 		}
 		await this.setSource(input)
-		return this.data
+
+		if (!this.data) return null
+
+		if (!convert) return this.data
+
+		return this.convertNumbers(this.data)
 	}
 
 	public async setSource(source: string) {

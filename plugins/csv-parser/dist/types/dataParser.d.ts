@@ -3,6 +3,7 @@ import { Options } from 'csv-parse/sync';
 import { Anim } from 'vizzu';
 import { Plugin, PluginHooks } from 'vizzu/dist/plugins.js';
 import { AnimCompleting } from 'vizzu/dist/animcompleting';
+import { MergeDeep } from 'type-fest';
 export interface optionsTypes {
     delimiter?: string;
     encoding?: BufferEncoding;
@@ -23,7 +24,7 @@ export interface csvTarget {
         };
     };
 }
-export type AnimTarget = Array<Anim.AnimTarget | csvTarget>;
+export type AnimTarget = MergeDeep<Anim.AnimTarget, Array<csvTarget>>;
 declare module 'vizzu' {
     interface Vizzu {
         animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting;
@@ -58,7 +59,8 @@ export declare class DataParser implements Plugin {
     };
     get hooks(): PluginHooks;
     private _setOptions;
-    parse(input: string, options?: Options): Promise<dataType | null>;
+    convertNumbers(data: dataType): dataType;
+    parse(input: string, options?: Options, convert?: boolean): Promise<dataType | null>;
     setSource(source: string): Promise<void>;
     fetchData(url: string): Promise<string>;
     getDelimiter(data: string): string;
