@@ -27,7 +27,7 @@ const getType = (value: string | number): string => {
 	}
 }
 
-const simpleParseData = (data: string, delimiter: string = ','): string[][] => {
+const simpleParseData = (data: string, delimiter = ','): string[][] => {
 	return parse(data, {
 		delimiter: delimiter,
 		skip_empty_lines: true,
@@ -102,7 +102,7 @@ const convertValuesToTypes = (
 	})
 }
 
-export const headerDetect = (data: string, delimiter: string = ','): number => {
+export const headerDetect = (data: string, delimiter = ','): number => {
 	const parsedData = simpleParseData(data, delimiter)
 	if (parsedData.length < 2) return 0
 
@@ -110,7 +110,7 @@ export const headerDetect = (data: string, delimiter: string = ','): number => {
 	if (!headers) return 0
 
 	const missingHeaderElements = []
-	for (let headerKey: number = 0; headerKey < headers.length; headerKey++) {
+	for (let headerKey = 0; headerKey < headers.length; headerKey++) {
 		const header = headers[headerKey]
 		if (!header) {
 			missingHeaderElements.push(headerKey)

@@ -2,7 +2,11 @@ import { Options, parse } from 'csv-parse/sync'
 import { headerDetect } from './headerDetect'
 import { delimiterDetect } from './delimiterDetect'
 
-import * as Anim from 'vizzu/dist/types/anim.js'
+import { Anim, Data, Config, Styles } from 'vizzu'
+import * as CA from 'vizzu/dist/module/canimctrl.js';
+import * as CC from 'vizzu/dist/module/cchart'
+import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins.js'
+import { AnimCompleting } from 'vizzu/dist/animcompleting'
 
 export interface optionsTypes {
 	delimiter?: string
@@ -18,11 +22,35 @@ export interface csvTypes {
 	options?: optionsTypes
 }
 
-export type hookContexts = {
-	target: Anim.AnimTarget & { data: { csv?: csvTypes } }
-	options?: Anim.ControlOptions
+export interface csvTarget {
+	target: {
+		data: {
+			csv: csvTypes
+		}
+	}
 }
 
+export interface csvDataType extends Data.Filter {
+	csv: csvTypes
+}
+
+export interface Target {
+    data?: Data.Set | csvDataType;
+    config?: Config.Chart;
+    style?: Styles.Chart | null;
+}
+export interface Keyframe {
+    target: Target | CC.Snapshot;
+    options?: Options;
+}
+export type Keyframes = Keyframe[];
+export type AnimTarget = Keyframes | CA.CAnimation;
+
+declare module 'vizzu' {
+	export interface Vizzu {
+		animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting
+	}
+}
 export interface dataSeries {
 	name: string
 	values: number[] | string[]
@@ -31,17 +59,13 @@ export interface dataType {
 	series: dataSeries[]
 }
 
-export interface nextType {
-	(): void
-}
-
-export class DataParser {
+export class DataParser implements Plugin {
 	private _data: dataType | null = null
 	private _headers: string[] | null = null
-	private _autoheader: boolean = true
-	private _isHeader: boolean = true
-	private _hasHeader: boolean = false
-	private _emptyColumnPrefix: string = 'Column'
+	private _autoheader = true
+	private _isHeader = true
+	private _hasHeader = false
+	private _emptyColumnPrefix = 'Column'
 	private _probabilityVariable = 0.5
 
 	public parserOptions: Options = {
@@ -72,7 +96,7 @@ export class DataParser {
 		}
 	}
 
-	get hooks() {
+	get hooks(): PluginHooks {
 		this._headers = null
 		this._autoheader = true
 		this._isHeader = true
@@ -83,8 +107,8 @@ export class DataParser {
 		}
 
 		return {
-			setAnimParams: Object.assign(
-				async (ctx: hookContexts, next: nextType) => {
+			prepareAnimation: Object.assign(
+				async (ctx: PrepareAnimationContext, next: () => void) => {
 					if (!Array.isArray(ctx.target)) {
 						next()
 						return
@@ -110,22 +134,6 @@ export class DataParser {
 						if (!this._isHeader && !this._autoheader) {
 							throw new Error('CSV file has no header')
 						}
-
-						data.series = data.series.map(
-							(item: {
-								name: string
-								values: number[] | string[]
-							}): { name: string; values: string[] | number[] } => {
-								if (
-									'values' in item &&
-									item.values &&
-									item.values.every((value: string | number) => !isNaN(Number(value)))
-								) {
-									item.values = item.values.map((value: string | number) => Number(value))
-								}
-								return item
-							}
-						)
 						target.data = data
 					}
 					next()
@@ -161,14 +169,40 @@ export class DataParser {
 		}
 	}
 
-	public async parse(input: string, options: Options = {}): Promise<dataType | null> {
+	public convertNumbers(data: dataType): dataType {
+		if (!data || !('series' in data) || !data.series) return data
+
+		data.series = data.series.map(
+			(item: {
+				name: string
+				values: number[] | string[]
+			}): { name: string; values: string[] | number[] } => {
+				if (
+					'values' in item &&
+					item.values &&
+					item.values.every((value: string | number) => !isNaN(Number(value)))
+				) {
+					item.values = item.values.map((value: string | number) => Number(value))
+				}
+				return item
+			}
+		)
+		return data
+	}
+
+	public async parse(input: string, options: Options = {}, convert = true): Promise<dataType | null> {
 		if (!input) return null
 
 		if (options) {
 			this.parserOptions = { ...this.parserOptions, ...options }
 		}
 		await this.setSource(input)
-		return this.data
+
+		if (!this.data) return null
+
+		if (!convert) return this.data
+
+		return this.convertNumbers(this.data)
 	}
 
 	public async setSource(source: string) {
@@ -223,7 +257,7 @@ export class DataParser {
 			return null
 		}
 		const header: string[] = Array.isArray(this._headers) ? this._headers : this._getHeader(records)
-		const series: dataSeries[] = []
+		const series = []
 		for (let column = 0; column < records[0].length; column++) {
 			const headerName =
 				(header[column].length > 0 && header[column]) || this._emptyColumnPrefix + (column + 1)

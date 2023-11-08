@@ -3599,7 +3599,7 @@ vitest@^0.34.2:
 
 "vizzu@https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.tgz":
   version "0.8.1"
-  resolved "https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.tgz#51f3e497304dcdcb84fbfba178359627748dd3c3"
+  resolved "https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.tgz#65b169662d6435ef187ea0be0dd32cefb633bd59"
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"

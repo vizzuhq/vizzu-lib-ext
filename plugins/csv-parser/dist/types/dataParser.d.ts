@@ -1,6 +1,10 @@
 /// <reference types="node" />
 import { Options } from 'csv-parse/sync';
-import * as Anim from 'vizzu/dist/types/anim.js';
+import { Anim, Data, Config, Styles } from 'vizzu';
+import * as CA from 'vizzu/dist/module/canimctrl.js';
+import * as CC from 'vizzu/dist/module/cchart';
+import { Plugin, PluginHooks } from 'vizzu/dist/plugins.js';
+import { AnimCompleting } from 'vizzu/dist/animcompleting';
 export interface optionsTypes {
     delimiter?: string;
     encoding?: BufferEncoding;
@@ -14,14 +18,32 @@ export interface csvTypes {
     content?: string;
     options?: optionsTypes;
 }
-export type hookContexts = {
-    target: Anim.AnimTarget & {
+export interface csvTarget {
+    target: {
         data: {
-            csv?: csvTypes;
+            csv: csvTypes;
         };
     };
-    options?: Anim.ControlOptions;
-};
+}
+export interface csvDataType extends Data.Filter {
+    csv: csvTypes;
+}
+export interface Target {
+    data?: Data.Set | csvDataType;
+    config?: Config.Chart;
+    style?: Styles.Chart | null;
+}
+export interface Keyframe {
+    target: Target | CC.Snapshot;
+    options?: Options;
+}
+export type Keyframes = Keyframe[];
+export type AnimTarget = Keyframes | CA.CAnimation;
+declare module 'vizzu' {
+    interface Vizzu {
+        animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting;
+    }
+}
 export interface dataSeries {
     name: string;
     values: number[] | string[];
@@ -29,10 +51,7 @@ export interface dataSeries {
 export interface dataType {
     series: dataSeries[];
 }
-export interface nextType {
-    (): void;
-}
-export declare class DataParser {
+export declare class DataParser implements Plugin {
     private _data;
     private _headers;
     private _autoheader;
@@ -52,13 +71,10 @@ export declare class DataParser {
         delimiter: string;
         data: dataType;
     };
-    get hooks(): {
-        setAnimParams: ((ctx: hookContexts, next: nextType) => Promise<void>) & {
-            priority: number;
-        };
-    };
+    get hooks(): PluginHooks;
     private _setOptions;
-    parse(input: string, options?: Options): Promise<dataType | null>;
+    convertNumbers(data: dataType): dataType;
+    parse(input: string, options?: Options, convert?: boolean): Promise<dataType | null>;
     setSource(source: string): Promise<void>;
     fetchData(url: string): Promise<string>;
     getDelimiter(data: string): string;
