@@ -2,10 +2,11 @@ import { Options, parse } from 'csv-parse/sync'
 import { headerDetect } from './headerDetect'
 import { delimiterDetect } from './delimiterDetect'
 
-import { Anim } from 'vizzu'
+import { Anim, Data, Config, Styles } from 'vizzu'
+import * as CA from 'vizzu/dist/module/canimctrl.js';
+import * as CC from 'vizzu/dist/module/cchart'
 import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins.js'
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
-import { MergeDeep } from 'type-fest'
 
 export interface optionsTypes {
 	delimiter?: string
@@ -29,7 +30,21 @@ export interface csvTarget {
 	}
 }
 
-export type AnimTarget = MergeDeep<Anim.AnimTarget, Array<csvTarget>>
+export interface csvDataType extends Data.Filter {
+	csv: csvTypes
+}
+
+export interface Target {
+    data?: Data.Set | csvDataType;
+    config?: Config.Chart;
+    style?: Styles.Chart | null;
+}
+export interface Keyframe {
+    target: Target | CC.Snapshot;
+    options?: Options;
+}
+export type Keyframes = Keyframe[];
+export type AnimTarget = Keyframes | CA.CAnimation;
 
 declare module 'vizzu' {
 	export interface Vizzu {
