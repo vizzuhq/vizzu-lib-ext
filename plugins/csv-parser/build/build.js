@@ -5,7 +5,7 @@ await esbuild.build({
 	entryPoints: ['src/index.ts'],
 	bundle: true,
 	minify: true,
-	sourcemap: false,
+	sourcemap: true,
 	platform: 'node',
 	format: 'esm',
 	plugins: [
@@ -23,7 +23,7 @@ await esbuild.build({
 	entryPoints: ['src/index.ts'],
 	bundle: true,
 	minify: true,
-	sourcemap: false,
+	sourcemap: true,
 	platform: 'browser',
 	target: 'es6',
 	format: 'cjs',

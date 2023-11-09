@@ -33,10 +33,10 @@ describe('parser', () => {
 
 			describe('manual data', () => {
 				const exceptedData = [
-					{ name: 'a', values: ['1'] },
-					{ name: 'b', values: ['2'] },
-					{ name: 'c', values: ['3'] },
-					{ name: 'd', values: ['4'] }
+					{ name: 'a', values: [1] },
+					{ name: 'b', values: [2] },
+					{ name: 'c', values: [3] },
+					{ name: 'd', values: [4] }
 				]
 
 				test('loads data to records', async () => {

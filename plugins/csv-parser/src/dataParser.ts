@@ -67,6 +67,7 @@ export class DataParser implements Plugin {
 	private _hasHeader = false
 	private _emptyColumnPrefix = 'Column'
 	private _probabilityVariable = 0.5
+	private _detectedDelimiter = ','
 
 	public parserOptions: Options = {
 		encoding: 'utf-8'
@@ -88,10 +89,15 @@ export class DataParser implements Plugin {
 		return this.parserOptions.delimiter?.toString() || ','
 	}
 
+	get detectedDelimiter(): string {
+		return this._detectedDelimiter
+	}
+
 	get api() {
 		return {
 			hasHeader: this.hasHeader,
 			delimiter: this.delimiter,
+			detectedDelimiter: this.detectedDelimiter,
 			data: this.data
 		}
 	}
@@ -125,16 +131,24 @@ export class DataParser implements Plugin {
 						if ('options' in csvOptions && csvOptions.options) {
 							this._setOptions(csvOptions.options)
 						}
+						try {
+							const data = await this.parse(csvOptions.url || csvOptions.content || '')
+							if (!data || !('series' in data) || !data.series) {
+								throw new Error('Invalid data')
+							}
 
-						const data = await this.parse(csvOptions.url || csvOptions.content || '')
-						if (!data || !('series' in data) || !data.series) {
-							throw new Error('Invalid data')
+							if (!this._isHeader && !this._autoheader) {
+								throw new Error('CSV file has no header')
+							}
+							target.data = data
 						}
-
-						if (!this._isHeader && !this._autoheader) {
-							throw new Error('CSV file has no header')
+						catch (error: unknown) {
+							if (error instanceof Error) {
+								console.error(error.message)
+							}
+							continue
 						}
-						target.data = data
+						
 					}
 					next()
 				},
@@ -249,7 +263,8 @@ export class DataParser implements Plugin {
 	}
 
 	public getDelimiter(data: string): string {
-		return this.parserOptions.delimiter?.toString() || delimiterDetect(data)
+		this._detectedDelimiter = delimiterDetect(data);
+		return this.parserOptions.delimiter?.toString() || this._detectedDelimiter
 	}
 
 	private _buildData(records: string[][]): dataType | null {
@@ -260,7 +275,7 @@ export class DataParser implements Plugin {
 		const series = []
 		for (let column = 0; column < records[0].length; column++) {
 			const headerName =
-				(header[column].length > 0 && header[column]) || this._emptyColumnPrefix + (column + 1)
+				header[column] && header[column].length > 0 ? header[column] : this._emptyColumnPrefix + (column + 1)
 
 			series.push({
 				name: headerName.trim(),
