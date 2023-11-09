@@ -59,6 +59,7 @@ export declare class DataParser implements Plugin {
     private _hasHeader;
     private _emptyColumnPrefix;
     private _probabilityVariable;
+    private _detectedDelimiter;
     parserOptions: Options;
     meta: {
         name: string;
@@ -66,9 +67,11 @@ export declare class DataParser implements Plugin {
     get hasHeader(): boolean;
     get data(): dataType | null;
     get delimiter(): string;
+    get detectedDelimiter(): string;
     get api(): {
         hasHeader: boolean;
         delimiter: string;
+        detectedDelimiter: string;
         data: dataType;
     };
     get hooks(): PluginHooks;
