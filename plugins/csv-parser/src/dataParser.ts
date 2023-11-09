@@ -67,6 +67,7 @@ export class DataParser implements Plugin {
 	private _hasHeader = false
 	private _emptyColumnPrefix = 'Column'
 	private _probabilityVariable = 0.5
+	private _detectedDelimiter = ','
 
 	public parserOptions: Options = {
 		encoding: 'utf-8'
@@ -88,10 +89,15 @@ export class DataParser implements Plugin {
 		return this.parserOptions.delimiter?.toString() || ','
 	}
 
+	get detectedDelimiter(): string {
+		return this._detectedDelimiter
+	}
+
 	get api() {
 		return {
 			hasHeader: this.hasHeader,
 			delimiter: this.delimiter,
+			detectedDelimiter: this.detectedDelimiter,
 			data: this.data
 		}
 	}
@@ -257,7 +263,8 @@ export class DataParser implements Plugin {
 	}
 
 	public getDelimiter(data: string): string {
-		return this.parserOptions.delimiter?.toString() || delimiterDetect(data)
+		this._detectedDelimiter = delimiterDetect(data);
+		return this.parserOptions.delimiter?.toString() || this._detectedDelimiter
 	}
 
 	private _buildData(records: string[][]): dataType | null {
