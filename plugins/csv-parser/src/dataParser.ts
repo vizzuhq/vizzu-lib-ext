@@ -125,16 +125,24 @@ export class DataParser implements Plugin {
 						if ('options' in csvOptions && csvOptions.options) {
 							this._setOptions(csvOptions.options)
 						}
+						try {
+							const data = await this.parse(csvOptions.url || csvOptions.content || '')
+							if (!data || !('series' in data) || !data.series) {
+								throw new Error('Invalid data')
+							}
 
-						const data = await this.parse(csvOptions.url || csvOptions.content || '')
-						if (!data || !('series' in data) || !data.series) {
-							throw new Error('Invalid data')
+							if (!this._isHeader && !this._autoheader) {
+								throw new Error('CSV file has no header')
+							}
+							target.data = data
 						}
-
-						if (!this._isHeader && !this._autoheader) {
-							throw new Error('CSV file has no header')
+						catch (error: unknown) {
+							if (error instanceof Error) {
+								console.error(error.message)
+							}
+							continue
 						}
-						target.data = data
+						
 					}
 					next()
 				},
@@ -260,7 +268,7 @@ export class DataParser implements Plugin {
 		const series = []
 		for (let column = 0; column < records[0].length; column++) {
 			const headerName =
-				(header[column].length > 0 && header[column]) || this._emptyColumnPrefix + (column + 1)
+				header[column] && header[column].length > 0 ? header[column] : this._emptyColumnPrefix + (column + 1)
 
 			series.push({
 				name: headerName.trim(),
