@@ -3,7 +3,7 @@ import { headerDetect } from './headerDetect'
 import { delimiterDetect } from './delimiterDetect'
 
 import { Anim, Data, Config, Styles } from 'vizzu'
-import * as CA from 'vizzu/dist/module/canimctrl.js';
+import * as CA from 'vizzu/dist/module/canimctrl.js'
 import * as CC from 'vizzu/dist/module/cchart'
 import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins.js'
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
@@ -35,16 +35,16 @@ export interface csvDataType extends Data.Filter {
 }
 
 export interface Target {
-    data?: Data.Set | csvDataType;
-    config?: Config.Chart;
-    style?: Styles.Chart | null;
+	data?: Data.Set | csvDataType
+	config?: Config.Chart
+	style?: Styles.Chart | null
 }
 export interface Keyframe {
-    target: Target | CC.Snapshot;
-    options?: Options;
+	target: Target | CC.Snapshot
+	options?: Options
 }
-export type Keyframes = Keyframe[];
-export type AnimTarget = Keyframes | CA.CAnimation;
+export type Keyframes = Keyframe[]
+export type AnimTarget = Keyframes | CA.CAnimation
 
 declare module 'vizzu' {
 	export interface Vizzu {
@@ -63,7 +63,7 @@ const LOG_PREFIX = [
 	'%cVIZZU%CSV-PARSER%c',
 	'background: #e2ae30; color: #3a60bf; font-weight: bold',
 	'background: #3a60bf; color: #e2ae30;'
-  ]
+]
 
 export class DataParser implements Plugin {
 	private _data: dataType | null = null
@@ -152,14 +152,12 @@ export class DataParser implements Plugin {
 								throw new Error('CSV file has no header')
 							}
 							target.data = data
-						}
-						catch (error: unknown) {
+						} catch (error: unknown) {
 							if (error instanceof Error) {
 								console.error(error.message)
 							}
 							continue
 						}
-						
 					}
 					next()
 				},
@@ -216,7 +214,11 @@ export class DataParser implements Plugin {
 		return data
 	}
 
-	public async parse(input: string, options: Options = {}, convert = true): Promise<dataType | null> {
+	public async parse(
+		input: string,
+		options: Options = {},
+		convert = true
+	): Promise<dataType | null> {
 		if (!input) return null
 
 		if (options) {
@@ -277,7 +279,7 @@ export class DataParser implements Plugin {
 	}
 
 	public getDelimiter(data: string): string {
-		this._detectedDelimiter = delimiterDetect(data);
+		this._detectedDelimiter = delimiterDetect(data)
 		this._log(['detected delimiter:', this._detectedDelimiter])
 		return this.parserOptions.delimiter?.toString() || this._detectedDelimiter
 	}
@@ -291,7 +293,9 @@ export class DataParser implements Plugin {
 		const series = []
 		for (let column = 0; column < records[0].length; column++) {
 			const headerName =
-				header[column] && header[column].length > 0 ? header[column] : this._emptyColumnPrefix + (column + 1)
+				header[column] && header[column].length > 0
+					? header[column]
+					: this._emptyColumnPrefix + (column + 1)
 
 			series.push({
 				name: headerName.trim(),
@@ -316,8 +320,8 @@ export class DataParser implements Plugin {
 	}
 
 	private _log(...message: unknown[]) {
-		if (this._debug) { 
-			console.log(...LOG_PREFIX,...message)
+		if (this._debug) {
+			console.log(...LOG_PREFIX, ...message)
 		}
 	}
 }

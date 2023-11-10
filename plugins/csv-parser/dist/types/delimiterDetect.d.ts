@@ -1,1 +1,1 @@
-export declare const delimiterDetect: (data: string) => string;
+export declare const delimiterDetect: (data: string) => string
