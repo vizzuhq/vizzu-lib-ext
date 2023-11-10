@@ -60,10 +60,12 @@ export declare class DataParser implements Plugin {
     private _emptyColumnPrefix;
     private _probabilityVariable;
     private _detectedDelimiter;
+    private _debug;
     parserOptions: Options;
     meta: {
         name: string;
     };
+    constructor(debug?: boolean);
     get hasHeader(): boolean;
     get data(): dataType | null;
     get delimiter(): string;
@@ -83,4 +85,5 @@ export declare class DataParser implements Plugin {
     getDelimiter(data: string): string;
     private _buildData;
     private _getHeader;
+    private _log;
 }

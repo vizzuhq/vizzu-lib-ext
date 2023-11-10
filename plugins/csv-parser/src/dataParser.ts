@@ -59,6 +59,12 @@ export interface dataType {
 	series: dataSeries[]
 }
 
+const LOG_PREFIX = [
+	'%cVIZZU%CSV-PARSER%c',
+	'background: #e2ae30; color: #3a60bf; font-weight: bold',
+	'background: #3a60bf; color: #e2ae30;'
+  ]
+
 export class DataParser implements Plugin {
 	private _data: dataType | null = null
 	private _headers: string[] | null = null
@@ -68,6 +74,7 @@ export class DataParser implements Plugin {
 	private _emptyColumnPrefix = 'Column'
 	private _probabilityVariable = 0.5
 	private _detectedDelimiter = ','
+	private _debug = false
 
 	public parserOptions: Options = {
 		encoding: 'utf-8'
@@ -75,6 +82,10 @@ export class DataParser implements Plugin {
 
 	meta = {
 		name: 'csvParser'
+	}
+
+	constructor(debug: boolean = false) {
+		this._debug = debug
 	}
 
 	get hasHeader(): boolean {
@@ -158,6 +169,7 @@ export class DataParser implements Plugin {
 	}
 
 	private _setOptions(options: optionsTypes) {
+		this._log(['setOptions', options])
 		if ('delimiter' in options && options.delimiter) {
 			this.parserOptions.delimiter = options.delimiter
 		}
@@ -230,12 +242,14 @@ export class DataParser implements Plugin {
 		this._isHeader = true
 		if (!this._hasHeader && !Array.isArray(this._headers)) {
 			const headerProbability = headerDetect(source, delimiter)
+			this._log(['headerProbability', headerProbability])
 			if (headerProbability < this._probabilityVariable) {
 				console.error('CSV file has no header', headerProbability)
 				this._isHeader = false
 			}
 		}
 		try {
+			this._log(['parser options', this.parserOptions])
 			const parsedInput = parse(source, {
 				skip_empty_lines: true,
 				comment: '#',
@@ -264,6 +278,7 @@ export class DataParser implements Plugin {
 
 	public getDelimiter(data: string): string {
 		this._detectedDelimiter = delimiterDetect(data);
+		this._log(['detected delimiter:', this._detectedDelimiter])
 		return this.parserOptions.delimiter?.toString() || this._detectedDelimiter
 	}
 
@@ -272,6 +287,7 @@ export class DataParser implements Plugin {
 			return null
 		}
 		const header: string[] = Array.isArray(this._headers) ? this._headers : this._getHeader(records)
+		this._log(['header', header])
 		const series = []
 		for (let column = 0; column < records[0].length; column++) {
 			const headerName =
@@ -297,5 +313,11 @@ export class DataParser implements Plugin {
 		}
 
 		return Object.keys(records[0]).map((key) => this._emptyColumnPrefix + (parseInt(key) + 1))
+	}
+
+	private _log(...message: unknown[]) {
+		if (this._debug) { 
+			console.log(...LOG_PREFIX,...message)
+		}
 	}
 }
