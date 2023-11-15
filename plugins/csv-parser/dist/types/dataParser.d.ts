@@ -11,7 +11,13 @@ export interface optionsTypes {
     headers?: boolean;
     autoheader?: boolean;
     emptyColumnPrefix?: string;
-    hasHeader?: boolean;
+    hasHeader?: boolean | null;
+}
+export interface detectedTypes {
+    delimiter: string;
+    probability: number;
+    headers: string[];
+    hasHeader: boolean;
 }
 export interface csvTypes {
     url?: string;
@@ -55,32 +61,34 @@ export declare class DataParser implements Plugin {
     private _data;
     private _headers;
     private _autoheader;
-    private _isHeader;
     private _hasHeader;
     private _emptyColumnPrefix;
     private _probabilityVariable;
-    private _detectedDelimiter;
+    private _debug;
+    detected: detectedTypes;
     parserOptions: Options;
     meta: {
         name: string;
     };
-    get hasHeader(): boolean;
+    constructor(debug?: boolean);
+    get hasHeader(): boolean | null;
     get data(): dataType | null;
     get delimiter(): string;
     get detectedDelimiter(): string;
     get api(): {
         hasHeader: boolean;
-        delimiter: string;
         detectedDelimiter: string;
+        delimiter: string;
         data: dataType;
     };
     get hooks(): PluginHooks;
     private _setOptions;
     convertNumbers(data: dataType): dataType;
-    parse(input: string, options?: Options, convert?: boolean): Promise<dataType | null>;
+    parse(input: string, options?: optionsTypes, convert?: boolean): Promise<dataType | null>;
     setSource(source: string): Promise<void>;
     fetchData(url: string): Promise<string>;
     getDelimiter(data: string): string;
     private _buildData;
     private _getHeader;
+    private _log;
 }
