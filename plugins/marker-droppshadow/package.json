@@ -1,5 +1,6 @@
 {
 	"name": "@vizzu/marker-droppshadow",
+	"description": "Vizzu charting library marker plugin for drop shadow",
 	"version": "0.1.0",
 	"type": "module",
 	"private": true,
@@ -23,6 +24,24 @@
 		"clear": "node build/clear.js",
 		"pack": "npm run build && npm pack"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vizzuhq/vizzu-lib-ext#workspace=@vizzu/marker-droppshadow"
+	},
+	"keywords": [
+		"vizzu",
+		"plugin",
+		"marker",
+		"drop shadow"
+	],
+	"email": "hello@vizzuhq.com",
+	"license": "Apache-2.0",
+	"author": "Vizzu Inc.",
+	"bugs": {
+		"url": "https://github.com/vizzuhq/vizzu-lib-ext/issues"
+	},
+	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/marker-droppshadow#readme",
+	
 	"devDependencies": {
 		"@types/tinycolor2": "^1.4.6",
 		"glob": "^10.3.10",
