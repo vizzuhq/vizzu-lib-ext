@@ -5,10 +5,9 @@ import { VideoCapture } from '../dist/mjs/index.js'
 window.addEventListener('load', async function () {
 	const chart = new Vizzu('vizzu')
 
-	chart.feature('htmlCanvas', true)
-	chart.feature(new VideoCapture(), true)
-
 	await chart.initializing
+	
+	chart.feature(new VideoCapture(), true)
 
 	chart.animate({
 		data
