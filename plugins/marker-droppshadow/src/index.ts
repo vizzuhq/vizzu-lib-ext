@@ -6,16 +6,11 @@ type Next = () => void
 
 export interface ShadowedMarker {
 	borderWidth?: number | null
-	/** Opacity of the marker border. */
 	borderOpacity?: number | null
 	borderOpacityMode?: 'straight' | 'premultiplied' | null
-	/** Opacity of the marker fill color. */
 	fillOpacity?: number | null
-	/** Style settings for guide lines drawn for the markers. */
 	guides?: Guides | null
-	/** Style settings for the marker labels. */
 	label?: MarkerLabel | null
-	/** Marker shape. */
 	color?: string
 	blur?: number
 	offsetX?: number
