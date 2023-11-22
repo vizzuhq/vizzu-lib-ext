@@ -1,5 +1,5 @@
 {
-	"name": "@vizzu/vide-capture",
+	"name": "@vizzu/video-capture",
 	"description": "Vizzu plugin for video capture",
 	"version": "0.1.0",
 	"type": "module",
