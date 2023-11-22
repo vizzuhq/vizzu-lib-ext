@@ -96,7 +96,7 @@ export class DataParser implements Plugin {
 		name: 'csvParser'
 	}
 
-	constructor(debug: boolean = false) {
+	constructor(debug = false) {
 		this._debug = debug
 	}
 
