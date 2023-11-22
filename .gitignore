@@ -28,3 +28,4 @@ pnpm-debug.log*
 
 # Gitkeep
 !/**/.gitkeep
+plugins/**/dist/*

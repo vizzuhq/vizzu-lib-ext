@@ -1,11 +1,13 @@
 {
-	"name": "@vizzu/csvparser",
+	"name": "@vizzu/csv-parser",
 	"version": "0.1.0",
 	"type": "module",
 	"private": true,
 	"exports": {
 		".": {
+			"types": "./dist/types/index.d.ts",
 			"import": "./dist/mjs/index.js",
+			"default": "./dist/mjs/index.js",
 			"require": "./dist/cjs/index.js"
 		}
 	},
@@ -15,10 +17,12 @@
 	],
 	"main": "dist/cjs/index.js",
 	"module": "dist/mjs/index.js",
+	"types": "dist/types/index.d.ts",
 	"scripts": {
-		"build": "npm run clear && node build/build.js",
+		"build": "npm run clear && node build/build.js && npm run types",
 		"clear": "node build/clear.js",
-		"test": "vitest"
+		"test": "vitest",
+		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.23.0",
@@ -30,7 +34,8 @@
 		"glob": "^10.3.10",
 		"ts-standard": "^12.0.2",
 		"typescript": "^5.2.2",
-		"vitest": "^0.34.2"
+		"vitest": "^0.34.2",
+		"vizzu": "https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.tgz"
 	},
 	"dependencies": {
 		"csv-parse": "^5.5.2"

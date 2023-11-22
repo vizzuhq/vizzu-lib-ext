@@ -1,5 +1,6 @@
 import * as esbuild from 'esbuild'
 import { polyfillNode } from 'esbuild-plugin-polyfill-node'
+import { copy } from 'esbuild-plugin-copy'
 
 await esbuild.build({
 	entryPoints: ['src/index.ts'],
@@ -14,6 +15,14 @@ await esbuild.build({
 				process: true,
 				Buffer: true
 			}
+		}),
+		copy({
+			resolveFrom: 'cwd',
+			assets: {
+				from: ['./src/*.d.ts'],
+				to: ['./dist/mjs', './dist/types']
+			},
+			watch: true
 		})
 	],
 	outfile: 'dist/mjs/index.js'
@@ -33,6 +42,14 @@ await esbuild.build({
 				process: true,
 				Buffer: true
 			}
+		}),
+		copy({
+			resolveFrom: 'cwd',
+			assets: {
+				from: ['./src/*.d.ts'],
+				to: ['./dist/cjs']
+			},
+			watch: true
 		})
 	],
 	outfile: 'dist/cjs/index.js'

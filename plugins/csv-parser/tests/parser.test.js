@@ -1,7 +1,7 @@
 import { expect, test, describe } from 'vitest'
-import { CSVParser } from '../src/index'
+import { CSVParser } from '../src/node'
 
-import { CSVParser as BrowserParser } from '../src/browser'
+import { CSVParser as BrowserParser } from '../src/index'
 import { filesCustomCharset, filesCustomSeparator, filesWithHeaders } from './assets/testFiles'
 
 const parser = new CSVParser()
@@ -33,10 +33,10 @@ describe('parser', () => {
 
 			describe('manual data', () => {
 				const exceptedData = [
-					{ name: 'a', values: ['1'] },
-					{ name: 'b', values: ['2'] },
-					{ name: 'c', values: ['3'] },
-					{ name: 'd', values: ['4'] }
+					{ name: 'a', values: [1] },
+					{ name: 'b', values: [2] },
+					{ name: 'c', values: [3] },
+					{ name: 'd', values: [4] }
 				]
 
 				test('loads data to records', async () => {
