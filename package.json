@@ -15,6 +15,7 @@
 		"@types/jest": "^29.5.5",
 		"@typescript-eslint/eslint-plugin": "^6.8.0",
 		"@typescript-eslint/parser": "^6.8.0",
+		"esbuild-plugin-copy": "^2.1.1",
 		"eslint": "^8.51.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-config-standard": "^17.1.0",
@@ -22,7 +23,7 @@
 		"lint-staged": "^14.0.1",
 		"prettier": "^3.0.3",
 		"typescript": "^5.2.2",
-		"vizzu": "https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.tgz"
+		"vizzu": "^0.9.1"
 	},
 	"prettier": {
 		"semi": false,
