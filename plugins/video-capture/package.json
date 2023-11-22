@@ -41,7 +41,6 @@
 		"url": "https://github.com/vizzuhq/vizzu-lib-ext/issues"
 	},
 	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/video-capture#readme",
-	
 	"devDependencies": {
 		"ts-standard": "^12.0.2",
 		"typescript": "^5.2.2"

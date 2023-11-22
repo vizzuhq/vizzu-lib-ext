@@ -6,7 +6,7 @@ window.addEventListener('load', async function () {
 	const chart = new Vizzu('vizzu')
 
 	await chart.initializing
-	
+
 	chart.feature(new VideoCapture(), true)
 
 	chart.animate({
