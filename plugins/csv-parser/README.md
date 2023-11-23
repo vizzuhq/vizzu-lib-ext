@@ -55,16 +55,22 @@ chart.animate({
 ```
 
 The plugin accepts two input parameters as a data source: 
-- **'content'** for plain CSV text
-- **'url'** for a reference to the CSV file
+
+|Name|Type|Description|
+|---|---|---|
+|**content**|String|Plain CSV text|
+|**url**|String|Reference to the CSV file|
 
 Additionally, it accepts an **'options'** parameter with various properties to customize the behavior of the parser:
-- *encoding:* The character encoding of the file. Default value: utf-8.
-- *delimiter:* The delimiter used in the CSV file. Default value: ','.
-- *hasHeader:* A boolean value specifying whether the file contains a header. The default value is false.
-- *headers:* An array of strings providing headers if they are not present in the CSV file.
-- *autoheader:* A boolean value indicating whether to generate headers automatically if they are missing. The default value is true.
-- *emptyColumnPrefix:* A string defining the prefix for any empty columns. The default value is 'Column'.
+
+|Name|Type|Default value|Description|
+|---|---|---|---|
+|**encoding**|String|utf-8|The character encoding of the file.|
+|**delimiter**|String|,|The delimiter used in the CSV file|
+|**hasHeader**|Boolean|false|A boolean value specifying whether the file contains a header.|
+|**headers**|Array|[]||An array of strings providing headers if they are not present in the CSV file.|
+|**autoheader**|Boolean|True|A boolean value indicating whether to generate headers automatically if they are missing.|
+|**emptyColumnPrefix**|String|Column|A string defining the prefix for any empty columns.|
 
 All parameters are optional, with default values applied if not provided.
 

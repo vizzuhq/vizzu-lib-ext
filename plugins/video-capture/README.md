@@ -1,6 +1,6 @@
 # Vizzu vide capture plugin
 
-This plugin create video from the 
+This plugin create video from the chart animation.
 
 ## Install
 
