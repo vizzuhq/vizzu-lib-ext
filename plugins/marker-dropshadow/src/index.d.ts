@@ -1,5 +1,6 @@
-import { PrepareAnimationContext } from 'vizzu/dist/plugins';
+import { Plugin, PrepareAnimationContext } from 'vizzu/dist/plugins';
 import { Marker, Guides, MarkerLabel } from 'vizzu/dist/types/styles';
+import { UpdateEvent } from 'vizzu/dist/events';
 type Next = () => void;
 export interface ShadowedMarker {
     borderWidth?: number | null;
@@ -20,7 +21,7 @@ export interface ShadowedMarker {
     shadowOffsetX?: number;
     shadowOffsetY?: number;
 }
-export declare class MarkerDropshadow {
+export declare class MarkerDropshadow implements Plugin {
     private style;
     private nextStyle;
     private progress;
@@ -32,9 +33,7 @@ export declare class MarkerDropshadow {
         depends: any[];
     };
     get listeners(): {
-        update: (event: CustomEvent<{
-            progress: number;
-        }>) => void;
+        update: (event: UpdateEvent) => void;
         'plot-marker-draw': any;
         'plot-marker-label-draw': any;
     };
@@ -47,3 +46,4 @@ export declare class MarkerDropshadow {
     }): void;
     _actStyle(): {};
 }
+export {};

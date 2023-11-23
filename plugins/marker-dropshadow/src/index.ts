@@ -1,6 +1,7 @@
-import { PrepareAnimationContext } from 'vizzu/dist/plugins'
+import { Plugin, PrepareAnimationContext } from 'vizzu/dist/plugins'
 import { Marker, Guides, MarkerLabel } from 'vizzu/dist/types/styles'
 import tinycolor from 'tinycolor2'
+import { UpdateEvent } from 'vizzu/dist/events'
 
 type Next = () => void
 
@@ -24,7 +25,7 @@ export interface ShadowedMarker {
 	shadowOffsetY?: number
 }
 
-export class MarkerDropshadow {
+export class MarkerDropshadow  implements Plugin {
 	private style: null | ShadowedMarker = null
 	private nextStyle: null | ShadowedMarker
 	private progress: number
@@ -50,7 +51,7 @@ export class MarkerDropshadow {
 
 	get listeners() {
 		return {
-			update: (event: CustomEvent<{ progress: number }>) => {
+			update: (event:UpdateEvent) => {
 				this.progress = event.detail.progress
 			},
 			'plot-marker-draw': this._setDropshadow.bind(this),
