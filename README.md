@@ -32,7 +32,7 @@ In this readme, you’ll find useful resources to help you navigate through and 
 Each plugin resides in its own folder, complete with documentation and usage guidelines.
 
 - [Vizzu CSV Parser](plugins/csv-parser/): Parses and converts data from a CSV source into a Vizzu data series structure.
-- [Vizzu Marker Dropp Shadow](plugins/marker-droppshadow): Provides the option to give markers a shadow
+- [Vizzu Marker Drop Shadow](plugins/marker-dropshadow): Provides the option to give markers a shadow
 - [Vizzu Video Capture](plugins/video-capture/): Record your vizualization and create simple video. 
 
 
