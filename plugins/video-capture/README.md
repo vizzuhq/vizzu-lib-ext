@@ -1,6 +1,6 @@
-# Vizzu vide capture plugin
+# Vizzu video capture plugin
 
-This plugin create video from the chart animation.
+This plugin allows you to create videos from chart animations in Vizzu.
 
 ## Install
 
@@ -21,7 +21,7 @@ chart.features(new VideoCapture(), true);
 
 ```
 
-After registration it is possible to start and stop the recording. 
+Once registered, you can start and stop the recording as needed: 
 ```javascript
 const anim = chart.animate({
     data,
@@ -45,7 +45,7 @@ anim.then(async (chart) => {
 
 ## Extracting information
 
-The plugin offers two functions, start for recording and stop for stopping.
+The plugin provides two functions, <code>start()</code> to begin the recording and <code>stop()</code> to end it.
 
 ```javascript
 chart.feature.videoCapture.start()
