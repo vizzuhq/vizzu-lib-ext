@@ -1,0 +1,48 @@
+{
+	"name": "@vizzu/video-capture",
+	"description": "Vizzu plugin for video capture",
+	"version": "0.1.0",
+	"type": "module",
+	"private": true,
+	"exports": {
+		".": {
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/mjs/index.js",
+			"default": "./dist/mjs/index.js",
+			"require": "./dist/cjs/index.js"
+		}
+	},
+	"files": [
+		"dist/*",
+		"package.json"
+	],
+	"main": "dist/cjs/index.js",
+	"module": "dist/mjs/index.js",
+	"types": "dist/types/index.d.ts",
+	"scripts": {
+		"build": "npm run clear && node build/build.js",
+		"clear": "node build/clear.js",
+		"pack": "npm run build && npm pack"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vizzuhq/vizzu-lib-ext#workspace=@vizzu/video-capture"
+	},
+	"keywords": [
+		"vizzu",
+		"plugin",
+		"video",
+		"video capture"
+	],
+	"email": "hello@vizzuhq.com",
+	"license": "Apache-2.0",
+	"author": "Vizzu Inc.",
+	"bugs": {
+		"url": "https://github.com/vizzuhq/vizzu-lib-ext/issues"
+	},
+	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/video-capture#readme",
+	"devDependencies": {
+		"ts-standard": "^12.0.2",
+		"typescript": "^5.2.2"
+	}
+}
