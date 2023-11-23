@@ -1,6 +1,6 @@
 # Vizzu marker drop shadow plugin
 
-This plugin allows you to add a shadow to the markers.
+This plugin enables the addition of drop shadows to markers in Vizzu charts.
 
 ## Install
 
@@ -10,7 +10,7 @@ $ npm install @vizzu/marker-dropshadow
 
 ## Usage
 
-To use the plugin, simply add it to your Vizzu instance as a feature and add marker paramters:
+To use the plugin, simply add it to your Vizzu instance as a feature and configure the marker parameters:
 
 
 ```javascript
