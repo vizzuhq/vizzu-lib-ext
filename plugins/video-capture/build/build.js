@@ -20,7 +20,7 @@ await esbuild.build({
 			resolveFrom: 'cwd',
 			assets: {
 				from: ['./src/*.d.ts'],
-				to: ['./dist/mjs', './dist/types']
+				to: ['./dist/types']
 			},
 			watch: true
 		})
@@ -42,14 +42,6 @@ await esbuild.build({
 				process: true,
 				Buffer: true
 			}
-		}),
-		copy({
-			resolveFrom: 'cwd',
-			assets: {
-				from: ['./src/*.d.ts'],
-				to: ['./dist/cjs']
-			},
-			watch: true
 		})
 	],
 	outfile: 'dist/cjs/index.js'
