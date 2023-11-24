@@ -1,11 +1,12 @@
 import { Vizzu } from 'vizzu'
+import { Plugin } from 'vizzu/dist/plugins'
 
 export interface Options {
 	stream: { frameRate: number }
 	recorder: { mimeType: string }
 	output: { mimeType: string }
 }
-export class VideoCapture {
+export class VideoCapture implements Plugin {
 	private mediaRecorder: MediaRecorder
 	private _rendered: (result: { blob: Blob; getObjectURL: () => string }) => void
 	private chart: Vizzu
