@@ -25,7 +25,7 @@ export interface ShadowedMarker {
 	shadowOffsetY?: number
 }
 
-export class MarkerDropshadow  implements Plugin {
+export class MarkerDropshadow implements Plugin {
 	private style: null | ShadowedMarker = null
 	private nextStyle: null | ShadowedMarker
 	private progress: number
@@ -51,7 +51,7 @@ export class MarkerDropshadow  implements Plugin {
 
 	get listeners() {
 		return {
-			update: (event:UpdateEvent) => {
+			update: (event: UpdateEvent) => {
 				this.progress = event.detail.progress
 			},
 			'plot-marker-draw': this._setDropshadow.bind(this),

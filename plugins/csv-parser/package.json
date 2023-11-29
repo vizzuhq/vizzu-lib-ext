@@ -1,8 +1,8 @@
 {
 	"name": "@vizzu/csv-parser",
-	"version": "0.1.2",
+	"version": "0.9.1-alpha-1",
 	"type": "module",
-	"private": true,
+	"private": false,
 	"exports": {
 		".": {
 			"types": "./dist/types/index.d.ts",
@@ -22,6 +22,7 @@
 		"build": "npm run clear && node build/build.js",
 		"clear": "node build/clear.js",
 		"test": "vitest",
+		"version": "npm version ",
 		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
 	},
 	"devDependencies": {
