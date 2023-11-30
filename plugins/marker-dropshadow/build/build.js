@@ -1,12 +1,12 @@
 import * as esbuild from 'esbuild'
 import { polyfillNode } from 'esbuild-plugin-polyfill-node'
-import { copy } from 'esbuild-plugin-copy';
+import { copy } from 'esbuild-plugin-copy'
 
 await esbuild.build({
 	entryPoints: ['src/index.ts'],
 	bundle: true,
 	minify: true,
-	sourcemap: true,
+	sourcemap: false,
 	platform: 'node',
 	format: 'esm',
 	plugins: [
@@ -19,11 +19,11 @@ await esbuild.build({
 		copy({
 			resolveFrom: 'cwd',
 			assets: {
-			  from: ['./src/*.d.ts'],
-			  to: ['./dist/mjs', './dist/types'],
+				from: ['./src/*.d.ts'],
+				to: ['./dist/types']
 			},
-			watch: true,
-		  })
+			watch: true
+		})
 	],
 	outfile: 'dist/mjs/index.js'
 })
@@ -32,7 +32,7 @@ await esbuild.build({
 	entryPoints: ['src/index.ts'],
 	bundle: true,
 	minify: true,
-	sourcemap: true,
+	sourcemap: false,
 	platform: 'browser',
 	target: 'es6',
 	format: 'cjs',
@@ -42,15 +42,7 @@ await esbuild.build({
 				process: true,
 				Buffer: true
 			}
-		}),
-		copy({
-			resolveFrom: 'cwd',
-			assets: {
-			  from: ['./src/*.d.ts'],
-			  to: ['./dist/cjs'],
-			},
-			watch: true,
-		  })
+		})
 	],
 	outfile: 'dist/cjs/index.js'
 })
