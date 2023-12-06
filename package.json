@@ -7,16 +7,21 @@
 	"scripts": {
 		"postinstall": "husky install",
 		"format": "prettier -c .",
-		"fix-format": "prettier -w ."
+		"lint": "eslint --ext .js,.mjs,.cjs,.ts,.tsx .",
+		"ci": "yarn format && yarn lint",
+		"fix-format": "prettier -w .",
+		"fix-lint": "eslint --fix --ext .js,.mjs,.cjs,.ts,.tsx ."
 	},
 	"devDependencies": {
 		"@types/jest": "^29.5.5",
 		"@typescript-eslint/eslint-plugin": "^6.8.0",
 		"@typescript-eslint/parser": "^6.8.0",
+		"@vizzu/eslint-config": "^0.2.0",
 		"@vizzu/prettier-config": "^0.1.0",
 		"esbuild": "^0.19.8",
 		"esbuild-plugin-copy": "^2.1.1",
-		"eslint": "^8.51.0",
+		"eslint": "^8.55.0",
+		"eslint-config-prettier": "^9.1.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^14.0.1",
 		"prettier": "^3.1.0",
@@ -26,16 +31,8 @@
 	},
 	"prettier": "@vizzu/prettier-config",
 	"eslintConfig": {
-		"env": {
-			"browser": true,
-			"jest": true
-		},
 		"extends": [
-			"standard",
-			"prettier"
-		],
-		"parserOptions": {
-			"ecmaVersion": "latest"
-		}
+			"@vizzu/eslint-config/typescript"
+		]
 	}
 }
