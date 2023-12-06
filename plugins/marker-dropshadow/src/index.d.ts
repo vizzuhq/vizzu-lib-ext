@@ -29,7 +29,7 @@ export declare class MarkerDropshadow {
 	meta: {
 		name: string
 		version: string
-		depends: any[]
+		depends: string[]
 	}
 	get listeners(): {
 		update: (
@@ -37,13 +37,13 @@ export declare class MarkerDropshadow {
 				progress: number
 			}>
 		) => void
-		'plot-marker-draw': any
-		'plot-marker-label-draw': any
+		'plot-marker-draw': () => void
+		'plot-marker-label-draw': () => void
 	}
 	hooks: {
 		prepareAnimation: (ctx: PrepareAnimationContext, next: Next) => void
 	}
 	_prepareStyle(style: ShadowedMarker): ShadowedMarker
 	_setDropshadow(event: { renderingContext: CanvasRenderingContext2D | ShadowedMarker }): void
-	_actStyle(): {}
+	_actStyle(): unknown
 }
