@@ -1,9 +1,10 @@
 # Vizzu CSV parser plugin
 
 This plugin enables you to parse CSV files and transform them into Vizzu compatible data. It's designed with features like:
-- Automatic delimiter recognition
-- Header availability check
-- Flexible input parameters
+
+-   Automatic delimiter recognition
+-   Header availability check
+-   Flexible input parameters
 
 ## Install
 
@@ -15,26 +16,25 @@ $ npm install @vizzu/csv-parser
 
 To use the plugin, simply add it to your Vizzu instance as a feature:
 
-
 ```javascript
-import { CSVParser } from "@vizzu/csv-parser";
+import { CSVParser } from '@vizzu/csv-parser'
 
-chart.features(new CSVParser(), true);
+chart.features(new CSVParser(), true)
 ```
 
-You can pass your data in one of two ways.<be></br> 
+You can pass your data in one of two ways.<be></br>
 **Via plain text:**
 
 ```javascript
 chart.animate({
-    data: {
-        csv: {
-            content: contentText,
-            options: {
-                encoding: 'utf8'
-            }
-        }
-    }
+	data: {
+		csv: {
+			content: contentText,
+			options: {
+				encoding: 'utf8'
+			}
+		}
+	}
 })
 ```
 
@@ -42,35 +42,34 @@ chart.animate({
 
 ```javascript
 chart.animate({
-    data: {
-        csv: {
-            url: 'https://yourdomain.com/data.csv',
-            options: {
-                encoding: 'utf8'
-            }
-        }
-    }
+	data: {
+		csv: {
+			url: 'https://yourdomain.com/data.csv',
+			options: {
+				encoding: 'utf8'
+			}
+		}
+	}
 })
-
 ```
 
-The plugin accepts two input parameters as a data source: 
+The plugin accepts two input parameters as a data source:
 
-|Name|Type|Description|
-|---|---|---|
-|**content**|String|Plain CSV text|
-|**url**|String|Reference to the CSV file|
+| Name        | Type   | Description               |
+| ----------- | ------ | ------------------------- |
+| **content** | String | Plain CSV text            |
+| **url**     | String | Reference to the CSV file |
 
 Additionally, it accepts an **'options'** parameter with various properties to customize the behavior of the parser:
 
-|Name|Type|Default value|Description|
-|---|---|---|---|
-|**encoding**|String|utf-8|The character encoding of the file.|
-|**delimiter**|String|,|The delimiter used in the CSV file|
-|**hasHeader**|Boolean|false|A boolean value specifying whether the file contains a header.|
-|**headers**|Array|[]||An array of strings providing headers if they are not present in the CSV file.|
-|**autoheader**|Boolean|True|A boolean value indicating whether to generate headers automatically if they are missing.|
-|**emptyColumnPrefix**|String|Column|A string defining the prefix for any empty columns.|
+| Name                  | Type    | Default value | Description                                                                               |
+| --------------------- | ------- | ------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **encoding**          | String  | utf-8         | The character encoding of the file.                                                       |
+| **delimiter**         | String  | ,             | The delimiter used in the CSV file                                                        |
+| **hasHeader**         | Boolean | false         | A boolean value specifying whether the file contains a header.                            |
+| **headers**           | Array   | []            |                                                                                           | An array of strings providing headers if they are not present in the CSV file. |
+| **autoheader**        | Boolean | True          | A boolean value indicating whether to generate headers automatically if they are missing. |
+| **emptyColumnPrefix** | String  | Column        | A string defining the prefix for any empty columns.                                       |
 
 All parameters are optional, with default values applied if not provided.
 
@@ -83,6 +82,7 @@ chart.feature.csvParser.hasHeader
 chart.feature.csvParser.delimiter
 chart.feature.csvParser.data
 ```
+
 Three pieces of data can be extracted: the separator (that was specified or automatically recognized), whether the file contains a header or not, and the parsed data structured for Vizzu.
 
 ## License

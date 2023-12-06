@@ -80,7 +80,9 @@ for (let i = 0; i < 20; i++) {
 	const row = Math.floor(Math.random() * 1000) + 10
 	const data = {
 		description: `${row} data row with strings`,
-		input: header + generateData(row, column, true, true, ['string', 'number', 'number', 'number']),
+		input:
+			header +
+			generateData(row, column, true, true, ['string', 'number', 'number', 'number']),
 		separator: ',',
 		excepted: {
 			csv: '',
@@ -96,7 +98,8 @@ for (let i = 0; i < 20; i++) {
 	const data = {
 		description: `${row} data row with empty datas and strings`,
 		input:
-			header + generateData(row, column, true, false, ['string', 'number', 'number', 'string']),
+			header +
+			generateData(row, column, true, false, ['string', 'number', 'number', 'string']),
 		separator: ',',
 		excepted: {
 			csv: '',

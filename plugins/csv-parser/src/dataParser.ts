@@ -154,7 +154,9 @@ export class DataParser implements Plugin {
 							this._setOptions(csvOptions.options)
 						}
 						try {
-							const data = await this.parse(csvOptions.url || csvOptions.content || '')
+							const data = await this.parse(
+								csvOptions.url || csvOptions.content || ''
+							)
 							if (!data || !('series' in data) || !data.series) {
 								throw new Error('Invalid data')
 							}
@@ -303,7 +305,9 @@ export class DataParser implements Plugin {
 			return null
 		}
 		this.detected.headers = this._getHeader(records)
-		const header: string[] = Array.isArray(this._headers) ? this._headers : this.detected.headers
+		const header: string[] = Array.isArray(this._headers)
+			? this._headers
+			: this.detected.headers
 		this._log(['header', header])
 		const series = []
 		for (let column = 0; column < records[0].length; column++) {

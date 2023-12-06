@@ -20,21 +20,21 @@ Welcome to the Vizzu Plugins Repository! This is a centralized hub for various p
 In this readme, you’ll find useful resources to help you navigate through and make the most out of the available plugins or contribute to new ones.
 
 **Table of Contents**
-- [Available Plugins](#available-plugins)
-- [Plugin Development](#plugin-development)
-- [Contribution](#contribution)
-- [Support and Contact](#support-and-contact)
-- [Community](#join-our-community)
-- [License](#license)
+
+-   [Available Plugins](#available-plugins)
+-   [Plugin Development](#plugin-development)
+-   [Contribution](#contribution)
+-   [Support and Contact](#support-and-contact)
+-   [Community](#join-our-community)
+-   [License](#license)
 
 ## Available Plugins
 
 Each plugin resides in its own folder, complete with documentation and usage guidelines.
 
-- [Vizzu CSV Parser](plugins/csv-parser/): Parses and converts data from a CSV source into a Vizzu data series structure.
-- [Vizzu Marker Drop Shadow](plugins/marker-dropshadow): Provides the option to give markers a shadow
-- [Vizzu Video Capture](plugins/video-capture/): Record your vizualization and create simple video. 
-
+-   [Vizzu CSV Parser](plugins/csv-parser/): Parses and converts data from a CSV source into a Vizzu data series structure.
+-   [Vizzu Marker Drop Shadow](plugins/marker-dropshadow): Provides the option to give markers a shadow
+-   [Vizzu Video Capture](plugins/video-capture/): Record your vizualization and create simple video.
 
 ## Plugin Development
 
@@ -42,11 +42,11 @@ If you are interested in creating your own plugin for Vizzu, we have a tutorial 
 
 ## Contact
 
-- Join our Slack:
-  [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
-- Drop us a line at hello@vizzuhq.com
-- Follow us on Twitter:
-  [https://twitter.com/VizzuHQ](https://twitter.com/VizzuHQ)
+-   Join our Slack:
+    [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
+-   Drop us a line at hello@vizzuhq.com
+-   Follow us on Twitter:
+    [https://twitter.com/VizzuHQ](https://twitter.com/VizzuHQ)
 
 ## License
 

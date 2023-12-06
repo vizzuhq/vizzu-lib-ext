@@ -41,7 +41,6 @@
 		"url": "https://github.com/vizzuhq/vizzu-lib-ext/issues"
 	},
 	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/marker-dropshadow#readme",
-	
 	"devDependencies": {
 		"@types/tinycolor2": "^1.4.6",
 		"glob": "^10.3.10",
