@@ -12,34 +12,33 @@ $ npm install @vizzu/video-capture
 
 To use the plugin, simply add it to your Vizzu instance as a feature:
 
-
 ```javascript
-import { VideoCapture } from "@vizzu/video-capture";
+import { VideoCapture } from '@vizzu/video-capture'
 
 await chart.initializing
-chart.features(new VideoCapture(), true);
-
+chart.features(new VideoCapture(), true)
 ```
 
-Once registered, you can start and stop the recording as needed: 
+Once registered, you can start and stop the recording as needed:
+
 ```javascript
 const anim = chart.animate({
-    data,
-    config: {
-        x: 'Year',
-        y: ['Value 2 (+)', 'Joy factors'],
-        color: 'Joy factors',
-        title: 'Video Export'
-    }
+	data,
+	config: {
+		x: 'Year',
+		y: ['Value 2 (+)', 'Joy factors'],
+		color: 'Joy factors',
+		title: 'Video Export'
+	}
 })
 
 anim.activated.then(() => {
-    chart.feature.videoCapture.start()
+	chart.feature.videoCapture.start()
 })
 
 anim.then(async (chart) => {
-    const output = await chart.feature.videoCapture.stop()
-    window.open(output.getObjectURL())
+	const output = await chart.feature.videoCapture.stop()
+	window.open(output.getObjectURL())
 })
 ```
 

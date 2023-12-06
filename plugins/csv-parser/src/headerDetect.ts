@@ -87,7 +87,9 @@ const convertValuesToTypes = (
 ): string[][] => {
 	const filteredValues =
 		missingHeaderElements.length > 0
-			? rowValues.map((row) => row.filter((_, index) => !missingHeaderElements.includes(index)))
+			? rowValues.map((row) =>
+					row.filter((_, index) => !missingHeaderElements.includes(index))
+			  )
 			: rowValues
 	return filteredValues.map((rowData, rowKey) => {
 		return rowData.map((element, dataIndex) => {
@@ -135,7 +137,9 @@ export const headerDetect = (data: string, delimiter = ','): number => {
 	probabilites.push(headerTypesProbability * (IMPORTANCEWEIGHT.headerTypesProbability | 1))
 	probabilitesCount += IMPORTANCEWEIGHT.headerTypesProbability | 1
 
-	const transposedData = parsedData[0].map((_, colIndex) => parsedData.map((row) => row[colIndex]))
+	const transposedData = parsedData[0].map((_, colIndex) =>
+		parsedData.map((row) => row[colIndex])
+	)
 	const headerFreqProbability = percentOfFrequency(transposedData, headers)
 	probabilites.push(headerFreqProbability * (IMPORTANCEWEIGHT.headerFrequencyProbability | 1))
 	probabilitesCount += IMPORTANCEWEIGHT.headerFrequencyProbability | 1

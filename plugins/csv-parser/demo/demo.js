@@ -49,7 +49,9 @@ window.addEventListener('load', async function () {
 			}
 			// delimiter detection
 			const delimiter = chart.feature.csvParser.delimiter
-			content += `<b>The detected delimiter is <code>${JSON.stringify(delimiter)}</code></b></p>`
+			content += `<b>The detected delimiter is <code>${JSON.stringify(
+				delimiter
+			)}</code></b></p>`
 
 			parserInfo.innerHTML = content
 

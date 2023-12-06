@@ -6,8 +6,8 @@
 	],
 	"scripts": {
 		"postinstall": "husky install",
-		"format": "prettier -c plugins package.json",
-		"fix-format": "prettier -w plugins package.json"
+		"format": "prettier -c .",
+		"fix-format": "prettier -w ."
 	},
 	"devDependencies": {
 		"@types/jest": "^29.5.5",

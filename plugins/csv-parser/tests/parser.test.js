@@ -47,7 +47,9 @@ describe('parser', () => {
 					expect(data.series).toEqual(exceptedData)
 				})
 				test('load data with custom (;) separator', async () => {
-					const data = await parser.parse('"a";"b";"c";"d"\n"1";"2";"3";"4"', { delimiter: ';' })
+					const data = await parser.parse('"a";"b";"c";"d"\n"1";"2";"3";"4"', {
+						delimiter: ';'
+					})
 					expect(typeof parser.error).toBe('undefined')
 					expect('series' in data).toBe(true)
 					expect(data.series.length).toEqual(4)
