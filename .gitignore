@@ -1,5 +1,6 @@
 # Npm files
 node_modules
+package.tgz
 
 # Log files
 npm-debug.log*

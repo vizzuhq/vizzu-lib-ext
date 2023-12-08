@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/video-capture",
 	"description": "Vizzu plugin for video capture",
-	"version": "0.9.0",
+	"version": "0.1.0",
 	"type": "module",
 	"private": true,
 	"exports": {
@@ -44,5 +44,8 @@
 	"devDependencies": {
 		"ts-standard": "^12.0.2",
 		"typescript": "^5.2.2"
+	},
+	"peerDependencies": {
+		"vizzu": "~0.9.2"
 	}
 }

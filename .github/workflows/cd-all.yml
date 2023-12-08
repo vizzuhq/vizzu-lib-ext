@@ -1,0 +1,63 @@
+name: CD-ALL
+
+on:
+    workflow_dispatch:
+        inputs:
+            vizzu:
+                description: 'Vizzu version to tag'
+                required: true
+            release_workspaces:
+                description: 'Publish packages to npm'
+                default: false
+                type: boolean
+
+jobs:
+    publish:
+        runs-on: ubuntu-22.04
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 1
+
+            - name: Enable Corepack
+              run: |
+                  corepack enable
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
+                  cache: 'yarn'
+                  cache-dependency-path: 'yarn.lock'
+
+            - name: Init dev environment
+              run: |
+                  yarn --immutable
+
+            - name: Release packages
+              run: |
+                  echo "npmAuthToken: \"${VIZZUHQ_NPM_API}\"" > .yarnrc.yml
+                  yarn workspaces foreach --all --exclude . npm publish
+              env:
+                  VIZZUHQ_NPM_API: ${{ secrets.VIZZUHQ_NPM_API }}
+
+            - name: Tag packages
+              run: |
+                  echo "npmAuthToken: \"${VIZZUHQ_NPM_API}\"" > .yarnrc.yml
+                  yarn workspaces list --json | while IFS= read -r line; do
+                    LOCATION=$(echo "$line" | jq -r '.location')
+                    WORKSPACE=$(echo "$line" | jq -r '.name')
+                    if [ "$LOCATION" == "." ]; then
+                        continue
+                    fi
+                    VERSION=$(cat $LOCATION/package.json | jq -r '.version')
+                    VIZZU_VERSION="${{ inputs.vizzu }}"
+                    TAGS=("vizzu-${VIZZU_VERSION%%.*}" "vizzu-${VIZZU_VERSION%.*}" "vizzu-$VIZZU_VERSION")
+                    for TAG in "${TAGS[@]}"; do
+                        yarn workspace $WORKSPACE npm tag add $WORKSPACE@$VERSION $TAG
+                    done
+                  done
+              env:
+                  VIZZUHQ_NPM_API: ${{ secrets.VIZZUHQ_NPM_API }}
