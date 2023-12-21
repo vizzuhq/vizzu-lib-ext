@@ -32,11 +32,12 @@ jobs:
                   cache: 'yarn'
                   cache-dependency-path: 'yarn.lock'
 
-            - name: Init dev environment
+            - name: Set up yarn
               run: |
                   yarn --immutable
 
-            - name: Release packages
+            - name: Publish packages
+              if: ${{ inputs.release_workspaces }}
               run: |
                   echo "npmAuthToken: \"${VIZZUHQ_NPM_API}\"" > .yarnrc.yml
                   yarn workspaces foreach --all --exclude . npm publish

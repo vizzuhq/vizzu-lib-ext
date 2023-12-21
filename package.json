@@ -9,6 +9,7 @@
 		"format": "prettier -c .",
 		"lint": "eslint --ext .js,.mjs,.cjs,.ts,.tsx .",
 		"ci": "yarn format && yarn lint",
+		"fix": "yarn fix-format && yarn fix-lint",
 		"fix-format": "prettier -w .",
 		"fix-lint": "eslint --fix --ext .js,.mjs,.cjs,.ts,.tsx .",
 		"update-vizzu": "node ./tools/updateVizzuMinorVersion.cjs"
