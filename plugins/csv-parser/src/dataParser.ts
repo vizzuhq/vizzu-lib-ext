@@ -2,7 +2,11 @@ import { Options, parse } from 'csv-parse/sync'
 import { headerDetect } from './headerDetect'
 import { delimiterDetect } from './delimiterDetect'
 
-import * as Anim from 'vizzu/dist/types/anim.js'
+import { Anim, Data, Config, Styles } from 'vizzu'
+import * as CA from 'vizzu/dist/module/canimctrl.js'
+import * as CC from 'vizzu/dist/module/cchart'
+import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins.js'
+import { AnimCompleting } from 'vizzu/dist/animcompleting'
 
 export interface optionsTypes {
 	delimiter?: string
@@ -10,7 +14,14 @@ export interface optionsTypes {
 	headers?: boolean
 	autoheader?: boolean
 	emptyColumnPrefix?: string
-	hasHeader?: boolean
+	hasHeader?: boolean | null
+}
+
+export interface detectedTypes {
+	delimiter: string
+	probability: number
+	headers: string[]
+	hasHeader: boolean
 }
 export interface csvTypes {
 	url?: string
@@ -18,11 +29,35 @@ export interface csvTypes {
 	options?: optionsTypes
 }
 
-export type hookContexts = {
-	target: Anim.AnimTarget & { data: { csv?: csvTypes } }
-	options?: Anim.ControlOptions
+export interface csvTarget {
+	target: {
+		data: {
+			csv: csvTypes
+		}
+	}
 }
 
+export interface csvDataType extends Data.Filter {
+	csv: csvTypes
+}
+
+export interface Target {
+	data?: Data.Set | csvDataType
+	config?: Config.Chart
+	style?: Styles.Chart | null
+}
+export interface Keyframe {
+	target: Target | CC.Snapshot
+	options?: Options
+}
+export type Keyframes = Keyframe[]
+export type AnimTarget = Keyframes | CA.CAnimation
+
+declare module 'vizzu' {
+	export interface Vizzu {
+		animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting
+	}
+}
 export interface dataSeries {
 	name: string
 	values: number[] | string[]
@@ -31,18 +66,27 @@ export interface dataType {
 	series: dataSeries[]
 }
 
-export interface nextType {
-	(): void
-}
+const LOG_PREFIX = [
+	'%cVIZZU%CSV-PARSER%c',
+	'background: #e2ae30; color: #3a60bf; font-weight: bold',
+	'background: #3a60bf; color: #e2ae30;'
+]
 
-export class DataParser {
+export class DataParser implements Plugin {
 	private _data: dataType | null = null
 	private _headers: string[] | null = null
-	private _autoheader: boolean = true
-	private _isHeader: boolean = true
-	private _hasHeader: boolean = false
-	private _emptyColumnPrefix: string = 'Column'
+	private _autoheader = true
+	private _hasHeader: boolean | null = null
+	private _emptyColumnPrefix = 'Column'
 	private _probabilityVariable = 0.5
+	private _debug = false
+
+	public detected: detectedTypes = {
+		delimiter: ',',
+		probability: 1,
+		headers: [],
+		hasHeader: true
+	}
 
 	public parserOptions: Options = {
 		encoding: 'utf-8'
@@ -52,8 +96,12 @@ export class DataParser {
 		name: 'csvParser'
 	}
 
-	get hasHeader(): boolean {
-		return this._isHeader
+	constructor(debug: boolean = false) {
+		this._debug = debug
+	}
+
+	get hasHeader(): boolean | null {
+		return this._hasHeader === null ? this.detected.hasHeader : this._hasHeader
 	}
 
 	get data(): dataType | null {
@@ -61,30 +109,34 @@ export class DataParser {
 	}
 
 	get delimiter(): string {
-		return this.parserOptions.delimiter?.toString() || ','
+		return this.parserOptions.delimiter?.toString() || this.detected.delimiter
+	}
+
+	get detectedDelimiter(): string {
+		return this.detected.delimiter
 	}
 
 	get api() {
 		return {
-			hasHeader: this.hasHeader,
+			hasHeader: this.detected.hasHeader,
+			detectedDelimiter: this.detected.delimiter,
 			delimiter: this.delimiter,
 			data: this.data
 		}
 	}
 
-	get hooks() {
+	get hooks(): PluginHooks {
 		this._headers = null
 		this._autoheader = true
-		this._isHeader = true
-		this._hasHeader = false
+		this._hasHeader = null
 		this._emptyColumnPrefix = 'Column'
 		this.parserOptions = {
 			encoding: 'utf-8'
 		}
 
 		return {
-			setAnimParams: Object.assign(
-				async (ctx: hookContexts, next: nextType) => {
+			prepareAnimation: Object.assign(
+				async (ctx: PrepareAnimationContext, next: () => void) => {
 					if (!Array.isArray(ctx.target)) {
 						next()
 						return
@@ -101,32 +153,24 @@ export class DataParser {
 						if ('options' in csvOptions && csvOptions.options) {
 							this._setOptions(csvOptions.options)
 						}
-
-						const data = await this.parse(csvOptions.url || csvOptions.content || '')
-						if (!data || !('series' in data) || !data.series) {
-							throw new Error('Invalid data')
-						}
-
-						if (!this._isHeader && !this._autoheader) {
-							throw new Error('CSV file has no header')
-						}
-
-						data.series = data.series.map(
-							(item: {
-								name: string
-								values: number[] | string[]
-							}): { name: string; values: string[] | number[] } => {
-								if (
-									'values' in item &&
-									item.values &&
-									item.values.every((value: string | number) => !isNaN(Number(value)))
-								) {
-									item.values = item.values.map((value: string | number) => Number(value))
-								}
-								return item
+						try {
+							const data = await this.parse(
+								csvOptions.url || csvOptions.content || ''
+							)
+							if (!data || !('series' in data) || !data.series) {
+								throw new Error('Invalid data')
 							}
-						)
-						target.data = data
+
+							if (this._hasHeader === true && !this._autoheader) {
+								throw new Error('CSV file has no header')
+							}
+							target.data = data
+						} catch (error: unknown) {
+							if (error instanceof Error) {
+								console.error(error.message)
+							}
+							continue
+						}
 					}
 					next()
 				},
@@ -136,6 +180,7 @@ export class DataParser {
 	}
 
 	private _setOptions(options: optionsTypes) {
+		this._log(['setOptions', options])
 		if ('delimiter' in options && options.delimiter) {
 			this.parserOptions.delimiter = options.delimiter
 		}
@@ -144,31 +189,66 @@ export class DataParser {
 			this.parserOptions.encoding = options.encoding
 		}
 
-		if ('hasHeader' in options && options.hasHeader) {
+		if ('hasHeader' in options && typeof options.hasHeader === 'boolean') {
+			this._log(['hasHeader', options.hasHeader])
 			this._hasHeader = options.hasHeader
-			this._isHeader = true
+		} else {
+			this._hasHeader = null
 		}
 
 		if ('headers' in options && options.headers && Array.isArray(options.headers)) {
 			this._headers = options.headers
 		}
 
-		if ('autoheader' in options && options.autoheader) {
+		if ('autoheader' in options && typeof options.autoheader === 'boolean') {
 			this._autoheader = options.autoheader
 		}
 		if ('emptyColumnPrefix' in options && options.emptyColumnPrefix) {
+			this._log(['emptyColumnPrefix', options.emptyColumnPrefix])
 			this._emptyColumnPrefix = options.emptyColumnPrefix
 		}
 	}
 
-	public async parse(input: string, options: Options = {}): Promise<dataType | null> {
+	public convertNumbers(data: dataType): dataType {
+		if (!data || !('series' in data) || !data.series) return data
+
+		data.series = data.series.map(
+			(item: {
+				name: string
+				values: number[] | string[]
+			}): { name: string; values: string[] | number[] } => {
+				if (
+					'values' in item &&
+					item.values &&
+					item.values.every((value: string | number) => !isNaN(Number(value)))
+				) {
+					item.values = item.values.map((value: string | number) => Number(value))
+				}
+				return item
+			}
+		)
+		return data
+	}
+
+	public async parse(
+		input: string,
+		options: optionsTypes = {},
+		convert = true
+	): Promise<dataType | null> {
 		if (!input) return null
 
 		if (options) {
 			this.parserOptions = { ...this.parserOptions, ...options }
+			this._setOptions(options)
 		}
+		this._log(['parserOptions', this.parserOptions])
 		await this.setSource(input)
-		return this.data
+
+		if (!this.data) return null
+
+		if (!convert) return this.data
+
+		return this.convertNumbers(this.data)
 	}
 
 	public async setSource(source: string) {
@@ -179,15 +259,15 @@ export class DataParser {
 		const delimiter = this.getDelimiter(source)
 		this.parserOptions.delimiter = delimiter
 
-		this._isHeader = true
-		if (!this._hasHeader && !Array.isArray(this._headers)) {
-			const headerProbability = headerDetect(source, delimiter)
-			if (headerProbability < this._probabilityVariable) {
-				console.error('CSV file has no header', headerProbability)
-				this._isHeader = false
-			}
+		const headerProbability = headerDetect(source, delimiter)
+		this._log(['headerProbability', headerProbability])
+		if (headerProbability < this._probabilityVariable) {
+			this.detected.hasHeader = false
+		} else {
+			this.detected.hasHeader = true
 		}
 		try {
+			this._log(['parser options', this.parserOptions])
 			const parsedInput = parse(source, {
 				skip_empty_lines: true,
 				comment: '#',
@@ -215,18 +295,26 @@ export class DataParser {
 	}
 
 	public getDelimiter(data: string): string {
-		return this.parserOptions.delimiter?.toString() || delimiterDetect(data)
+		this.detected.delimiter = delimiterDetect(data)
+		this._log(['detected delimiter:', this.detected.delimiter])
+		return this.parserOptions.delimiter?.toString() || this.detected.delimiter
 	}
 
 	private _buildData(records: string[][]): dataType | null {
 		if (records.length === 0) {
 			return null
 		}
-		const header: string[] = Array.isArray(this._headers) ? this._headers : this._getHeader(records)
-		const series: dataSeries[] = []
+		this.detected.headers = this._getHeader(records)
+		const header: string[] = Array.isArray(this._headers)
+			? this._headers
+			: this.detected.headers
+		this._log(['header', header])
+		const series = []
 		for (let column = 0; column < records[0].length; column++) {
 			const headerName =
-				(header[column].length > 0 && header[column]) || this._emptyColumnPrefix + (column + 1)
+				header[column] && header[column].length > 0
+					? header[column]
+					: this._emptyColumnPrefix + (column + 1)
 
 			series.push({
 				name: headerName.trim(),
@@ -238,15 +326,23 @@ export class DataParser {
 
 	private _getHeader(records: string[][]): string[] {
 		let headerResponse: string[] = []
-		if (this._isHeader && records.length > 0 && records[0].length > 0) {
-			headerResponse = records.shift() ?? []
-			if (headerResponse.length > 0) {
-				return headerResponse.map((item, key: number) =>
-					item.length === 0 ? this._emptyColumnPrefix + (key + 1) : item
-				)
+		if (this.hasHeader || (this.hasHeader === null && this.detected.hasHeader === true)) {
+			if (records.length > 0 && records[0].length > 0) {
+				headerResponse = records.shift() ?? []
+				if (headerResponse.length > 0) {
+					return headerResponse.map((item, key: number) =>
+						item.length === 0 ? this._emptyColumnPrefix + (key + 1) : item
+					)
+				}
 			}
 		}
 
 		return Object.keys(records[0]).map((key) => this._emptyColumnPrefix + (parseInt(key) + 1))
+	}
+
+	private _log(...message: unknown[]) {
+		if (this._debug) {
+			console.log(...LOG_PREFIX, ...message)
+		}
 	}
 }

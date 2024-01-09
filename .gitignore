@@ -1,5 +1,6 @@
 # Npm files
 node_modules
+package.tgz
 
 # Log files
 npm-debug.log*
@@ -28,3 +29,4 @@ pnpm-debug.log*
 
 # Gitkeep
 !/**/.gitkeep
+plugins/**/dist/*

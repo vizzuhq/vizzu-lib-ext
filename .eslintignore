@@ -6,3 +6,4 @@ dist
 **/tmp/
 **/dist/
 **/demo/
+**/tests/

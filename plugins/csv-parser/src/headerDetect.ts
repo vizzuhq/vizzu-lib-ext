@@ -27,7 +27,7 @@ const getType = (value: string | number): string => {
 	}
 }
 
-const simpleParseData = (data: string, delimiter: string = ','): string[][] => {
+const simpleParseData = (data: string, delimiter = ','): string[][] => {
 	return parse(data, {
 		delimiter: delimiter,
 		skip_empty_lines: true,
@@ -87,7 +87,9 @@ const convertValuesToTypes = (
 ): string[][] => {
 	const filteredValues =
 		missingHeaderElements.length > 0
-			? rowValues.map((row) => row.filter((_, index) => !missingHeaderElements.includes(index)))
+			? rowValues.map((row) =>
+					row.filter((_, index) => !missingHeaderElements.includes(index))
+				)
 			: rowValues
 	return filteredValues.map((rowData, rowKey) => {
 		return rowData.map((element, dataIndex) => {
@@ -102,7 +104,7 @@ const convertValuesToTypes = (
 	})
 }
 
-export const headerDetect = (data: string, delimiter: string = ','): number => {
+export const headerDetect = (data: string, delimiter = ','): number => {
 	const parsedData = simpleParseData(data, delimiter)
 	if (parsedData.length < 2) return 0
 
@@ -110,7 +112,7 @@ export const headerDetect = (data: string, delimiter: string = ','): number => {
 	if (!headers) return 0
 
 	const missingHeaderElements = []
-	for (let headerKey: number = 0; headerKey < headers.length; headerKey++) {
+	for (let headerKey = 0; headerKey < headers.length; headerKey++) {
 		const header = headers[headerKey]
 		if (!header) {
 			missingHeaderElements.push(headerKey)
@@ -135,7 +137,9 @@ export const headerDetect = (data: string, delimiter: string = ','): number => {
 	probabilites.push(headerTypesProbability * (IMPORTANCEWEIGHT.headerTypesProbability | 1))
 	probabilitesCount += IMPORTANCEWEIGHT.headerTypesProbability | 1
 
-	const transposedData = parsedData[0].map((_, colIndex) => parsedData.map((row) => row[colIndex]))
+	const transposedData = parsedData[0].map((_, colIndex) =>
+		parsedData.map((row) => row[colIndex])
+	)
 	const headerFreqProbability = percentOfFrequency(transposedData, headers)
 	probabilites.push(headerFreqProbability * (IMPORTANCEWEIGHT.headerFrequencyProbability | 1))
 	probabilitesCount += IMPORTANCEWEIGHT.headerFrequencyProbability | 1

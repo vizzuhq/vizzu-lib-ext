@@ -1,4 +1,4 @@
-import fs from 'fs'
+import * as fs from 'fs'
 import { DataParser } from './dataParser'
 import { Options } from 'csv-parse/.'
 
@@ -28,7 +28,7 @@ export class CSVParser extends DataParser {
 			return this.data
 		}
 		await this.setSource(input)
-		return this.data
+		return this.convertNumbers(this.data)
 	}
 	public readCSVFile(fileName: string): string {
 		if (!fileName) {
