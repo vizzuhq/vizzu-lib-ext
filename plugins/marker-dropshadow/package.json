@@ -20,9 +20,9 @@
 	"module": "dist/mjs/index.js",
 	"types": "dist/types/index.d.ts",
 	"scripts": {
-		"build": "clear && node build/build.js",
+		"build": "run clear && node build/build.js",
 		"clear": "node build/clear.js",
-		"pack": "build && npm pack"
+		"pack": "run build && npm pack"
 	},
 	"repository": {
 		"type": "git",
