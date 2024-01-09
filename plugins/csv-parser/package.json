@@ -19,7 +19,7 @@
 	"module": "dist/mjs/index.js",
 	"types": "dist/types/index.d.ts",
 	"scripts": {
-		"build": "yarn clear && node build/build.js && yarn types",
+		"build": "clear && node build/build.js && run types",
 		"clear": "node build/clear.js",
 		"test": "vitest",
 		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
