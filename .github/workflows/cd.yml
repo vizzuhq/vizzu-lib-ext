@@ -39,6 +39,10 @@ jobs:
               run: |
                   yarn --immutable
 
+            - name: Build packages
+              run: |
+                  yarn workspace ${{ inputs.workspace }} build
+
             - name: Publish package
               if: ${{ inputs.release_workspace }}
               run: |

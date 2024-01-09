@@ -89,7 +89,7 @@ const convertValuesToTypes = (
 		missingHeaderElements.length > 0
 			? rowValues.map((row) =>
 					row.filter((_, index) => !missingHeaderElements.includes(index))
-			  )
+				)
 			: rowValues
 	return filteredValues.map((rowData, rowKey) => {
 		return rowData.map((element, dataIndex) => {
