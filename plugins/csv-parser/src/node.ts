@@ -1,4 +1,4 @@
-import fs from 'fs'
+import * as fs from 'fs'
 import { DataParser } from './dataParser'
 import { Options } from 'csv-parse/.'
 
