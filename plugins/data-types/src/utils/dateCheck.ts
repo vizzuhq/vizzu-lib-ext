@@ -111,11 +111,6 @@ export const datesCheck = (
 			}
 
 			if (match(seriesData.values, fixed)) {
-				/* 	if (seriesData.meta) {
-					seriesData.meta.type = type
-				} else {
-					seriesData.meta = { type: type }
-				} */
 				const meta = {
 					type: type,
 					dependencies: dependencies && Array.isArray(dependencies) ? dependencies : []
@@ -131,8 +126,4 @@ export const datesCheck = (
 			}
 		}
 	})
-
-	/* 	if (fixed) {
-		this._checkDates(series, false)
-	} */
 }
