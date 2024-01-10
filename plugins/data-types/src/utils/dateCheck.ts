@@ -1,4 +1,4 @@
-import { series } from 'dataTypes'
+import { series } from '../index'
 import { orderedDateTypes } from './dateTypeVariants'
 import { convertToString } from './mainTypeConverter'
 

@@ -10,7 +10,7 @@ const match = (
 	if (!values) return false
 
 	const cleanValues = values.filter(
-		(value) => value !== '' && !isNaN(value) && value !== undefined
+		(value) => value !== '' && !isNaN(Number(value)) && value !== undefined
 	)
 
 	if (cleanValues.length === 0) return false
@@ -25,7 +25,7 @@ const match = (
 }
 
 const lengthMatch = (
-	values: string[] | number[] | undefined,
+	values: (string | number)[] | undefined,
 	maxLength: number,
 	minLength: number = 1
 ) => {
@@ -42,7 +42,7 @@ const lengthMatch = (
 }
 
 const sizeMatch = (
-	values: string[] | number[] | undefined,
+	values: (string | number)[] | undefined,
 	maxSize: number,
 	minSize: number = 0
 ) => {
@@ -60,9 +60,8 @@ const sizeMatch = (
 	return minSize <= minValue && maxValue <= maxSize
 }
 
-// rename to sizeCorrector ???
 const sizeCorrector = (
-	values: string[] | number[] | undefined,
+	values: (string | number)[] | undefined,
 	maxSize: number,
 	minSize: number = 0
 ) => {

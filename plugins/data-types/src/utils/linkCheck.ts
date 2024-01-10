@@ -1,4 +1,4 @@
-import { series } from 'dataTypes'
+import { series } from '../index'
 
 export const linkCheck = (series: series[], addType: (name: string, type: string) => void) => {
 	const type = 'link'

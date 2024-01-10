@@ -1,4 +1,4 @@
-import { series } from 'dataTypes'
+import { series } from '../index'
 import { clearValue } from './clearValue'
 
 export const unitCheck = (series: series): void => {
