@@ -2,6 +2,7 @@ import { series } from 'dataTypes'
 import { clearValue } from './clearValue'
 
 export const unitCheck = (series: series): void => {
+	const ignored = ['Q', 'SKU', 'ID', 'SKU', 'EAN', 'UPC', 'ISBN', 'GTIN', 'MPN', 'ASIN']
 	const suffixRegexp = /^\d+([\D]+)$/
 	const prefixRegexp = /^([\D]+)\d+$/
 
@@ -20,7 +21,7 @@ export const unitCheck = (series: series): void => {
 	}
 
 	const unit = test[1]
-	if (!unit) return
+	if (!unit || ignored.includes(unit)) return
 
 	const allMath = values.every(
 		(e) =>

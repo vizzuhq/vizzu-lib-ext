@@ -12,22 +12,61 @@ export const dateFormatCheck = (
 		const values = seriesData.values
 
 		if (!values) return false
-		values.forEach((value) => {
-			console.log(value.toString(), Date.parse(value.toString()))
-		})
 		const allMath = values.every(
 			(value) => value === '' || (typeof value === 'string' && Date.parse(value.toString()))
 		)
-
 		if (!allMath) return
+
+		const includesTimes = values.every((value) => /\d{1,2}:\d{1,2}/.test(value.toString()))
+
+		const meta: { type: string; dataTypes: string; dependencies: string[] } = {
+			type: type,
+			dataTypes: includesTimes ? 'datetime' : 'date',
+			dependencies: []
+		}
 
 		seriesData.values = convertToString(values)
 
 		if (seriesData.meta) {
-			seriesData.meta.type = type
+			seriesData.meta = { ...seriesData.meta, ...meta }
 		} else {
-			seriesData.meta = { type: type }
+			seriesData.meta = meta
 		}
+
+		seriesData.type = 'dimension'
+		addType(seriesData.name, type)
+	})
+}
+
+export const timeFormatCheck = (
+	series: series[],
+	addType: (name: string, type: string) => void
+) => {
+	const type = 'date'
+	series.forEach((seriesData: series) => {
+		const values = seriesData.values
+
+		if (!values) return false
+		const allMath = values.every(
+			(value) =>
+				value === '' ||
+				(typeof value === 'string' &&
+					/^([0-1]?[0-9]|2[0-3]):[0-5]?[0-9](?::[0-5]?[0-9](?:[.:]\d{1,6})?)?$/.test(
+						value.toString()
+					))
+		)
+
+		if (!allMath) return
+
+		const meta = {
+			type: type,
+			dataTypes: 'time',
+			dependencies: []
+		}
+
+		seriesData.values = convertToString(values)
+
+		seriesData.meta = { ...(seriesData.meta ?? {}), ...meta }
 
 		seriesData.type = 'dimension'
 		addType(seriesData.name, type)
@@ -43,7 +82,9 @@ export const datesCheck = (
 	series.forEach((seriesData: series, seriesKey: number) => {
 		if (seriesData?.meta?.type) return
 
-		const orederedHeaderVaraint = orderedDateTypes().filter(({ type }) => !typeList.includes(type))
+		const orederedHeaderVaraint = orderedDateTypes().filter(
+			({ type }) => !typeList.includes(type)
+		)
 
 		for (const { type, match, dependencies } of orederedHeaderVaraint) {
 			if (seriesData?.meta?.type) return
@@ -69,21 +110,29 @@ export const datesCheck = (
 				if (!isContinues) continue
 			}
 
-			if (match(values, fixed)) {
-				if (seriesData.meta) {
+			if (match(seriesData.values, fixed)) {
+				/* 	if (seriesData.meta) {
 					seriesData.meta.type = type
 				} else {
 					seriesData.meta = { type: type }
+				} */
+				const meta = {
+					type: type,
+					dependencies: dependencies && Array.isArray(dependencies) ? dependencies : []
+				}
+				seriesData.meta = {
+					...(seriesData?.meta ?? {}),
+					...meta
 				}
 
-				seriesData.values = convertToString(values)
+				seriesData.values = convertToString(seriesData.values)
 				seriesData.type = 'dimension'
-				addType(name, type)
+				addType(seriesData.name, type)
 			}
 		}
 	})
 
-	/* 		if (fixed) {
+	/* 	if (fixed) {
 		this._checkDates(series, false)
 	} */
 }

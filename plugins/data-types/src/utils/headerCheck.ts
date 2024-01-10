@@ -9,17 +9,22 @@ export const headerCheck = (series: series[], addType: (name: string, type: stri
 
 		const { name, values } = seriesData
 
+		if (!values) return
+
 		const header = name.toLowerCase()
 		const matchedHeaders = orederedHeaderVaraint.find(({ names }) => names.includes(header))
 
 		if (!matchedHeaders) return
-
-		const { type, match } = matchedHeaders
-
+		const { type, dataType, seriesType, match } = matchedHeaders
 		if (!match(values, false)) return
-
 		seriesData.values = convertToString(values)
-		seriesData.type = 'dimension'
+		seriesData.type = seriesType
+		const meta = {
+			type: type,
+			dataTypes: dataType,
+			dependencies: matchedHeaders?.dependencies ?? []
+		}
+		seriesData.meta = { ...seriesData.meta, ...meta }
 
 		if (seriesData.meta) {
 			seriesData.meta.type = type

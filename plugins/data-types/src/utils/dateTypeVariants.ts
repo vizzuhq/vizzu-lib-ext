@@ -1,3 +1,5 @@
+import { typeIsNumber } from './mainTypeDetection'
+
 const match = (
 	values: string[] | number[] | undefined,
 	length: { max: number; min: number },
@@ -7,11 +9,17 @@ const match = (
 ) => {
 	if (!values) return false
 
-	if (!lengthMatch(values, length.max, length.min)) return false
+	const cleanValues = values.filter(
+		(value) => value !== '' && !isNaN(value) && value !== undefined
+	)
 
-	if (!sizeMatch(values, range.max, range.min)) return false
+	if (cleanValues.length === 0) return false
 
-	if (fixed && !sizeCorrector(values, corrector.max, corrector.min)) return false
+	if (!lengthMatch(cleanValues, length.max, length.min)) return false
+
+	if (!sizeMatch(cleanValues, range.max, range.min)) return false
+
+	if (fixed && !sizeCorrector(cleanValues, corrector.max, corrector.min)) return false
 
 	return true
 }
@@ -77,8 +85,16 @@ export const orderedDateTypes = () => {
 export const dateTypes = [
 	{
 		type: 'year',
+		seriesType: 'dimension',
+		dataType: 'date',
 		match: (values: string[] | number[] | undefined, fixed: boolean = true) =>
-			match(values, { min: 4, max: 4 }, { min: 1000, max: 3000 }, { min: 1000, max: 3000 }, fixed),
+			match(
+				values,
+				{ min: 4, max: 4 },
+				{ min: 1000, max: 3000 },
+				{ min: 1000, max: 3000 },
+				fixed
+			),
 		priority: 0.9,
 		names: [
 			'year',
@@ -140,7 +156,40 @@ export const dateTypes = [
 		]
 	},
 	{
+		type: 'quarter',
+		seriesType: 'dimension',
+		dataType: 'date',
+		match: (values: string[] | number[] | undefined) => {
+			if (!values || typeIsNumber(values)) return false
+
+			const cleanValues = values.filter((value) => value !== '' && value !== undefined)
+			return cleanValues.every((value) => /^Q\d{1}$/.test(value.toString()))
+		},
+		priority: 0.7,
+		dependencies: ['year'],
+		names: [
+			'quarter',
+			'quarters', // English
+			'negyedév',
+			'negyedévek', // Hungarian
+			'quartal',
+			'quartali',
+			'quartals', // French
+			'cuartal',
+			'cuartales', // Spanish
+			'quarto',
+			'quartos', // Portuguese
+			'quartalen', // Dutch
+			'квартал',
+			'кварталов', // Russian
+			'四半期', // Japanese
+			'Q'
+		]
+	},
+	{
 		type: 'month',
+		seriesType: 'dimension',
+		dataType: 'date',
 		match: (values: string[] | number[] | undefined, fixed: boolean = true) =>
 			match(values, { min: 1, max: 13 }, { min: 0, max: 12 }, { min: 0, max: 12 }, fixed),
 		priority: 0.4,
@@ -188,6 +237,8 @@ export const dateTypes = [
 	},
 	{
 		type: 'day',
+		seriesType: 'dimension',
+		dataType: 'date',
 		match: (values: string[] | number[] | undefined, fixed: boolean = true) =>
 			match(values, { min: 1, max: 2 }, { min: 0, max: 31 }, { min: 24, max: 31 }, fixed),
 		priority: 0.6,
@@ -220,6 +271,8 @@ export const dateTypes = [
 	},
 	{
 		type: 'hour',
+		seriesType: 'dimension',
+		dataType: 'time',
 		match: (values: string[] | number[] | undefined, fixed: boolean = true) =>
 			match(values, { min: 1, max: 2 }, { min: 0, max: 24 }, { min: 12, max: 24 }, fixed),
 		priority: 0.5,
@@ -267,6 +320,8 @@ export const dateTypes = [
 	},
 	{
 		type: 'minute',
+		seriesType: 'dimension',
+		dataType: 'time',
 		match: (values: string[] | number[] | undefined, fixed: boolean = true) =>
 			match(values, { min: 1, max: 2 }, { min: 0, max: 60 }, { min: 31, max: 60 }, fixed),
 		priority: 0.8,

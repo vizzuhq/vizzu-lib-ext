@@ -52,7 +52,8 @@ function Ge() {
 				(S[O++] = E & 255)
 		return (
 			T === 2 &&
-				((E = (r[m.charCodeAt(L)] << 2) | (r[m.charCodeAt(L + 1)] >> 4)), (S[O++] = E & 255)),
+				((E = (r[m.charCodeAt(L)] << 2) | (r[m.charCodeAt(L + 1)] >> 4)),
+				(S[O++] = E & 255)),
 			T === 1 &&
 				((E =
 					(r[m.charCodeAt(L)] << 10) |
@@ -68,7 +69,8 @@ function Ge() {
 	}
 	function _(m, E, b) {
 		for (var B, T = [], S = E; S < b; S += 3)
-			(B = ((m[S] << 16) & 16711680) + ((m[S + 1] << 8) & 65280) + (m[S + 2] & 255)), T.push(I(B))
+			(B = ((m[S] << 16) & 16711680) + ((m[S + 1] << 8) & 65280) + (m[S + 2] & 255)),
+				T.push(I(B))
 		return T.join('')
 	}
 	function N(m) {
@@ -78,8 +80,8 @@ function Ge() {
 			B === 1
 				? ((E = m[b - 1]), T.push(c[E >> 2] + c[(E << 4) & 63] + '=='))
 				: B === 2 &&
-				  ((E = (m[b - 2] << 8) + m[b - 1]),
-				  T.push(c[E >> 10] + c[(E >> 4) & 63] + c[(E << 2) & 63] + '=')),
+					((E = (m[b - 2] << 8) + m[b - 1]),
+					T.push(c[E >> 10] + c[(E >> 4) & 63] + c[(E << 2) & 63] + '=')),
 			T.join('')
 		)
 	}
@@ -134,14 +136,14 @@ function Ye() {
 					isNaN(r) || r === 1 / 0
 						? ((p = isNaN(r) ? 1 : 0), (o = I))
 						: ((o = Math.floor(Math.log(r) / Math.LN2)),
-						  r * (y = Math.pow(2, -o)) < 1 && (o--, (y *= 2)),
-						  o + _ >= 1 ? (r += N / y) : (r += N * Math.pow(2, 1 - _)),
-						  r * y >= 2 && (o++, (y /= 2)),
-						  o + _ >= I
+							r * (y = Math.pow(2, -o)) < 1 && (o--, (y *= 2)),
+							o + _ >= 1 ? (r += N / y) : (r += N * Math.pow(2, 1 - _)),
+							r * y >= 2 && (o++, (y /= 2)),
+							o + _ >= I
 								? ((p = 0), (o = I))
 								: o + _ >= 1
-								? ((p = (r * y - 1) * Math.pow(2, a)), (o = o + _))
-								: ((p = r * Math.pow(2, _ - 1) * Math.pow(2, a)), (o = 0)));
+									? ((p = (r * y - 1) * Math.pow(2, a)), (o = o + _))
+									: ((p = r * Math.pow(2, _ - 1) * Math.pow(2, a)), (o = 0)));
 				a >= 8;
 				c[d + m] = p & 255, m += E, p /= 256, a -= 8
 			);
@@ -181,7 +183,9 @@ function We() {
 					}
 				}
 			return (
-				Object.setPrototypeOf(e, Uint8Array.prototype), Object.setPrototypeOf(i, e), i.foo() === 42
+				Object.setPrototypeOf(e, Uint8Array.prototype),
+				Object.setPrototypeOf(i, e),
+				i.foo() === 42
 			)
 		} catch {
 			return !1
@@ -207,7 +211,9 @@ function We() {
 	function o(i, e, t) {
 		if (typeof i == 'number') {
 			if (typeof e == 'string')
-				throw new TypeError('The "string" argument must be of type string. Received type number')
+				throw new TypeError(
+					'The "string" argument must be of type string. Received type number'
+				)
 			return I(i)
 		}
 		return p(i, e, t)
@@ -229,7 +235,9 @@ function We() {
 		)
 			return E(i, e, t)
 		if (typeof i == 'number')
-			throw new TypeError('The "value" argument must not be of type number. Received type number')
+			throw new TypeError(
+				'The "value" argument must not be of type number. Received type number'
+			)
 		let n = i.valueOf && i.valueOf()
 		if (n != null && n !== i) return o.from(n, e, t)
 		let s = b(i)
@@ -257,7 +265,13 @@ function We() {
 	function w(i, e, t) {
 		return (
 			y(i),
-			i <= 0 ? h(i) : e !== void 0 ? (typeof t == 'string' ? h(i).fill(e, t) : h(i).fill(e)) : h(i)
+			i <= 0
+				? h(i)
+				: e !== void 0
+					? typeof t == 'string'
+						? h(i).fill(e, t)
+						: h(i).fill(e)
+					: h(i)
 		)
 	}
 	o.alloc = function (i, e, t) {
@@ -295,14 +309,15 @@ function We() {
 	}
 	function E(i, e, t) {
 		if (e < 0 || i.byteLength < e) throw new RangeError('"offset" is outside of buffer bounds')
-		if (i.byteLength < e + (t || 0)) throw new RangeError('"length" is outside of buffer bounds')
+		if (i.byteLength < e + (t || 0))
+			throw new RangeError('"length" is outside of buffer bounds')
 		let n
 		return (
 			e === void 0 && t === void 0
 				? (n = new Uint8Array(i))
 				: t === void 0
-				? (n = new Uint8Array(i, e))
-				: (n = new Uint8Array(i, e, t)),
+					? (n = new Uint8Array(i, e))
+					: (n = new Uint8Array(i, e, t)),
 			Object.setPrototypeOf(n, o.prototype),
 			n
 		)
@@ -319,7 +334,9 @@ function We() {
 	function B(i) {
 		if (i >= u)
 			throw new RangeError(
-				'Attempt to allocate Buffer larger than maximum size: 0x' + u.toString(16) + ' bytes'
+				'Attempt to allocate Buffer larger than maximum size: 0x' +
+					u.toString(16) +
+					' bytes'
 			)
 		return i | 0
 	}
@@ -335,7 +352,9 @@ function We() {
 				H(t, Uint8Array) && (t = o.from(t, t.offset, t.byteLength)),
 				!o.isBuffer(e) || !o.isBuffer(t))
 			)
-				throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array')
+				throw new TypeError(
+					'The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array'
+				)
 			if (e === t) return 0
 			let n = e.length,
 				s = t.length
@@ -365,7 +384,8 @@ function We() {
 			}
 		}),
 		(o.concat = function (e, t) {
-			if (!Array.isArray(e)) throw new TypeError('"list" argument must be an Array of Buffers')
+			if (!Array.isArray(e))
+				throw new TypeError('"list" argument must be an Array of Buffers')
 			if (e.length === 0) return o.alloc(0)
 			let n
 			if (t === void 0) for (t = 0, n = 0; n < e.length; ++n) t += e[n].length
@@ -473,7 +493,10 @@ function We() {
 			let e = this.length
 			if (e % 8 !== 0) throw new RangeError('Buffer size must be a multiple of 64-bits')
 			for (let t = 0; t < e; t += 8)
-				U(this, t, t + 7), U(this, t + 1, t + 6), U(this, t + 2, t + 5), U(this, t + 3, t + 4)
+				U(this, t, t + 7),
+					U(this, t + 1, t + 6),
+					U(this, t + 2, t + 5),
+					U(this, t + 3, t + 4)
 			return this
 		}),
 		(o.prototype.toString = function () {
@@ -533,8 +556,8 @@ function We() {
 			(typeof t == 'string'
 				? ((n = t), (t = 0))
 				: t > 2147483647
-				? (t = 2147483647)
-				: t < -2147483648 && (t = -2147483648),
+					? (t = 2147483647)
+					: t < -2147483648 && (t = -2147483648),
 			(t = +t),
 			ye(t) && (t = s ? 0 : i.length - 1),
 			t < 0 && (t = i.length + t),
@@ -632,10 +655,18 @@ function We() {
 		else if (n === void 0 && typeof t == 'string') (s = t), (n = this.length), (t = 0)
 		else if (isFinite(t))
 			(t = t >>> 0),
-				isFinite(n) ? ((n = n >>> 0), s === void 0 && (s = 'utf8')) : ((s = n), (n = void 0))
-		else throw new Error('Buffer.write(string, encoding, offset[, length]) is no longer supported')
+				isFinite(n)
+					? ((n = n >>> 0), s === void 0 && (s = 'utf8'))
+					: ((s = n), (n = void 0))
+		else
+			throw new Error(
+				'Buffer.write(string, encoding, offset[, length]) is no longer supported'
+			)
 		let l = this.length - t
-		if (((n === void 0 || n > l) && (n = l), (e.length > 0 && (n < 0 || t < 0)) || t > this.length))
+		if (
+			((n === void 0 || n > l) && (n = l),
+			(e.length > 0 && (n < 0 || t < 0)) || t > this.length)
+		)
 			throw new RangeError('Attempt to write outside buffer bounds')
 		s || (s = 'utf8')
 		let f = !1
@@ -684,7 +715,8 @@ function We() {
 						break
 					case 2:
 						;(P = i[s + 1]),
-							(P & 192) === 128 && (($ = ((l & 31) << 6) | (P & 63)), $ > 127 && (f = $))
+							(P & 192) === 128 &&
+								(($ = ((l & 31) << 6) | (P & 63)), $ > 127 && (f = $))
 						break
 					case 3:
 						;(P = i[s + 1]),
@@ -701,14 +733,18 @@ function We() {
 							(P & 192) === 128 &&
 								(M & 192) === 128 &&
 								(q & 192) === 128 &&
-								(($ = ((l & 15) << 18) | ((P & 63) << 12) | ((M & 63) << 6) | (q & 63)),
+								(($ =
+									((l & 15) << 18) |
+									((P & 63) << 12) |
+									((M & 63) << 6) |
+									(q & 63)),
 								$ > 65535 && $ < 1114112 && (f = $))
 				}
 			}
 			f === null
 				? ((f = 65533), (A = 1))
 				: f > 65535 &&
-				  ((f -= 65536), n.push(((f >>> 10) & 1023) | 55296), (f = 56320 | (f & 1023))),
+					((f -= 65536), n.push(((f >>> 10) & 1023) | 55296), (f = 56320 | (f & 1023))),
 				n.push(f),
 				(s += A)
 		}
@@ -843,7 +879,9 @@ function We() {
 		}),
 		(o.prototype.readInt8 = function (e, t) {
 			return (
-				(e = e >>> 0), t || D(e, 1, this.length), this[e] & 128 ? (255 - this[e] + 1) * -1 : this[e]
+				(e = e >>> 0),
+				t || D(e, 1, this.length),
+				this[e] & 128 ? (255 - this[e] + 1) * -1 : this[e]
 			)
 		}),
 		(o.prototype.readInt16LE = function (e, t) {
@@ -933,7 +971,13 @@ function We() {
 			}),
 		(o.prototype.writeUint8 = o.prototype.writeUInt8 =
 			function (e, t, n) {
-				return (e = +e), (t = t >>> 0), n || V(this, e, t, 1, 255, 0), (this[t] = e & 255), t + 1
+				return (
+					(e = +e),
+					(t = t >>> 0),
+					n || V(this, e, t, 1, 255, 0),
+					(this[t] = e & 255),
+					t + 1
+				)
 			}),
 		(o.prototype.writeUint16LE = o.prototype.writeUInt16LE =
 			function (e, t, n) {
@@ -1174,13 +1218,15 @@ function We() {
 					s !== void 0 && typeof s != 'string')
 				)
 					throw new TypeError('encoding must be a string')
-				if (typeof s == 'string' && !o.isEncoding(s)) throw new TypeError('Unknown encoding: ' + s)
+				if (typeof s == 'string' && !o.isEncoding(s))
+					throw new TypeError('Unknown encoding: ' + s)
 				if (e.length === 1) {
 					let f = e.charCodeAt(0)
 					;((s === 'utf8' && f < 128) || s === 'latin1') && (e = f)
 				}
 			} else typeof e == 'number' ? (e = e & 255) : typeof e == 'boolean' && (e = Number(e))
-			if (t < 0 || this.length < t || this.length < n) throw new RangeError('Out of range index')
+			if (t < 0 || this.length < t || this.length < n)
+				throw new RangeError('Out of range index')
 			if (n <= t) return this
 			;(t = t >>> 0), (n = n === void 0 ? this.length : n >>> 0), e || (e = 0)
 			let l
@@ -1188,7 +1234,8 @@ function We() {
 			else {
 				let f = o.isBuffer(e) ? e : o.from(e, s),
 					A = f.length
-				if (A === 0) throw new TypeError('The value "' + e + '" is invalid for argument "value"')
+				if (A === 0)
+					throw new TypeError('The value "' + e + '" is invalid for argument "value"')
 				for (l = 0; l < n - t; ++l) this[l + t] = f[l % A]
 			}
 			return this
@@ -1248,9 +1295,10 @@ function We() {
 					Number.isInteger(t) && Math.abs(t) > 2 ** 32
 						? (s = Ae(String(t)))
 						: typeof t == 'bigint' &&
-						  ((s = String(t)),
-						  (t > BigInt(2) ** BigInt(32) || t < -(BigInt(2) ** BigInt(32))) && (s = Ae(s)),
-						  (s += 'n')),
+							((s = String(t)),
+							(t > BigInt(2) ** BigInt(32) || t < -(BigInt(2) ** BigInt(32))) &&
+								(s = Ae(s)),
+							(s += 'n')),
 					(n += ` It must be ${e}. Received ${s}`),
 					n
 				)
@@ -1275,7 +1323,9 @@ function We() {
 				(l > 3
 					? e === 0 || e === BigInt(0)
 						? (A = `>= 0${f} and < 2${f} ** ${(l + 1) * 8}${f}`)
-						: (A = `>= -(2${f} ** ${(l + 1) * 8 - 1}${f}) and < 2 ** ${(l + 1) * 8 - 1}${f}`)
+						: (A = `>= -(2${f} ** ${(l + 1) * 8 - 1}${f}) and < 2 ** ${
+								(l + 1) * 8 - 1
+							}${f}`)
 					: (A = `>= ${e}${f} and <= ${t}${f}`),
 				new te.ERR_OUT_OF_RANGE('value', A, i))
 			)
@@ -1289,8 +1339,8 @@ function We() {
 		throw Math.floor(i) !== i
 			? (re(i, t), new te.ERR_OUT_OF_RANGE(t || 'offset', 'an integer', i))
 			: e < 0
-			? new te.ERR_BUFFER_OUT_OF_BOUNDS()
-			: new te.ERR_OUT_OF_RANGE(t || 'offset', `>= ${t ? 1 : 0} and <= ${e}`, i)
+				? new te.ERR_BUFFER_OUT_OF_BOUNDS()
+				: new te.ERR_OUT_OF_RANGE(t || 'offset', `>= ${t ? 1 : 0} and <= ${e}`, i)
 	}
 	let ve = /[^+/0-9A-Za-z-_]/g
 	function Je(i) {
@@ -1334,7 +1384,12 @@ function We() {
 				l.push((t >> 12) | 224, ((t >> 6) & 63) | 128, (t & 63) | 128)
 			} else if (t < 1114112) {
 				if ((e -= 4) < 0) break
-				l.push((t >> 18) | 240, ((t >> 12) & 63) | 128, ((t >> 6) & 63) | 128, (t & 63) | 128)
+				l.push(
+					(t >> 18) | 240,
+					((t >> 12) & 63) | 128,
+					((t >> 6) & 63) | 128,
+					(t & 63) | 128
+				)
 			} else throw new Error('Invalid code point')
 		}
 		return l
@@ -1410,8 +1465,8 @@ var C = class c extends Error {
 				this[o] = g.isBuffer(p)
 					? p.toString(u.encoding)
 					: p == null
-					? p
-					: JSON.parse(JSON.stringify(p))
+						? p
+						: JSON.parse(JSON.stringify(p))
 			}
 	}
 }
@@ -1448,7 +1503,8 @@ var we = class {
 		prepend(r) {
 			if (g.isBuffer(r)) {
 				let d = this.length + r.length
-				if (d >= this.size && (this.resize(), d >= this.size)) throw Error('INVALID_BUFFER_STATE')
+				if (d >= this.size && (this.resize(), d >= this.size))
+					throw Error('INVALID_BUFFER_STATE')
 				let u = this.buf
 				;(this.buf = g.allocUnsafe(this.size)),
 					r.copy(this.buf, 0),
@@ -1519,7 +1575,9 @@ var Xe = 12,
 			recordHasError: !1,
 			record_length: 0,
 			recordDelimiterMaxLength:
-				c.record_delimiter.length === 0 ? 0 : Math.max(...c.record_delimiter.map((r) => r.length)),
+				c.record_delimiter.length === 0
+					? 0
+					: Math.max(...c.record_delimiter.map((r) => r.length)),
 			trimChars: [g.from(' ', c.encoding)[0], g.from('	', c.encoding)[0]],
 			wasQuoting: !1,
 			wasRowDelimiter: !1,
@@ -1568,7 +1626,11 @@ var be = function (c) {
 	else if (r.cast !== !0)
 		throw new C(
 			'CSV_INVALID_OPTION_CAST',
-			['Invalid option cast:', 'cast must be true or a function,', `got ${JSON.stringify(r.cast)}`],
+			[
+				'Invalid option cast:',
+				'cast must be true or a function,',
+				`got ${JSON.stringify(r.cast)}`
+			],
 			r
 		)
 	if (r.cast_date === void 0 || r.cast_date === null || r.cast_date === !1 || r.cast_date === '')
@@ -1588,7 +1650,8 @@ var be = function (c) {
 			],
 			r
 		)
-	if (((r.cast_first_line_to_header = null), r.columns === !0)) r.cast_first_line_to_header = void 0
+	if (((r.cast_first_line_to_header = null), r.columns === !0))
+		r.cast_first_line_to_header = void 0
 	else if (typeof r.columns == 'function')
 		(r.cast_first_line_to_header = r.columns), (r.columns = !0)
 	else if (Array.isArray(r.columns)) r.columns = ae(r.columns)
@@ -1668,7 +1731,10 @@ var be = function (c) {
 	if (
 		((r.delimiter = r.delimiter.map(function (u) {
 			if (u == null || u === !1) return g.from(',', r.encoding)
-			if ((typeof u == 'string' && (u = g.from(u, r.encoding)), !g.isBuffer(u) || u.length === 0))
+			if (
+				(typeof u == 'string' && (u = g.from(u, r.encoding)),
+				!g.isBuffer(u) || u.length === 0)
+			)
 				throw new C(
 					'CSV_INVALID_OPTION_DELIMITER',
 					[
@@ -1683,8 +1749,8 @@ var be = function (c) {
 		r.escape === void 0 || r.escape === !0
 			? (r.escape = g.from('"', r.encoding))
 			: typeof r.escape == 'string'
-			? (r.escape = g.from(r.escape, r.encoding))
-			: (r.escape === null || r.escape === !1) && (r.escape = null),
+				? (r.escape = g.from(r.escape, r.encoding))
+				: (r.escape === null || r.escape === !1) && (r.escape = null),
 		r.escape !== null && !g.isBuffer(r.escape))
 	)
 		throw new Error(
@@ -1737,7 +1803,10 @@ var be = function (c) {
 	if (r.ignore_last_delimiters === !0 && r.columns === !1)
 		throw new C(
 			'CSV_IGNORE_LAST_DELIMITERS_REQUIRES_COLUMNS',
-			['The option `ignore_last_delimiters`', 'requires the activation of the `columns` option'],
+			[
+				'The option `ignore_last_delimiters`',
+				'requires the activation of the `columns` option'
+			],
 			r
 		)
 	if (r.info === void 0 || r.info === null || r.info === !1) r.info = !1
@@ -1779,7 +1848,11 @@ var be = function (c) {
 	else if (typeof r.on_record != 'function')
 		throw new C(
 			'CSV_INVALID_OPTION_ON_RECORD',
-			['Invalid option `on_record`:', 'expect a function,', `got ${JSON.stringify(r.on_record)}`],
+			[
+				'Invalid option `on_record`:',
+				'expect a function,',
+				`got ${JSON.stringify(r.on_record)}`
+			],
 			r
 		)
 	if (r.quote === null || r.quote === !1 || r.quote === '') r.quote = null
@@ -1846,7 +1919,8 @@ var be = function (c) {
 		})),
 		typeof r.relax_column_count != 'boolean')
 	)
-		if (r.relax_column_count === void 0 || r.relax_column_count === null) r.relax_column_count = !1
+		if (r.relax_column_count === void 0 || r.relax_column_count === null)
+			r.relax_column_count = !1
 		else
 			throw new Error(
 				`Invalid Option: relax_column_count must be a boolean, got ${JSON.stringify(
@@ -1875,7 +1949,9 @@ var be = function (c) {
 		if (r.relax_quotes === void 0 || r.relax_quotes === null) r.relax_quotes = !1
 		else
 			throw new Error(
-				`Invalid Option: relax_quotes must be a boolean, got ${JSON.stringify(r.relax_quotes)}`
+				`Invalid Option: relax_quotes must be a boolean, got ${JSON.stringify(
+					r.relax_quotes
+				)}`
 			)
 	if (typeof r.skip_empty_lines != 'boolean')
 		if (r.skip_empty_lines === void 0 || r.skip_empty_lines === null) r.skip_empty_lines = !1
@@ -1886,7 +1962,10 @@ var be = function (c) {
 				)}`
 			)
 	if (typeof r.skip_records_with_empty_values != 'boolean')
-		if (r.skip_records_with_empty_values === void 0 || r.skip_records_with_empty_values === null)
+		if (
+			r.skip_records_with_empty_values === void 0 ||
+			r.skip_records_with_empty_values === null
+		)
 			r.skip_records_with_empty_values = !1
 		else
 			throw new Error(
@@ -1919,11 +1998,14 @@ var be = function (c) {
 	)
 		r.to = -1
 	else if (
-		(typeof r.to == 'string' && /\d+/.test(r.to) && (r.to = parseInt(r.to)), Number.isInteger(r.to))
+		(typeof r.to == 'string' && /\d+/.test(r.to) && (r.to = parseInt(r.to)),
+		Number.isInteger(r.to))
 	) {
 		if (r.to <= 0)
 			throw new Error(
-				`Invalid Option: to must be a positive integer greater than 0, got ${JSON.stringify(c.to)}`
+				`Invalid Option: to must be a positive integer greater than 0, got ${JSON.stringify(
+					c.to
+				)}`
 			)
 	} else throw new Error(`Invalid Option: to must be an integer, got ${JSON.stringify(c.to)}`)
 	if (r.to_line === void 0 || r.to_line === null) r.to_line = -1
@@ -1938,7 +2020,9 @@ var be = function (c) {
 				)}`
 			)
 	} else
-		throw new Error(`Invalid Option: to_line must be an integer, got ${JSON.stringify(c.to_line)}`)
+		throw new Error(
+			`Invalid Option: to_line must be an integer, got ${JSON.stringify(c.to_line)}`
+		)
 	return r
 }
 var ke = function (c) {
@@ -1974,7 +2058,7 @@ var ke = function (c) {
 									`\r
 `,
 									o
-							  ).length
+								).length
 							: _,
 						w ? (p === null ? 0 : p.length) + y.length : 0,
 						w ? y.length + _ : 0
@@ -1997,7 +2081,12 @@ var ke = function (c) {
 						to_line: S
 					} = this.options,
 					{ comment: O, escape: U, quote: L, record_delimiter: K } = this.options,
-					{ bomSkipped: he, previousBuf: ee, rawBuffer: de, escapeIsQuote: pe } = this.state,
+					{
+						bomSkipped: he,
+						previousBuf: ee,
+						rawBuffer: de,
+						escapeIsQuote: pe
+					} = this.state,
 					R
 				if (ee === void 0)
 					if (u === void 0) {
@@ -2074,10 +2163,16 @@ var ke = function (c) {
 										K.length === 0
 											? this.__autoDiscoverRecordDelimiter(R, x + L.length)
 											: this.__isRecordDelimiter(F, R, x + L.length)
-								if (U !== null && this.__isEscape(R, x, k) && this.__isQuote(R, x + U.length))
+								if (
+									U !== null &&
+									this.__isEscape(R, x, k) &&
+									this.__isQuote(R, x + U.length)
+								)
 									x += U.length - 1
 								else if (!F || D || V || z || W) {
-									;(this.state.quoting = !1), (this.state.wasQuoting = !0), (x += L.length - 1)
+									;(this.state.quoting = !1),
+										(this.state.wasQuoting = !0),
+										(x += L.length - 1)
 									continue
 								} else if (E === !1) {
 									let Q = this.__error(
@@ -2104,16 +2199,22 @@ var ke = function (c) {
 								if (E === !1) {
 									let F = this.__infoField(),
 										W = Object.keys(ie)
-											.map((D) => (ie[D].equals(this.state.field.toString()) ? D : !1))
+											.map((D) =>
+												ie[D].equals(this.state.field.toString()) ? D : !1
+											)
 											.filter(Boolean)[0],
 										z = this.__error(
 											new C(
 												'INVALID_OPENING_QUOTE',
 												[
 													'Invalid Opening Quote:',
-													`a quote is found on field ${JSON.stringify(F.column)} at line ${
+													`a quote is found on field ${JSON.stringify(
+														F.column
+													)} at line ${
 														F.lines
-													}, value is ${JSON.stringify(this.state.field.toString(w))}`,
+													}, value is ${JSON.stringify(
+														this.state.field.toString(w)
+													)}`,
 													W ? `(${W} bom)` : void 0
 												],
 												this.options,
@@ -2140,7 +2241,9 @@ var ke = function (c) {
 								else {
 									if (
 										this.state.enabled === !1 &&
-										this.info.lines + (this.state.wasRowDelimiter === !0 ? 1 : 0) >= I
+										this.info.lines +
+											(this.state.wasRowDelimiter === !0 ? 1 : 0) >=
+											I
 									) {
 										;(this.state.enabled = !0),
 											this.__resetField(),
@@ -2261,7 +2364,8 @@ var ke = function (c) {
 							? this.info.empty_lines++
 							: this.state.commenting === !0 && this.info.comment_lines++
 				else (this.state.bufBytesStart += x), (this.state.previousBuf = R.slice(x))
-				this.state.wasRowDelimiter === !0 && (this.info.lines++, (this.state.wasRowDelimiter = !1))
+				this.state.wasRowDelimiter === !0 &&
+					(this.info.lines++, (this.state.wasRowDelimiter = !1))
 			},
 			__onRecord: function (u) {
 				let {
@@ -2302,7 +2406,7 @@ var ke = function (c) {
 									this.options,
 									this.__infoField(),
 									{ record: b }
-							  )
+								)
 							: new C(
 									'CSV_RECORD_INCONSISTENT_COLUMNS',
 									[
@@ -2313,7 +2417,7 @@ var ke = function (c) {
 									this.options,
 									this.__infoField(),
 									{ record: b }
-							  )
+								)
 					if (
 						w === !0 ||
 						(I === !0 && B < this.state.expectedRecordLength) ||
@@ -2437,7 +2541,11 @@ var ke = function (c) {
 			},
 			__cast: function (u) {
 				let { columns: a, relax_column_count: h } = this.options
-				if (Array.isArray(a) === !0 && h && this.options.columns.length <= this.state.record.length)
+				if (
+					Array.isArray(a) === !0 &&
+					h &&
+					this.options.columns.length <= this.state.record.length
+				)
 					return [void 0, void 0]
 				if (this.state.castField !== null)
 					try {
@@ -2475,7 +2583,8 @@ var ke = function (c) {
 			},
 			__isDelimiter: function (u, a, h) {
 				let { delimiter: o, ignore_last_delimiters: p } = this.options
-				if (p === !0 && this.state.record.length === this.options.columns.length - 1) return 0
+				if (p === !0 && this.state.record.length === this.options.columns.length - 1)
+					return 0
 				if (p !== !1 && typeof p == 'number' && this.state.record.length === p - 1) return 0
 				e: for (let y = 0; y < o.length; y++) {
 					let w = o[y]
@@ -2685,7 +2794,9 @@ var Y = {
 	}
 var Ve = (c) => {
 	let r = c
-	;(r = r.replace(/\\./g, '')), (r = r.replace(/".*?"/gs, '0')), (r = r.replace(/^\s*[\r\n]/gm, ''))
+	;(r = r.replace(/\\./g, '')),
+		(r = r.replace(/".*?"/gs, '0')),
+		(r = r.replace(/^\s*[\r\n]/gm, ''))
 	let d = r.split(/[\r\n]/)
 	d.at(-1) === '' && d.pop()
 	let u = ['	', ';', ',', '|', '^', '~', ':', ' ', '`'],
@@ -2765,13 +2876,21 @@ var ce = class {
 							return
 						}
 						for (let { target: u } of r.target) {
-							if (!u || !('data' in u) || !u.data || !('csv' in u.data) || !u.data.csv) continue
+							if (
+								!u ||
+								!('data' in u) ||
+								!u.data ||
+								!('csv' in u.data) ||
+								!u.data.csv
+							)
+								continue
 							let a = u.data.csv
 							if (!('url' in a) && !('content' in a)) continue
 							'options' in a && a.options && this._setOptions(a.options)
 							let h = await this.parse(a.url || a.content || '')
 							if (!h || !('series' in h) || !h.series) throw new Error('Invalid data')
-							if (!this._isHeader && !this._autoheader) throw new Error('CSV file has no header')
+							if (!this._isHeader && !this._autoheader)
+								throw new Error('CSV file has no header')
 							;(h.series = h.series.map(
 								(o) => (
 									'values' in o &&
@@ -2793,7 +2912,9 @@ var ce = class {
 	_setOptions(r) {
 		'delimiter' in r && r.delimiter && (this.parserOptions.delimiter = r.delimiter),
 			'encoding' in r && r.encoding && (this.parserOptions.encoding = r.encoding),
-			'hasHeader' in r && r.hasHeader && ((this._hasHeader = r.hasHeader), (this._isHeader = !0)),
+			'hasHeader' in r &&
+				r.hasHeader &&
+				((this._hasHeader = r.hasHeader), (this._isHeader = !0)),
 			'headers' in r && r.headers && Array.isArray(r.headers) && (this._headers = r.headers),
 			'autoheader' in r && r.autoheader && (this._autoheader = r.autoheader),
 			'emptyColumnPrefix' in r &&
@@ -2803,8 +2924,8 @@ var ce = class {
 	async parse(r, d = {}) {
 		return r
 			? (d && (this.parserOptions = { ...this.parserOptions, ...d }),
-			  await this.setSource(r),
-			  this.data)
+				await this.setSource(r),
+				this.data)
 			: null
 	}
 	async setSource(r) {

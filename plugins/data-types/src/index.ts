@@ -1,9 +1,9 @@
-import { convertToNumber, convertToString } from 'utils/mainTypeConverter'
-import { typeIsNumber } from 'utils/mainTypeDetection'
-import { unitCheck } from 'utils/unitCheck'
-import { headerCheck } from 'utils/headerCheck'
-import { dateFormatCheck, datesCheck } from 'utils/dateCheck'
-import { linkCheck } from 'utils/linkCheck'
+import { convertToNumber, convertToString } from './utils/mainTypeConverter'
+import { typeIsNumber } from './utils/mainTypeDetection'
+import { unitCheck } from './utils/unitCheck'
+import { headerCheck } from './utils/headerCheck'
+import { dateFormatCheck, datesCheck, timeFormatCheck } from './utils/dateCheck'
+import { linkCheck } from './utils/linkCheck'
 
 export interface series {
 	name: string
@@ -78,16 +78,19 @@ export class DataTypes {
 
 		headerCheck(seriesTypes, this._addType)
 
-		dateFormatCheck(seriesTypes, this._addType)
+		dateFormatCheck(this._notTyped(seriesTypes), this._addType)
 
-		const notTyped = seriesTypes.filter(
-			(seriesData) => !this.typedSeries.includes(seriesData.name)
-		)
-		datesCheck(notTyped, this.typesList, this._addType)
+		timeFormatCheck(this._notTyped(seriesTypes), this._addType)
 
-		linkCheck(seriesTypes, this._addType)
+		datesCheck(this._notTyped(seriesTypes), this.typesList, this._addType)
+
+		linkCheck(this._notTyped(seriesTypes), this._addType)
 
 		this._addFinalTypes(seriesTypes)
+	}
+
+	private _notTyped = (series: series[]) => {
+		return series.filter((seriesData) => !this.typedSeries.includes(seriesData.name))
 	}
 
 	private _addType = (name: string, type: string) => {
@@ -117,11 +120,12 @@ export class DataTypes {
 			if (!seriesData.values) return
 			const metaType = seriesData.type === 'measure' ? 'number' : 'string'
 
-			if (seriesData.meta) {
-				seriesData.meta.type = metaType
-			} else {
-				seriesData.meta = { type: metaType }
+			const meta = {
+				type: metaType,
+				dataTypes: metaType,
+				dependencies: []
 			}
+			seriesData.meta = { ...(seriesData.meta ?? {}), ...meta }
 			this._types.push({ name: seriesData.name, type: metaType })
 		})
 	}

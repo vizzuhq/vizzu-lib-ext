@@ -2,7 +2,7 @@ import * as esbuild from 'esbuild'
 import { polyfillNode } from 'esbuild-plugin-polyfill-node'
 
 await esbuild.build({
-	entryPoints: ['src/dataTypes.ts'],
+	entryPoints: ['src/index.ts'],
 	bundle: true,
 	minify: true,
 	sourcemap: false,
@@ -20,7 +20,7 @@ await esbuild.build({
 })
 
 await esbuild.build({
-	entryPoints: ['src/dataTypes.ts'],
+	entryPoints: ['src/index.ts'],
 	bundle: true,
 	minify: true,
 	sourcemap: false,
