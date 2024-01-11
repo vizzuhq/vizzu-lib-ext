@@ -3,7 +3,7 @@ import { orderedDateTypes } from './dateTypeVariants'
 import { convertToString } from './mainTypeConverter'
 
 export const headerCheck = (series: series[], addType: (name: string, type: string) => void) => {
-	const orederedHeaderVaraint = orderedDateTypes()
+	const orderedHeaderVariant = orderedDateTypes()
 	series.forEach((seriesData: series) => {
 		if (seriesData?.meta?.type) return
 
@@ -12,7 +12,7 @@ export const headerCheck = (series: series[], addType: (name: string, type: stri
 		if (!values) return
 
 		const header = name.toLowerCase()
-		const matchedHeaders = orederedHeaderVaraint.find(({ names }) => names.includes(header))
+		const matchedHeaders = orderedHeaderVariant.find(({ names }) => names.includes(header))
 
 		if (!matchedHeaders) return
 		const { type, dataType, seriesType, match } = matchedHeaders

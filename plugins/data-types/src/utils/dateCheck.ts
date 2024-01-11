@@ -82,11 +82,11 @@ export const datesCheck = (
 	series.forEach((seriesData: series, seriesKey: number) => {
 		if (seriesData?.meta?.type) return
 
-		const orederedHeaderVaraint = orderedDateTypes().filter(
+		const orderedHeaderVariant = orderedDateTypes().filter(
 			({ type }) => !typeList.includes(type)
 		)
 
-		for (const { type, match, dependencies } of orederedHeaderVaraint) {
+		for (const { type, match, dependencies } of orderedHeaderVariant) {
 			if (seriesData?.meta?.type) return
 
 			if (dependencies && Array.isArray(dependencies)) {
