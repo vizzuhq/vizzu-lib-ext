@@ -3,7 +3,19 @@ const fs = require('fs')
 const path = require('path')
 const glob = require('glob')
 
-async function updatePackageJson(packageJsonPath, peerDependency, peerVersion) {
+async function processPackages(searchFolder, peerDependency, peerVersion) {
+	const packageJsonFiles = glob.sync('**/package.json', { cwd: searchFolder, absolute: true })
+
+	for (const packageJsonPath of packageJsonFiles) {
+		const newVersion = updatePackageJson(packageJsonPath, peerDependency, peerVersion)
+		const packageRoot = path.dirname(packageJsonPath)
+		updateChangelog(path.join(packageRoot, 'CHANGELOG.md'), newVersion, peerVersion)
+		updateTsFiles(packageRoot, peerVersion)
+		updateDemoFiles(packageRoot, peerVersion)
+	}
+}
+
+function updatePackageJson(packageJsonPath, peerDependency, peerVersion) {
 	try {
 		const packageJson = require(packageJsonPath)
 
@@ -24,45 +36,72 @@ async function updatePackageJson(packageJsonPath, peerDependency, peerVersion) {
 
 		fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson))
 
-		console.log(`Updated ${packageJsonPath} to version ${newVersion}`)
-
 		return newVersion
 	} catch (error) {
 		console.error(`Error updating ${packageJsonPath}: ${error.message}`)
 	}
 }
 
-async function processPackages(searchFolder, peerDependency, peerVersion) {
-	const packageJsonFiles = glob.sync('**/package.json', { cwd: searchFolder, absolute: true })
-
-	for (const packageJsonPath of packageJsonFiles) {
-		const newVersion = await updatePackageJson(packageJsonPath, peerDependency, peerVersion)
-		await updateChangelog(
-			path.join(path.dirname(packageJsonPath), 'CHANGELOG.md'),
-			newVersion,
-			peerVersion
-		)
-	}
-}
-
-async function updateChangelog(changelogPath, newVersion, peerVersion) {
+function updateChangelog(changelogPath, newVersion, peerVersion) {
 	try {
 		const [peerMajor, peerMinor] = peerVersion.split('.').map(Number)
-		const changelogContent = fs.readFileSync(changelogPath, 'utf-8')
-		const unreleasedIndex = changelogContent.indexOf('## [Unreleased]')
+		const content = fs.readFileSync(changelogPath, 'utf-8')
+		const unreleasedIndex = content.indexOf('## [Unreleased]')
 		if (unreleasedIndex !== -1) {
-			const newChangelogContent =
-				changelogContent.slice(0, unreleasedIndex + 16) +
+			const newContent =
+				content.slice(0, unreleasedIndex + 16) +
 				`\n\n## [${newVersion}]\n\n-   Set vizzu-${peerMajor}.${peerMinor}.x as a peer dependency` +
-				changelogContent.slice(unreleasedIndex + 16)
+				content.slice(unreleasedIndex + 16)
 
-			fs.writeFileSync(changelogPath, newChangelogContent)
-			console.log(`Updated ${changelogPath} with new release ${newVersion}`)
+			fs.writeFileSync(changelogPath, newContent)
 		} else {
 			console.error(`Error: Could not find "[Unreleased]" section in ${changelogPath}`)
 		}
 	} catch (error) {
 		console.error(`Error updating ${changelogPath}: ${error.message}`)
+	}
+}
+
+function updateTsFiles(packageRoot, peerVersion) {
+	try {
+		const tsFiles = glob.sync('**/*.ts', { cwd: packageRoot, absolute: true })
+
+		for (const tsFilePath of tsFiles) {
+			const content = fs.readFileSync(tsFilePath, 'utf-8')
+			const newContent = content.replace(
+				/(meta\s*=\s*{[^}]*version\s*:\s*)'(\d+\.\d+\.\d+)'/g,
+				`$1'${peerVersion}'`
+			)
+
+			fs.writeFileSync(tsFilePath, newContent)
+		}
+	} catch (error) {
+		console.error(`Error updating .ts files: ${error.message}`)
+	}
+}
+
+function updateDemoFiles(packageRoot, peerVersion) {
+	try {
+		const [peerMajor, peerMinor] = peerVersion.split('.').map(Number)
+		const demoFiles = glob.sync('**/demo.js', { cwd: packageRoot, absolute: true })
+
+		for (const demoFilePath of demoFiles) {
+			const content = fs.readFileSync(demoFilePath, 'utf-8')
+
+			const updatedContent = content
+				.replace(
+					/'https:\/\/lib\.vizzuhq\.com\/(\d+)\.(\d+)\/([^']+)'/g,
+					`'https://lib.vizzuhq.com/${peerMajor}.${peerMinor}/$3'`
+				)
+				.replace(
+					/'https:\/\/cdn\.jsdelivr\.net\/npm\/vizzu@(\d+)\.(\d+)\/([^']+)'/g,
+					`'https://cdn.jsdelivr.net/npm/vizzu@${peerMajor}.${peerMinor}/$3'`
+				)
+
+			fs.writeFileSync(demoFilePath, updatedContent)
+		}
+	} catch (error) {
+		console.error(`Error updating demo.js files: ${error.message}`)
 	}
 }
 
