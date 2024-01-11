@@ -1,4 +1,4 @@
-import { CSVParser } from 'https://unpkg.com/@vizzu/csv-parser@latest/dist/mjs/index.js'
+import { CSVParser } from '../../csv-parser/dist/mjs/index.js'
 import { DataTypes } from '../dist/mjs/index.js'
 let chart
 
