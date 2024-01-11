@@ -4,7 +4,7 @@ const path = require('path')
 const glob = require('glob')
 
 async function processPackages(searchFolder, peerDependency, peerVersion) {
-	const packageJsonFiles = glob.sync('**/package.json', { cwd: searchFolder, absolute: true })
+	const packageJsonFiles = glob.sync('*/package.json', { cwd: searchFolder, absolute: true })
 
 	for (const packageJsonPath of packageJsonFiles) {
 		const newVersion = updatePackageJson(packageJsonPath, peerDependency, peerVersion)
