@@ -33,8 +33,8 @@ export class DataTypes {
 		depends: ['csvParser']
 	}
 
-	constructor(options: unknown = null) {
-		if (options) return
+	constructor(params = {}) {
+		if (params) return
 	}
 
 	private _types: { name: string; type: string }[] = []

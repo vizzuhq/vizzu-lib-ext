@@ -66,6 +66,10 @@ export interface dataType {
 	series: dataSeries[]
 }
 
+export interface ConstructorParams {
+	options?: optionsTypes
+}
+
 const LOG_PREFIX = [
 	'%cVIZZU%CSV-PARSER%c',
 	'background: #e2ae30; color: #3a60bf; font-weight: bold',
@@ -98,7 +102,7 @@ export class DataParser implements Plugin {
 		depends: []
 	}
 
-	constructor(params: { options?: Options } | null = null) {
+	constructor(params: ConstructorParams = {}) {
 		if (params?.options) {
 			this.parserOptions = { ...this.parserOptions, ...params.options }
 		}

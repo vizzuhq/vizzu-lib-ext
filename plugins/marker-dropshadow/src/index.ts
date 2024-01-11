@@ -23,6 +23,9 @@ export interface ShadowedMarker {
 	shadowOffsetX?: number
 	shadowOffsetY?: number
 }
+export interface ConstructorParams {
+	style?: ShadowedMarker
+}
 
 export class MarkerDropshadow {
 	private style: null | ShadowedMarker = null
@@ -36,7 +39,7 @@ export class MarkerDropshadow {
 		offsetY: 3
 	}
 
-	constructor(params: { style?: ShadowedMarker } | null = null) {
+	constructor(params: ConstructorParams = {}) {
 		this.style = params?.style ?? null
 		this.nextStyle = null
 		this.progress = 0

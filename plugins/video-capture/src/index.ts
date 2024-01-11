@@ -6,6 +6,10 @@ export interface Options {
 	recorder: { mimeType: string }
 	output: { mimeType: string }
 }
+
+export interface ConstructorParams {
+	options?: Options
+}
 export class VideoCapture implements Plugin {
 	private mediaRecorder: MediaRecorder
 	private _rendered: (result: { blob: Blob; getObjectURL: () => string }) => void
@@ -33,7 +37,7 @@ export class VideoCapture implements Plugin {
 		}
 	}
 
-	constructor(params: { options?: Options } | null = null) {
+	constructor(params: ConstructorParams = {}) {
 		this.options = {
 			stream: { frameRate: params?.options?.stream.frameRate || 30 },
 			recorder: { mimeType: params?.options?.recorder.mimeType || 'video/webm' },
