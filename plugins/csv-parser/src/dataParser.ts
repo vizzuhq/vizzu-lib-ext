@@ -93,7 +93,9 @@ export class DataParser implements Plugin {
 	}
 
 	meta = {
-		name: 'csvParser'
+		name: 'csvParser',
+		version: '0.9.0',
+		depends: []
 	}
 
 	constructor(params: { options: Options } | null = null) {
