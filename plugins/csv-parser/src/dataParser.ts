@@ -66,6 +66,10 @@ export interface dataType {
 	series: dataSeries[]
 }
 
+export interface ConstructorParams {
+	options?: optionsTypes
+}
+
 const LOG_PREFIX = [
 	'%cVIZZU%CSV-PARSER%c',
 	'background: #e2ae30; color: #3a60bf; font-weight: bold',
@@ -93,11 +97,15 @@ export class DataParser implements Plugin {
 	}
 
 	meta = {
-		name: 'csvParser'
+		name: 'csvParser',
+		version: '0.9.0',
+		depends: []
 	}
 
-	constructor(debug: boolean = false) {
-		this._debug = debug
+	constructor(params: ConstructorParams = {}) {
+		if (params?.options) {
+			this.parserOptions = { ...this.parserOptions, ...params.options }
+		}
 	}
 
 	get hasHeader(): boolean | null {
@@ -180,7 +188,6 @@ export class DataParser implements Plugin {
 	}
 
 	private _setOptions(options: optionsTypes) {
-		this._log(['setOptions', options])
 		if ('delimiter' in options && options.delimiter) {
 			this.parserOptions.delimiter = options.delimiter
 		}

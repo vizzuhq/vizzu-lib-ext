@@ -11,6 +11,9 @@ export interface Options {
 		mimeType: string
 	}
 }
+export interface ConstructorParams {
+	options?: Options
+}
 export declare class VideoCapture implements Plugin {
 	private mediaRecorder
 	private _rendered
@@ -25,7 +28,9 @@ export declare class VideoCapture implements Plugin {
 		start: () => void
 		stop: () => Promise<unknown>
 	}
-	constructor(options: Options)
+	constructor(params: ConstructorParams)
 	register(chart: Vizzu): void
 	_init(): void
 }
+
+export default VideoCapture

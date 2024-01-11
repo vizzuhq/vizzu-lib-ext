@@ -37,3 +37,5 @@ export class CSVParser extends DataParser {
 		return fs.readFileSync(fileName, 'utf-8')
 	}
 }
+
+export default CSVParser

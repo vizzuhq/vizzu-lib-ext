@@ -9,7 +9,7 @@ export const testCases = () => {
 					type: 'dimension',
 					meta: {
 						type: 'year',
-						dataTypes: 'date',
+						format: 'date',
 						dependencies: []
 					}
 				},
@@ -18,7 +18,7 @@ export const testCases = () => {
 					type: 'dimension',
 					meta: {
 						type: 'quarter',
-						dataTypes: 'date',
+						format: 'date',
 						dependencies: ['year']
 					}
 				},
@@ -27,7 +27,7 @@ export const testCases = () => {
 					type: 'dimension',
 					meta: {
 						type: 'string',
-						dataTypes: 'string',
+						format: 'string',
 						dependencies: []
 					}
 				},
@@ -36,7 +36,7 @@ export const testCases = () => {
 					type: 'dimension',
 					meta: {
 						type: 'string',
-						dataTypes: 'string',
+						format: 'string',
 						dependencies: []
 					}
 				},
@@ -45,7 +45,7 @@ export const testCases = () => {
 					type: 'dimension',
 					meta: {
 						type: 'string',
-						dataTypes: 'string',
+						format: 'string',
 						dependencies: []
 					}
 				},
@@ -54,7 +54,7 @@ export const testCases = () => {
 					type: 'dimension',
 					meta: {
 						type: 'string',
-						dataTypes: 'string',
+						format: 'string',
 						dependencies: []
 					}
 				},
@@ -63,7 +63,7 @@ export const testCases = () => {
 					type: 'measure',
 					meta: {
 						type: 'number',
-						dataTypes: 'number',
+						format: 'number',
 						dependencies: []
 					}
 				},
@@ -73,7 +73,7 @@ export const testCases = () => {
 					unit: '$',
 					meta: {
 						type: 'number',
-						dataTypes: 'number',
+						format: 'number',
 						dependencies: []
 					}
 				},
@@ -82,7 +82,7 @@ export const testCases = () => {
 					type: 'measure',
 					meta: {
 						type: 'number',
-						dataTypes: 'number',
+						format: 'number',
 						dependencies: []
 					}
 				},
@@ -91,7 +91,7 @@ export const testCases = () => {
 					type: 'measure',
 					meta: {
 						type: 'number',
-						dataTypes: 'number',
+						format: 'number',
 						dependencies: []
 					}
 				},
@@ -100,7 +100,7 @@ export const testCases = () => {
 					type: 'dimension',
 					meta: {
 						type: 'date',
-						dataTypes: 'date',
+						format: 'date',
 						dependencies: []
 					}
 				},
@@ -109,7 +109,7 @@ export const testCases = () => {
 					type: 'dimension',
 					meta: {
 						type: 'date',
-						dataTypes: 'time',
+						format: 'time',
 						dependencies: []
 					}
 				},
@@ -118,7 +118,7 @@ export const testCases = () => {
 					type: 'dimension',
 					meta: {
 						type: 'date',
-						dataTypes: 'datetime',
+						format: 'datetime',
 						dependencies: []
 					}
 				}

@@ -19,9 +19,9 @@ export const dateFormatCheck = (
 
 		const includesTimes = values.every((value) => /\d{1,2}:\d{1,2}/.test(value.toString()))
 
-		const meta: { type: string; dataTypes: string; dependencies: string[] } = {
+		const meta: { type: string; format: string; dependencies: string[] } = {
 			type: type,
-			dataTypes: includesTimes ? 'datetime' : 'date',
+			format: includesTimes ? 'datetime' : 'date',
 			dependencies: []
 		}
 
@@ -60,7 +60,7 @@ export const timeFormatCheck = (
 
 		const meta = {
 			type: type,
-			dataTypes: 'time',
+			format: 'time',
 			dependencies: []
 		}
 

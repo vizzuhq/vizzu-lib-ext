@@ -28,7 +28,13 @@ export interface hookContex {
 
 export class DataTypes {
 	meta = {
-		name: 'dataTypes'
+		name: 'dataTypes',
+		version: '0.9.0',
+		depends: ['csvParser']
+	}
+
+	constructor(params = {}) {
+		if (params) return
 	}
 
 	private _types: { name: string; type: string }[] = []
@@ -122,7 +128,7 @@ export class DataTypes {
 
 			const meta = {
 				type: metaType,
-				dataTypes: metaType,
+				format: metaType,
 				dependencies: []
 			}
 			seriesData.meta = { ...(seriesData.meta ?? {}), ...meta }
@@ -130,3 +136,5 @@ export class DataTypes {
 		})
 	}
 }
+
+export default DataTypes

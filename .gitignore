@@ -29,4 +29,5 @@ pnpm-debug.log*
 
 # Gitkeep
 !/**/.gitkeep
+plugins/**/dist
 plugins/**/dist/*

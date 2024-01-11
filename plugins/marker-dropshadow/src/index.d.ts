@@ -20,6 +20,9 @@ export interface ShadowedMarker {
 	shadowOffsetX?: number
 	shadowOffsetY?: number
 }
+export interface ConstructorParams {
+	style?: ShadowedMarker
+}
 export declare class MarkerDropshadow {
 	private style
 	private nextStyle
@@ -31,6 +34,7 @@ export declare class MarkerDropshadow {
 		version: string
 		depends: string[]
 	}
+	constructor(params: ConstructorParams)
 	get listeners(): {
 		update: (
 			event: CustomEvent<{
@@ -47,3 +51,5 @@ export declare class MarkerDropshadow {
 	_setDropshadow(event: { renderingContext: CanvasRenderingContext2D | ShadowedMarker }): void
 	_actStyle(): unknown
 }
+
+export default MarkerDropshadow
