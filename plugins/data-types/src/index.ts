@@ -31,7 +31,7 @@ export class DataTypes {
 		name: 'dataTypes'
 	}
 
-	constructor(options: unknown = {}) {
+	constructor(options: unknown = null) {
 		if (options) return
 	}
 

@@ -36,8 +36,8 @@ export class MarkerDropshadow {
 		offsetY: 3
 	}
 
-	constructor(style: ShadowedMarker | null = null) {
-		this.style = style ?? null
+	constructor(params:{ style: ShadowedMarker } | null = null) {
+		this.style = params?.style ?? null
 		this.nextStyle = null
 		this.progress = 0
 	}

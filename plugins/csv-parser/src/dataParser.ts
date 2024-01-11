@@ -96,9 +96,9 @@ export class DataParser implements Plugin {
 		name: 'csvParser'
 	}
 
-	constructor(options: Options = {}) {
-		if (options) {
-			this.parserOptions = { ...this.parserOptions, ...options }
+	constructor(params: { options: Options} | null = null) {
+		if (params?.options) {
+			this.parserOptions = { ...this.parserOptions, ...params.options }
 		}
 	}
 
