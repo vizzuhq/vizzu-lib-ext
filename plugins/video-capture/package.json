@@ -22,7 +22,8 @@
 	"scripts": {
 		"build": "run clear && node build/build.js",
 		"clear": "node build/clear.js",
-		"pack": "run build && npm pack"
+		"pack": "run build && npm pack",
+		"test": "vitest"
 	},
 	"repository": {
 		"type": "git",
@@ -43,7 +44,8 @@
 	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/video-capture#readme",
 	"devDependencies": {
 		"ts-standard": "^12.0.2",
-		"typescript": "^5.2.2"
+		"typescript": "^5.2.2",
+		"vitest": "^1.1.3"
 	},
 	"peerDependencies": {
 		"vizzu": "~0.9.2"
