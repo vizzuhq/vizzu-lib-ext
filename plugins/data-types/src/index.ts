@@ -29,7 +29,7 @@ export interface hookContex {
 export class DataTypes {
 	meta = {
 		name: 'dataTypes',
-		version: '0.9.0',
+		version: '0.9.3',
 		depends: ['csvParser']
 	}
 
