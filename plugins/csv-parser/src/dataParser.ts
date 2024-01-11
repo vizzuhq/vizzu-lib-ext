@@ -96,8 +96,10 @@ export class DataParser implements Plugin {
 		name: 'csvParser'
 	}
 
-	constructor(debug: boolean = false) {
-		this._debug = debug
+	constructor(options: Options = {}) {
+		if (options) {
+			this.parserOptions = { ...this.parserOptions, ...options }
+		}
 	}
 
 	get hasHeader(): boolean | null {
@@ -180,7 +182,6 @@ export class DataParser implements Plugin {
 	}
 
 	private _setOptions(options: optionsTypes) {
-		this._log(['setOptions', options])
 		if ('delimiter' in options && options.delimiter) {
 			this.parserOptions.delimiter = options.delimiter
 		}

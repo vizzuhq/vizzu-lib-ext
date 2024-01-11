@@ -47,3 +47,5 @@ export declare class MarkerDropshadow {
 	_setDropshadow(event: { renderingContext: CanvasRenderingContext2D | ShadowedMarker }): void
 	_actStyle(): unknown
 }
+
+export default MarkerDropshadow

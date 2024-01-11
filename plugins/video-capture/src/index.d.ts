@@ -29,3 +29,5 @@ export declare class VideoCapture implements Plugin {
 	register(chart: Vizzu): void
 	_init(): void
 }
+
+export default VideoCapture

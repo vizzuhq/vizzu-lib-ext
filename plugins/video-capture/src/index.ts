@@ -68,3 +68,5 @@ export class VideoCapture implements Plugin {
 		}
 	}
 }
+
+export default VideoCapture

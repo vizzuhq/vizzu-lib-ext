@@ -31,6 +31,10 @@ export class DataTypes {
 		name: 'dataTypes'
 	}
 
+	constructor(options: unknown = {}) {
+		if (options) return
+	}
+
 	private _types: { name: string; type: string }[] = []
 
 	get types() {
@@ -130,3 +134,5 @@ export class DataTypes {
 		})
 	}
 }
+
+export default DataTypes
