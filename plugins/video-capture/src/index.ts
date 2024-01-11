@@ -33,7 +33,7 @@ export class VideoCapture implements Plugin {
 		}
 	}
 
-	constructor(params: { options: Options } | null = null) {
+	constructor(params: { options?: Options } | null = null) {
 		this.options = {
 			stream: { frameRate: params?.options?.stream.frameRate || 30 },
 			recorder: { mimeType: params?.options?.recorder.mimeType || 'video/webm' },
