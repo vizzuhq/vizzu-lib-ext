@@ -126,7 +126,7 @@ export class DataTypes {
 
 			const meta = {
 				type: metaType,
-				dataTypes: metaType,
+				format: metaType,
 				dependencies: []
 			}
 			seriesData.meta = { ...(seriesData.meta ?? {}), ...meta }

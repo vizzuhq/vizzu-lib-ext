@@ -38,7 +38,10 @@ export class VideoCapture implements Plugin {
 			stream: { frameRate: params?.options?.stream.frameRate || 30 },
 			recorder: { mimeType: params?.options?.recorder.mimeType || 'video/webm' },
 			output: params?.options?.output || {
-				mimeType: params?.options?.output?.mimeType || params?.options?.recorder?.mimeType || 'video/webm'
+				mimeType:
+					params?.options?.output?.mimeType ||
+					params?.options?.recorder?.mimeType ||
+					'video/webm'
 			}
 		}
 	}

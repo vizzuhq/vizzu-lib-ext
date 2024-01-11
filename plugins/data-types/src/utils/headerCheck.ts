@@ -21,7 +21,7 @@ export const headerCheck = (series: series[], addType: (name: string, type: stri
 		seriesData.type = seriesType
 		const meta = {
 			type: type,
-			dataTypes: dataType,
+			format: dataType,
 			dependencies: matchedHeaders?.dependencies ?? []
 		}
 		seriesData.meta = { ...seriesData.meta, ...meta }
