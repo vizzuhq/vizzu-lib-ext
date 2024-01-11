@@ -1,0 +1,37 @@
+{
+	"name": "@vizzu/data-types",
+	"version": "0.1.0",
+	"type": "module",
+	"private": true,
+	"exports": {
+		".": {
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/mjs/index.js",
+			"default": "./dist/mjs/index.js",
+			"require": "./dist/cjs/index.js"
+		}
+	},
+	"files": [
+		"dist/*",
+		"package.json"
+	],
+	"main": "dist/cjs/index.js",
+	"module": "dist/mjs/index.js",
+	"types": "dist/types/index.d.ts",
+	"scripts": {
+		"build": "run clear && node build/build.js && run types",
+		"clear": "node build/clear.js",
+		"test": "vitest",
+		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.23.0",
+		"esbuild": "^0.19.4",
+		"esbuild-plugin-babel": "^0.2.3",
+		"esbuild-plugin-polyfill-node": "^0.3.0",
+		"glob": "^10.3.10",
+		"ts-standard": "^12.0.2",
+		"typescript": "^5.2.2",
+		"vitest": "^1.1.3"
+	}
+}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="hu">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vizzu data type demo</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 left">
+					<h1>Vizzu CSV parser demo</h1>
+					<div class="form-group">
+						<label for="textArea">CSV content:</label>
+						<textarea id="textArea" rows="20">
+Year,Quarter,Continent,Country,Category,Sub-Category,Items sold,Unit price,Revenue,Profit,Date,Time,DateTime,D
+2021,Q1,North America,United States,Furniture,Bookcases,264,283$,74712,9712.56,2021-01-12,18:01:00,2021-01-12 18:00:00,1
+2021,Q1,Asia,China,Furniture,Chairs,198,92$,18216,3461.04,2021-01-13,19:02:00,2021-01-13 19:01:00,2
+2021,Q2,North America,Canada,Office Supplies,Labels,97,269$,26093,5218.6,2021-01-14,20:03:00,2021-01-14 20:02:00,3
+2021,Q2,Europe,Germany,Furniture,Tables,268,224$,60032,10205.44,2021-01-15,21:04:00,2021-01-15 21:03:00,4
+2021,Q3,North America,Mexico,Office Supplies,Binders,54,158$,8532,1706.4,2021-01-16,22:05:00,2021-01-16 22:04:00,5
+2021,Q3,Asia,Japan,Furniture,Furnishings,187,180$,33660,5722.2,2021-01-17,23:06:00,2021-01-17 23:05:00,6
+2021,Q4,North America,United States,Office Supplies,Art,149,145$,21605,3672.85,2021-01-18,0:07:00,2021-01-19 00:06:00,7
+2021,Q4,Europe,Germany,Technology,Phones,47,229$,10763,1076.3,2021-01-19,1:08:00,2021-01-20 01:07:00,8
+2022,Q1,North America,Canada,Furniture,Chairs,70,204$,14280,2713.2,2021-01-20,2:09:00,2021-01-21 02:08:00,9
+2022,Q1,Asia,Japan,Furniture,Tables,93,94$,8742,1486.14,2021-01-21,3:10:00,2021-01-22 03:09:00,10
+2022,Q2,North America,Mexico,Office Supplies,Binders,87,205$,17835,1961.85,2021-01-22,4:11:00,2021-01-23 04:10:00,11
+2022,Q2,Europe,Germany,Technology,Accessories,154,98$,15092,2565.64,2021-01-23,5:12:00,2021-01-24 05:11:00,12
+2022,Q3,North America,United States,Furniture,Bookcases,109,59$,6431,1157.58,2021-01-24,6:13:00,2021-01-25 06:12:00,13
+2022,Q3,Asia,Japan,Office Supplies,Binders,154,198$,30492,5488.56,2021-01-25,7:14:00,2021-01-26 07:13:00,14
+2022,Q4,North America,Canada,Furniture,Furnishings,78,149$,11622,1743.3,2021-01-26,8:15:00,2021-01-27 08:14:00,15
+2022,Q4,Europe,France,Technology,Phones,251,278$,69778,11862.26,2021-01-27,9:16:00,2021-01-28 09:15:00,16
+2023,Q1,North America,United States,Furniture,Bookcases,116,39$,4524,814.32,2021-01-28,10:17:00,2021-01-29 10:16:00,17
+2023,Q1,Asia,China,Furniture,Chairs,246,168$,41328,7852.32,2021-01-29,11:18:00,2021-01-30 11:17:00,18
+2023,Q2,North America,Mexico,Technology,Phones,266,165$,43890,7900.2,2021-01-30,12:19:00,2021-01-31 12:18:00,19
+2023,Q2,Europe,France,Technology,Phones,281,97$,27257,4633.69,2021-01-31,13:20:00,2021-02-01 13:19:00,20
+2023,Q3,North America,United States,Office Supplies,Art,266,289$,76874,9993.62,2021-02-01,14:21:00,2021-02-02 14:20:00,21
+2023,Q3,Asia,China,Office Supplies,Art,127,106$,13462,1615.44,2021-02-02,15:22:00,2021-02-03 15:21:00,22
+2023,Q4,North America,Canada,Technology,Accessories,63,250$,15750,2205,2021-02-03,16:23:00,2021-02-04 16:22:00,23
+2023,Q4,Europe,Germany,Office Supplies,Binders,196,69$,13524,1487.64,2021-02-04,17:24:00,2021-02-05 17:23:00,24</textarea
+						>
+						<button id="testBTN">Type</button>
+					</div>
+				</div>
+				<div class="col-md-6 right">
+					<div id="parserInfo"></div>
+					<div id="result"></div>
+				</div>
+			</div>
+		</div>
+		<script src="demo.js " type="module"></script>
+	</body>
+</html>

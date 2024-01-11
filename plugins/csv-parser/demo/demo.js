@@ -1,5 +1,6 @@
 import Vizzu from 'vizzu'
-import { CSVParser } from '../dist/mjs/index.js'
+//import { CSVParser } from '../dist/mjs/index.js'
+import { CSVParser } from 'https://unpkg.com/@vizzu/csv-parser@latest?module'
 let chart
 
 window.addEventListener('load', async function () {
