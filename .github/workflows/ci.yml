@@ -39,6 +39,10 @@ jobs:
               run: |
                   yarn lint
 
+            - name: Test
+              run: |
+                  yarn workspaces foreach --all --exclude . run test run
+
             - name: Build packages
               run: |
                   yarn workspaces foreach --all --exclude . run build
