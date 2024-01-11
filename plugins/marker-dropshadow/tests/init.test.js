@@ -6,7 +6,7 @@ describe('init', () => {
 	test('marker dropshadow initialized', () => {
 		expect(typeof markerDropshadow).toBe('object')
 		const functionKeys = Object.keys(markerDropshadow)
-		const defultKeys = ['style', 'nextStyle', 'progress', 'defaultStyle', 'meta', 'hooks'];
+		const defultKeys = ['style', 'nextStyle', 'progress', 'defaultStyle', 'meta', 'hooks']
 
 		expect(functionKeys).toEqual(expect.arrayContaining(defultKeys))
 	})
