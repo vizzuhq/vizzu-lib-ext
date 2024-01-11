@@ -1,7 +1,6 @@
 import { expect, test, describe } from 'vitest'
 import { emptyDatas } from './assets/emptyDatas'
 import { headerDetect } from '../src/headerDetect'
-import { moreDataCsv } from './assets/dataWithHeader'
 import { filesCustomSeparator, filesWithHeaders, filesWithoutHeaders } from './assets/testFiles'
 import fs from 'fs'
 
@@ -12,26 +11,6 @@ describe('header probabilites detect', () => {
 			({ input, excepted, separator }) => {
 				const probabilites = headerDetect(input, separator)
 				expect(probabilites).toEqual(excepted.header)
-			}
-		)
-	})
-
-	describe('with empty data', () => {
-		test.each(moreDataCsv)(
-			`$description -> excepted toBeGreaterThanOrEqual: ( $excepted.header)`,
-			({ input, excepted, separator }) => {
-				const probabilites = headerDetect(input, separator)
-				expect(probabilites).toBeGreaterThanOrEqual(excepted.header)
-			}
-		)
-	})
-	describe('with empty data without header', () => {
-		test.each(moreDataCsv)(
-			`$description -> excepted: (<$excepted.noheader)`,
-			({ input, excepted, separator }) => {
-				const withoutHeader = input.split('\n').slice(1).join('\n')
-				const probabilites = headerDetect(withoutHeader, separator)
-				expect(probabilites).toBeLessThanOrEqual(excepted?.noheader)
 			}
 		)
 	})

@@ -12,6 +12,11 @@ describe('init', () => {
 	const dataTypes = new DataTypes()
 	test('dataTypes initialized', () => {
 		expect(typeof dataTypes).toBe('object')
+
+		const functionKeys = Object.keys(dataTypes)
+		const defultKeys = ['meta', '_types', 'checkTypes', '_notTyped', '_addType', '_mainTypes']
+
+		expect(functionKeys).toEqual(expect.arrayContaining(defultKeys))
 	})
 
 	test('check parser is correct', async () => {
