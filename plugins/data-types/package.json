@@ -21,9 +21,26 @@
 	"scripts": {
 		"build": "run clear && node build/build.js && run types",
 		"clear": "node build/clear.js",
+		"pack": "run build && npm pack",
 		"test": "vitest",
 		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vizzuhq/vizzu-lib-ext#workspace=@vizzu/data-types"
+	},
+	"keywords": [
+		"vizzu",
+		"plugin",
+		"data types"
+	],
+	"email": "hello@vizzuhq.com",
+	"license": "Apache-2.0",
+	"author": "Vizzu Inc.",
+	"bugs": {
+		"url": "https://github.com/vizzuhq/vizzu-lib-ext/issues"
+	},
+	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/data-types#readme",
 	"devDependencies": {
 		"@babel/core": "^7.23.0",
 		"esbuild": "^0.19.4",

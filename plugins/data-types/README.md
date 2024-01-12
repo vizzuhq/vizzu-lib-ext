@@ -1,0 +1,1 @@
+# Vizzu data types plugin

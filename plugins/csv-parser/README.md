@@ -63,11 +63,11 @@ The plugin accepts two input parameters as a data source:
 Additionally, it accepts an **'options'** parameter with various properties to customize the behavior of the parser:
 
 | Name                  | Type    | Default value | Description                                                                               |
-| --------------------- | ------- | ------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| --------------------- | ------- | ------------- | ----------------------------------------------------------------------------------------- |
 | **encoding**          | String  | utf-8         | The character encoding of the file.                                                       |
 | **delimiter**         | String  | ,             | The delimiter used in the CSV file                                                        |
 | **hasHeader**         | Boolean | false         | A boolean value specifying whether the file contains a header.                            |
-| **headers**           | Array   | []            |                                                                                           | An array of strings providing headers if they are not present in the CSV file. |
+| **headers**           | Array   | []            | An array of strings providing headers if they are not present in the CSV file.            |
 | **autoheader**        | Boolean | True          | A boolean value indicating whether to generate headers automatically if they are missing. |
 | **emptyColumnPrefix** | String  | Column        | A string defining the prefix for any empty columns.                                       |
 

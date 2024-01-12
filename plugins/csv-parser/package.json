@@ -21,9 +21,27 @@
 	"scripts": {
 		"build": "run clear && node build/build.js && run types",
 		"clear": "node build/clear.js",
+		"pack": "run build && npm pack",
 		"test": "vitest",
 		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vizzuhq/vizzu-lib-ext#workspace=@vizzu/csv-parser"
+	},
+	"keywords": [
+		"vizzu",
+		"plugin",
+		"csv",
+		"csv parser"
+	],
+	"email": "hello@vizzuhq.com",
+	"license": "Apache-2.0",
+	"author": "Vizzu Inc.",
+	"bugs": {
+		"url": "https://github.com/vizzuhq/vizzu-lib-ext/issues"
+	},
+	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/csv-parser#readme",
 	"devDependencies": {
 		"@babel/core": "^7.23.0",
 		"@types/csv-parse": "^1.2.2",
