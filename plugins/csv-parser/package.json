@@ -21,7 +21,7 @@
 	"scripts": {
 		"build": "run clear && node build/build.js && run types",
 		"clear": "node build/clear.js",
-		"pack": "run build && npm pack",
+		"pkg": "run build && npm pack",
 		"test": "vitest",
 		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
 	},
