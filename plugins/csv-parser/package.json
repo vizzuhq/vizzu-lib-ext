@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/csv-parser",
 	"description": "Vizzu plugin for CSV parsing",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"type": "module",
 	"exports": {
 		".": {
@@ -12,7 +12,7 @@
 		}
 	},
 	"files": [
-		"dist/*",
+		"dist/**",
 		"package.json"
 	],
 	"main": "dist/cjs/index.js",
@@ -21,7 +21,6 @@
 	"scripts": {
 		"build": "run clear && node build/build.js && run types",
 		"clear": "node build/clear.js",
-		"pack": "run build && npm pack",
 		"test": "vitest",
 		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
 	},

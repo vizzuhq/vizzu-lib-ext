@@ -41,7 +41,8 @@ jobs:
 
             - name: Build packages
               run: |
-                  yarn workspace ${{ inputs.workspace }} build
+                  yarn workspace ${{ inputs.workspace }} build &&
+                  yarn workspace ${{ inputs.workspace }} pack
 
             - name: Publish package
               if: ${{ inputs.release_workspace }}

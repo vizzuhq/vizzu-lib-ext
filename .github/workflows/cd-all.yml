@@ -38,7 +38,8 @@ jobs:
 
             - name: Build packages
               run: |
-                  yarn workspaces foreach --all --exclude . run build
+                  yarn workspaces foreach --all --exclude . run build &&
+                  yarn workspaces foreach --all --exclude . pack
 
             - name: Publish packages
               if: ${{ inputs.release_workspaces }}
