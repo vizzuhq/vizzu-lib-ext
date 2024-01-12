@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/csv-parser",
 	"description": "Vizzu plugin for CSV parsing",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"type": "module",
 	"exports": {
 		".": {
@@ -59,9 +59,6 @@
 		"csv-parse": "^5.5.2"
 	},
 	"peerDependencies": {
-		"esbuild": "~0.19.8",
-		"esbuild-plugin-copy": "~2.1.1",
-		"esbuild-plugin-polyfill-node": "~0.3.0",
 		"vizzu": "~0.9.3"
 	}
 }
