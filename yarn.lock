@@ -1226,9 +1226,6 @@ __metadata:
     vitest: "npm:^0.34.2"
     vizzu: "npm:^0.9.2"
   peerDependencies:
-    esbuild: ~0.19.8
-    esbuild-plugin-copy: ~2.1.1
-    esbuild-plugin-polyfill-node: ~0.3.0
     vizzu: ~0.9.3
   languageName: unknown
   linkType: soft
