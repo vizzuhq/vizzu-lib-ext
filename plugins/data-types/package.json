@@ -1,8 +1,8 @@
 {
 	"name": "@vizzu/data-types",
+	"description": "Vizzu plugin for data types",
 	"version": "0.1.0",
 	"type": "module",
-	"private": true,
 	"exports": {
 		".": {
 			"types": "./dist/types/index.d.ts",
