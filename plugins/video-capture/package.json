@@ -19,7 +19,7 @@
 	"module": "dist/mjs/index.js",
 	"types": "dist/types/index.d.ts",
 	"scripts": {
-		"build": "run clear && node build/build.js && yarn pack",
+		"build": "run clear && node build/build.js",
 		"clear": "node build/clear.js",
 		"test": "vitest"
 	},
