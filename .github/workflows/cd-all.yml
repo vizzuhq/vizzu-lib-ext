@@ -44,7 +44,7 @@ jobs:
               if: ${{ inputs.release_workspaces }}
               run: |
                   echo "npmAuthToken: \"${VIZZUHQ_NPM_API}\"" > .yarnrc.yml
-                  yarn workspaces foreach --all --exclude . npm publish
+                  yarn workspaces foreach --all --exclude . npm publish --access public
               env:
                   VIZZUHQ_NPM_API: ${{ secrets.VIZZUHQ_NPM_API }}
 
