@@ -47,7 +47,7 @@ export class MarkerDropshadow {
 
 	meta = {
 		name: 'markerDropshadow',
-		version: '0.9.0',
+		version: '0.9.3',
 		depends: []
 	}
 
