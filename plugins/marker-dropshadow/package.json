@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/marker-dropshadow",
 	"description": "Vizzu charting library marker plugin for drop shadow",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"type": "module",
 	"exports": {
 		".": {
@@ -12,16 +12,15 @@
 		}
 	},
 	"files": [
-		"dist/*",
+		"dist/**",
 		"package.json"
 	],
 	"main": "dist/cjs/index.js",
 	"module": "dist/mjs/index.js",
 	"types": "dist/types/index.d.ts",
 	"scripts": {
-		"build": "run clear && node build/build.js",
+		"build": "run clear && node build/build.js && yarn pack",
 		"clear": "node build/clear.js",
-		"pack": "run build && npm pack",
 		"test": "vitest"
 	},
 	"repository": {
