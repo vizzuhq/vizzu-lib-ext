@@ -19,10 +19,9 @@
 	"module": "dist/mjs/index.js",
 	"types": "dist/types/index.d.ts",
 	"scripts": {
-		"build": "run clear && node build/build.js && run types",
+		"build": "run clear && node build/build.js",
 		"clear": "node build/clear.js",
-		"test": "vitest",
-		"types": "npx -p typescript tsc src/*.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types"
+		"test": "vitest"
 	},
 	"repository": {
 		"type": "git",
