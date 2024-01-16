@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.3]
+
+-   Add root module type export
+
 ## [0.1.2]
 
 ### Fixed
