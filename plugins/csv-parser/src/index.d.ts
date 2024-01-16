@@ -1,9 +1,8 @@
-import { DataParser } from './dataParser';
+import { DataParser } from './dataParser'
 
-export * from './dataParser';
-export * from './delimiterDetect';
-export * from './headerDetect';
+export * from './dataParser'
+export * from './delimiterDetect'
+export * from './headerDetect'
 
-export declare class CSVParser extends DataParser {
-}
-export default CSVParser;
+export declare class CSVParser extends DataParser {}
+export default CSVParser

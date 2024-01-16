@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
- -  Add root module type export
+-   Add root module type export
 
 ## [0.1.2]
 
