@@ -6,11 +6,11 @@ import { dateFormatCheck, datesCheck, timeFormatCheck } from './utils/dateCheck'
 import { linkCheck } from './utils/linkCheck'
 import * as CA from 'vizzu/dist/module/canimctrl.js'
 import * as CC from 'vizzu/dist/module/cchart'
-import type { Data, Config, Anim, Styles, AnimCompleting  } from 'vizzu'
+import type { Data, Config, Anim, Styles, AnimCompleting } from 'vizzu'
 
 export interface TypedSeries extends Data.Series {
 	meta?: {
-		type?: string,
+		type?: string
 		format?: string
 	}
 }
@@ -114,7 +114,7 @@ export class DataTypes {
 
 		this._addFinalTypes(seriesTypes)
 
-		return true;
+		return true
 	}
 
 	private _notTyped = (series: TypedSeries[]) => {

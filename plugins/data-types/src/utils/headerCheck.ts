@@ -3,7 +3,10 @@ import { TypedSeries } from '../index'
 import { orderedDateTypes } from './dateTypeVariants'
 import { convertToString } from './mainTypeConverter'
 
-export const headerCheck = (series: TypedSeries[], addType: (name: string, type: string) => void) => {
+export const headerCheck = (
+	series: TypedSeries[],
+	addType: (name: string, type: string) => void
+) => {
 	const orderedHeaderVariant = orderedDateTypes()
 	series.forEach((seriesData: TypedSeries) => {
 		if (seriesData?.meta?.type) return
