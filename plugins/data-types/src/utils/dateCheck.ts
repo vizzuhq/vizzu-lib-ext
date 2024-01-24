@@ -1,14 +1,14 @@
-import { series } from '../index'
+import { TypedSeries } from '../index'
 import { orderedDateTypes } from './dateTypeVariants'
 import { convertToString } from './mainTypeConverter'
 
 export const dateFormatCheck = (
-	series: series[],
+	series: TypedSeries[],
 	addType: (name: string, type: string) => void
 ) => {
 	const type = 'date'
 
-	series.forEach((seriesData: series) => {
+	series.forEach((seriesData: TypedSeries) => {
 		const values = seriesData.values
 
 		if (!values) return false
@@ -39,11 +39,11 @@ export const dateFormatCheck = (
 }
 
 export const timeFormatCheck = (
-	series: series[],
+	series: TypedSeries[],
 	addType: (name: string, type: string) => void
 ) => {
 	const type = 'date'
-	series.forEach((seriesData: series) => {
+	series.forEach((seriesData: TypedSeries) => {
 		const values = seriesData.values
 
 		if (!values) return false
@@ -74,12 +74,12 @@ export const timeFormatCheck = (
 }
 
 export const datesCheck = (
-	series: series[],
+	series: TypedSeries[],
 	typeList: string[],
 	addType: (name: string, type: string) => void,
 	fixed: boolean = true
 ) => {
-	series.forEach((seriesData: series, seriesKey: number) => {
+	series.forEach((seriesData: TypedSeries, seriesKey: number) => {
 		if (seriesData?.meta?.type) return
 
 		const orderedHeaderVariant = orderedDateTypes().filter(

@@ -1,10 +1,14 @@
-import { series } from '../index'
+import { Data } from 'vizzu'
+import { TypedSeries } from '../index'
 import { orderedDateTypes } from './dateTypeVariants'
 import { convertToString } from './mainTypeConverter'
 
-export const headerCheck = (series: series[], addType: (name: string, type: string) => void) => {
+export const headerCheck = (
+	series: TypedSeries[],
+	addType: (name: string, type: string) => void
+) => {
 	const orderedHeaderVariant = orderedDateTypes()
-	series.forEach((seriesData: series) => {
+	series.forEach((seriesData: TypedSeries) => {
 		if (seriesData?.meta?.type) return
 
 		const { name, values } = seriesData
@@ -18,7 +22,7 @@ export const headerCheck = (series: series[], addType: (name: string, type: stri
 		const { type, dataType, seriesType, match } = matchedHeaders
 		if (!match(values, false)) return
 		seriesData.values = convertToString(values)
-		seriesData.type = seriesType
+		seriesData.type = seriesType as Data.SeriesType
 		const meta = {
 			type: type,
 			format: dataType,

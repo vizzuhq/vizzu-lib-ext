@@ -1,7 +1,7 @@
-import { series } from '../index'
+import { TypedSeries } from '../index'
 import { clearValue } from './clearValue'
 
-export const unitCheck = (series: series): void => {
+export const unitCheck = (series: TypedSeries): void => {
 	const ignored = ['Q', 'SKU', 'ID', 'SKU', 'EAN', 'UPC', 'ISBN', 'GTIN', 'MPN', 'ASIN']
 	const suffixRegexp = /^\d+([\D]+)$/
 	const prefixRegexp = /^([\D]+)\d+$/
