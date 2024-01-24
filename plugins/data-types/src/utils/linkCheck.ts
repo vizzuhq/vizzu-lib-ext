@@ -1,10 +1,10 @@
-import { series } from '../index'
+import { TypedSeries } from '../index'
 
-export const linkCheck = (series: series[], addType: (name: string, type: string) => void) => {
+export const linkCheck = (series: TypedSeries[], addType: (name: string, type: string) => void) => {
 	const type = 'link'
 	const linkRegexp =
 		/^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
-	series.forEach((seriesData: series) => {
+	series.forEach((seriesData: TypedSeries) => {
 		if (seriesData?.meta?.type) return
 
 		const { name, values } = seriesData

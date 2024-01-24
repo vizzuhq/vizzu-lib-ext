@@ -4,21 +4,41 @@ import { unitCheck } from './utils/unitCheck'
 import { headerCheck } from './utils/headerCheck'
 import { dateFormatCheck, datesCheck, timeFormatCheck } from './utils/dateCheck'
 import { linkCheck } from './utils/linkCheck'
+import * as CA from 'vizzu/dist/module/canimctrl.js'
+import * as CC from 'vizzu/dist/module/cchart'
+import type { Data, Config, Anim, Styles, AnimCompleting  } from 'vizzu'
 
-export interface series {
-	name: string
-	values?: number[] | string[]
-	categories?: string[]
-	type?: string
-	unit?: string
+export interface TypedSeries extends Data.Series {
 	meta?: {
-		type?: string
+		type?: string,
+		format?: string
+	}
+}
+
+export interface TypedDataBySeries extends Data.TableBySeries {
+	series: TypedSeries[]
+}
+
+export interface Target {
+	data?: Data.Set | TypedSeries
+	config?: Config.Chart
+	style?: Styles.Chart | null
+}
+export interface Keyframe {
+	target: Target | CC.Snapshot
+}
+export type Keyframes = Keyframe[]
+export type AnimTarget = Keyframes | CA.CAnimation
+
+declare module 'vizzu' {
+	export interface Vizzu {
+		animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting
 	}
 }
 
 export interface target {
 	data: {
-		series: series[]
+		series: TypedSeries[]
 	}
 }
 
@@ -79,7 +99,7 @@ export class DataTypes {
 		}
 	}
 
-	public checkTypes = (series: series[]) => {
+	public checkTypes = (series: TypedSeries[]): series is TypedSeries[] => {
 		const seriesTypes = this._mainTypes(series)
 
 		headerCheck(seriesTypes, this._addType)
@@ -93,9 +113,11 @@ export class DataTypes {
 		linkCheck(this._notTyped(seriesTypes), this._addType)
 
 		this._addFinalTypes(seriesTypes)
+
+		return true;
 	}
 
-	private _notTyped = (series: series[]) => {
+	private _notTyped = (series: TypedSeries[]) => {
 		return series.filter((seriesData) => !this.typedSeries.includes(seriesData.name))
 	}
 
@@ -103,8 +125,8 @@ export class DataTypes {
 		this._types.push({ name: name, type: type })
 	}
 
-	private _mainTypes = (series: series[]): series[] => {
-		return series.map((seriesData: series) => {
+	private _mainTypes = (series: TypedSeries[]): TypedSeries[] => {
+		return series.map((seriesData: TypedSeries) => {
 			if (!seriesData.values) return seriesData
 			if (typeIsNumber(seriesData.values)) {
 				seriesData.values = convertToNumber(seriesData.values)
@@ -120,8 +142,8 @@ export class DataTypes {
 		})
 	}
 
-	private _addFinalTypes(series: series[]) {
-		series.forEach((seriesData: series) => {
+	private _addFinalTypes(series: TypedSeries[]) {
+		series.forEach((seriesData: TypedSeries) => {
 			if (seriesData?.meta?.type) return
 			if (!seriesData.values) return
 			const metaType = seriesData.type === 'measure' ? 'number' : 'string'
