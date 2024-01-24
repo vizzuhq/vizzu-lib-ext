@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.1.1]
+
+### Added
+
+-   Add TypedSeries type and update Vizzu types this new type
+
 ## [0.1.0]
 
 ### Added
