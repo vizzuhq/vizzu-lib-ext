@@ -1,4 +1,5 @@
-import { TypedSeries } from '../index'
+import { Data } from 'vizzu'
+import { Meta, TypedSeries } from '../index'
 import { clearValue } from './clearValue'
 
 export const unitCheck = (series: TypedSeries): void => {
@@ -33,9 +34,11 @@ export const unitCheck = (series: TypedSeries): void => {
 
 	if (!allMath) return
 
+	series = series as Data.Measure & Meta
+
 	series.values = values.map((e) =>
 		typeof e === 'number' ? e : Number(clearValue(e.replace(unit, '')))
 	)
-	series.unit = unit
 	series.type = 'measure'
+	series.unit = unit
 }

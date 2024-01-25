@@ -8,12 +8,13 @@ import * as CA from 'vizzu/dist/module/canimctrl.js'
 import * as CC from 'vizzu/dist/module/cchart'
 import type { Data, Config, Anim, Styles, AnimCompleting } from 'vizzu'
 
-export interface TypedSeries extends Data.Series {
+export interface Meta {
 	meta?: {
 		type?: string
 		format?: string
 	}
 }
+export type TypedSeries = Data.Series & Meta
 
 export interface TypedDataBySeries extends Data.TableBySeries {
 	series: TypedSeries[]
