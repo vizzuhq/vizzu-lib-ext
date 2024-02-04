@@ -1,11 +1,20 @@
 import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@0.9/dist/vizzu.min.js'
 import { ExcelReader } from '../dist/mjs/index.js'
 let chart
+let data
+let selectedSheet = 0
 
 window.addEventListener('load', async function () {
 	const result = this.document.getElementById('result')
 	const parserInfo = this.document.getElementById('parserInfo')
 	const vizzu = this.document.getElementById('vizzu')
+	const sheetSelector = this.document.getElementById('sheet-selector')
+
+	sheetSelector.addEventListener('change', (event) => {
+		selectedSheet = event.target.value ?? 0
+		console.log(selectedSheet)
+		updateData()
+	})
 
 	const input = document.getElementById('inputFile')
 
@@ -25,16 +34,8 @@ window.addEventListener('load', async function () {
 			var reader = new FileReader()
 
 			reader.onload = async function (e) {
-				var data = e.target.result
-				await chart.animate({
-					data: {
-						excel: {
-							content: data
-						}
-					}
-				})
-
-				showVizzu()
+				data = e.target.result
+				updateData()
 			}
 
 			reader.onerror = function (ex) {
@@ -47,10 +48,52 @@ window.addEventListener('load', async function () {
 		}
 	})
 
+	const updateData = async () => {
+		if (chart) chart.detach()
+		//create new chart and add csv parser
+		chart = new Vizzu('vizzu')
+		chart.feature(new ExcelReader(), true)
+		if (data) {
+			await chart.animate({
+				data: {
+					excel: {
+						content: data,
+						options: {
+							selectedSheet: selectedSheet
+						}
+					}
+				}
+			})
+
+			updateSheets()
+
+			showVizzu()
+		}
+	}
+
+	const updateSheets = () => {
+		const sheetNames = chart.feature.excelReader.sheetNames
+
+		if (sheetNames && sheetNames.length > 0) {
+			sheetSelector.innerHTML = sheetNames
+				.map(
+					(sheetName, index) =>
+						`<option ${
+							index == selectedSheet ? 'selected' : ''
+						} value="${index}">${sheetName}</option>`
+				)
+				.join('')
+			sheetSelector.style.display = 'block'
+		} else {
+			sheetSelector.style.display = 'none'
+		}
+	}
+
 	const showVizzu = () => {
 		vizzu.classList.remove('hide')
 		let content = ''
 		const data = chart.data
+		console.log(data)
 		// show series information
 		data.series.forEach((seriesItem) => {
 			content += `Name: <b>${seriesItem.name}</b><br>`

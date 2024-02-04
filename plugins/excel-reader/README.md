@@ -37,16 +37,15 @@ chart.animate({
 
 The plugin accepts two input parameters as a data source:
 
-| Name        | Type   | Description               |
-| ----------- | ------ | ------------------------- |
-| **content** | File   | File content with reader  |
+| Name        | Type | Description              |
+| ----------- | ---- | ------------------------ |
+| **content** | File | File content with reader |
 
 Additionally, it accepts an **'options'** parameter with various properties to customize the behavior of the parser:
 
-| Name                  | Type    | Default value | Description                                                                               |
-| --------------------- | ------- | ------------- | ----------------------------------------------------------------------------------------- |                           |
-| **headers**           | Array   | []            | An array of strings providing headers if they are not present in the CSV file.            |
-| **autoheader**        | Boolean | True          | A boolean value indicating whether to generate headers automatically if they are missing. |                               |
+| Name | Type | Default value | Description |
+| --------------------- | ------- | ------------- | ----------------------------------------------------------------------------------------- | |
+| **selectedSheet** | Number | 0 | Selected sheet index |
 
 All parameters are optional, with default values applied if not provided.
 
@@ -55,7 +54,7 @@ All parameters are optional, with default values applied if not provided.
 You can easily extract specific details from the excel by requesting a parameter in the following way.
 
 ```javascript
-chart.feature.excelReader.delimiter
+chart.feature.excelReader.selectedSheet
 chart.feature.excelReader.data
 ```
 

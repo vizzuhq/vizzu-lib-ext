@@ -41,8 +41,10 @@
 	},
 	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/excel-reader#readme",
 	"devDependencies": {
+		"@aternus/csv-to-xlsx": "^2.1.2",
 		"@babel/core": "^7.23.0",
 		"@types/node": "^20.8.4",
+		"csv-parse": "^5.5.3",
 		"esbuild": "^0.19.8",
 		"esbuild-plugin-copy": "^2.1.1",
 		"esbuild-plugin-polyfill-node": "^0.3.0",

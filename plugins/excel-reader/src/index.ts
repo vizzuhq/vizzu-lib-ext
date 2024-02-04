@@ -9,10 +9,10 @@ export interface optionsTypes {
 	headers?: boolean
 	headerRow?: number
 	sheet?: string | number
+	fileType?: 'binary' | 'base64' | 'array' | 'string' | 'buffer' | 'file'
 }
 
 export interface detectedTypes {
-	probability: number
 	headers: string[]
 	sheetNames: string[]
 	selectedSheet: string
@@ -76,9 +76,9 @@ export class ExcelReader implements Plugin {
 	private _sheetNames: string[] = []
 	private _selectedSheet = 0
 	private _debug = false
+	private _fileType = 'binary'
 
 	public detected: detectedTypes = {
-		probability: 1,
 		headers: [],
 		sheetNames: [],
 		selectedSheet: '',
@@ -142,7 +142,6 @@ export class ExcelReader implements Plugin {
 
 						const excelOptions: excelTypes = target.data.excel
 						if (!('content' in excelOptions)) continue
-
 						if ('options' in excelOptions && excelOptions.options) {
 							this._setOptions(excelOptions.options)
 						}
@@ -185,13 +184,11 @@ export class ExcelReader implements Plugin {
 		if ('headers' in options && options.headers && Array.isArray(options.headers)) {
 			this._headers = options.headers
 		}
-		if (
-			'selectedSheet' in options &&
-			options.selectedSheet &&
-			typeof options.selectedSheet === 'number' &&
-			Number(options.selectedSheet) >= 0
-		) {
-			this._selectedSheet = Number(options.selectedSheet)
+		if ('selectedSheet' in options && !isNaN(Number(options.selectedSheet))) {
+			this._selectedSheet = Number(options.selectedSheet) || 0
+		}
+		if ('fileType' in options && options.fileType) {
+			this._fileType = options.fileType
 		}
 	}
 
@@ -236,7 +233,7 @@ export class ExcelReader implements Plugin {
 	public setSource(source: File) {
 		try {
 			const workbook = XLSX.read(source, {
-				type: 'binary'
+				type: this._fileType
 			})
 
 			this._sheetNames = workbook.SheetNames ?? []
@@ -246,11 +243,12 @@ export class ExcelReader implements Plugin {
 				console.error('No sheets found')
 				return
 			}
-
 			this.detected.selectedSheet = this._sheetNames[this._selectedSheet]
 			this.detected.sheetNames = this._sheetNames
 
-			const parsedInput = XLSX.utils.sheet_to_json(workbook.Sheets[this._selectedSheet])
+			const parsedInput = XLSX.utils.sheet_to_json(
+				workbook.Sheets[this.detected.selectedSheet]
+			)
 			this._data = this._buildData(parsedInput)
 		} catch (error: unknown) {
 			if (error instanceof Error) {
