@@ -51,6 +51,6 @@
 		"tinycolor2": "^1.6.0"
 	},
 	"peerDependencies": {
-		"vizzu": "~0.9.3"
+		"vizzu": "~0.10.0"
 	}
 }

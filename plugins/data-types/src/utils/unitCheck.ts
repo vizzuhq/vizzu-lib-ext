@@ -1,4 +1,5 @@
-import { TypedSeries } from '../index'
+import { type Data } from 'vizzu'
+import { type TypedSeries } from '../index'
 import { clearValue } from './clearValue'
 
 export const unitCheck = (series: TypedSeries): void => {
@@ -23,7 +24,7 @@ export const unitCheck = (series: TypedSeries): void => {
 	const unit = test[1]
 	if (!unit || ignored.includes(unit)) return
 
-	const allMath = values.every(
+	const hasUnite = (series: TypedSeries): series is Data.Measure => series.values.every(
 		(e) =>
 			e === '' ||
 			(typeof e === 'string' &&
@@ -31,11 +32,11 @@ export const unitCheck = (series: TypedSeries): void => {
 				!isNaN(Number(clearValue(e.replace(unit, '')))))
 	)
 
-	if (!allMath) return
-
-	series.values = values.map((e) =>
-		typeof e === 'number' ? e : Number(clearValue(e.replace(unit, '')))
-	)
-	series.unit = unit
-	series.type = 'measure'
+	if (series?.values && hasUnite(series)) {
+		series.values = values.map((e) =>
+			typeof e === 'number' ? e : Number(clearValue(e.replace(unit, '')))
+		)
+		series.unit = unit
+		series.type = 'measure'
+	}
 }

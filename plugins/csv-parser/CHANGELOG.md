@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.4]
+
+-   Update Vizzu lib version from vizzu-0.9.x to vizzu-0.10.0
+
 ## [0.1.3]
 
 -   Add root module type export

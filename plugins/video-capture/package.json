@@ -46,6 +46,6 @@
 		"vitest": "^1.1.3"
 	},
 	"peerDependencies": {
-		"vizzu": "~0.9.3"
+		"vizzu": "~0.10.0"
 	}
 }
