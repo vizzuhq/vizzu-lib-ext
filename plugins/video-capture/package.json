@@ -42,8 +42,8 @@
 	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/video-capture#readme",
 	"devDependencies": {
 		"ts-standard": "^12.0.2",
-		"typescript": "^5.2.2",
-		"vitest": "^1.1.3"
+		"typescript": "^5.4.2",
+		"vitest": "^1.3.1"
 	},
 	"peerDependencies": {
 		"vizzu": "~0.10.1"
