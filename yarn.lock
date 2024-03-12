@@ -5217,7 +5217,7 @@ __metadata:
     lint-staged: "npm:^15.2.2"
     prettier: "npm:^3.2.5"
     typescript: "npm:^5.4.2"
-    vizzu: "npm:^0.10.1"
+    vizzu: "npm:~0.10.1"
   languageName: unknown
   linkType: soft
 
@@ -6038,7 +6038,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vizzu@npm:^0.10.1, vizzu@npm:~0.10.1":
+"vizzu@npm:~0.10.1":
   version: 0.10.1
   resolution: "vizzu@npm:0.10.1"
   dependencies:
