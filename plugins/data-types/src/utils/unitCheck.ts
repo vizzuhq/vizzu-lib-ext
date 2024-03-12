@@ -24,13 +24,14 @@ export const unitCheck = (series: TypedSeries): void => {
 	const unit = test[1]
 	if (!unit || ignored.includes(unit)) return
 
-	const hasUnite = (series: TypedSeries): series is Data.Measure => series.values.every(
-		(e) =>
-			e === '' ||
-			(typeof e === 'string' &&
-				(e.endsWith(unit) || e.startsWith(unit)) &&
-				!isNaN(Number(clearValue(e.replace(unit, '')))))
-	)
+	const hasUnite = (series: TypedSeries): series is Data.Measure =>
+		series.values.every(
+			(e) =>
+				e === '' ||
+				(typeof e === 'string' &&
+					(e.endsWith(unit) || e.startsWith(unit)) &&
+					!isNaN(Number(clearValue(e.replace(unit, '')))))
+		)
 
 	if (series?.values && hasUnite(series)) {
 		series.values = values.map((e) =>
