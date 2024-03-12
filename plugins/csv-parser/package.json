@@ -57,6 +57,6 @@
 		"csv-parse": "^5.5.2"
 	},
 	"peerDependencies": {
-		"vizzu": "~0.10.0"
+		"vizzu": "~0.10.1"
 	}
 }
