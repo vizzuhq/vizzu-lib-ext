@@ -24,7 +24,7 @@ export const unitCheck = (series: TypedSeries): void => {
 	const unit = test[1]
 	if (!unit || ignored.includes(unit)) return
 
-	const hasUnite = (series: TypedSeries): series is Data.Measure =>
+	const hasUnit = (series: TypedSeries): series is Data.Measure =>
 		series.values.every(
 			(e) =>
 				e === '' ||
@@ -33,7 +33,7 @@ export const unitCheck = (series: TypedSeries): void => {
 					!isNaN(Number(clearValue(e.replace(unit, '')))))
 		)
 
-	if (series?.values && hasUnite(series)) {
+	if (series?.values && hasUnit(series)) {
 		series.values = values.map((e) =>
 			typeof e === 'number' ? e : Number(clearValue(e.replace(unit, '')))
 		)
