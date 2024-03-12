@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/marker-dropshadow",
 	"description": "Vizzu charting library marker plugin for drop shadow",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"type": "module",
 	"exports": {
 		".": {

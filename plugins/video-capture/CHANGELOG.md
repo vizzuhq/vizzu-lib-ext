@@ -1,8 +1,10 @@
 # Changelog
 
-## [0.1.2]
+## [Unreleased]
 
--   Update Vizzu lib version from vizzu-0.9.x to vizzu-0.10.0
+## [0.2.0]
+
+-   Set vizzu-0.10.x as a peer dependency
 
 ## [0.1.1]
 
