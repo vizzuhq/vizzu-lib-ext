@@ -3,36 +3,34 @@ const fs = require('fs')
 const path = require('path')
 const glob = require('glob')
 
-async function processPackages(searchFolder, peerDependency, peerVersion) {
+async function processPackages(searchFolder, dependency, version) {
 	const packageJsonFiles = glob.sync('*/package.json', { cwd: searchFolder, absolute: true })
 
 	for (const packageJsonPath of packageJsonFiles) {
-		const newVersion = updatePackageJson(packageJsonPath, peerDependency, peerVersion)
+		const newVersion = updatePackageJson(packageJsonPath, dependency, version)
 		const packageRoot = path.dirname(packageJsonPath)
-		updateChangelog(path.join(packageRoot, 'CHANGELOG.md'), newVersion, peerVersion)
-		updateTsFiles(packageRoot, peerVersion)
-		updateDemoFiles(packageRoot, peerVersion)
+		updateChangelog(path.join(packageRoot, 'CHANGELOG.md'), newVersion, version)
+		updateTsFiles(packageRoot, version)
+		updateDemoFiles(packageRoot, version)
 	}
 }
 
-function updatePackageJson(packageJsonPath, peerDependency, peerVersion) {
+function updatePackageJson(packageJsonPath, dependency, version) {
 	try {
 		const packageJson = require(packageJsonPath)
 
+		let newVersion
 		const currentVersion = packageJson.version
-		const [major, minor] = currentVersion.split('.').map(Number)
-		const newMinorVersion = minor + 1
-		const newVersion = `${major}.${newMinorVersion}.0`
-
-		packageJson.version = newVersion
-
-		if (packageJson.peerDependencies) {
-			Object.keys(packageJson.peerDependencies).forEach((dep) => {
-				if (dep === peerDependency) {
-					packageJson.peerDependencies[dep] = `~${peerVersion}`
-				}
-			})
+		if (currentVersion) {
+			const [major, minor] = currentVersion.split('.').map(Number)
+			const newMinorVersion = minor + 1
+			newVersion = `${major}.${newMinorVersion}.0`
+			packageJson.version = newVersion
 		}
+
+		updateDependencies(packageJson, dependency, version, 'dependencies')
+		updateDependencies(packageJson, dependency, version, 'devDependencies')
+		updateDependencies(packageJson, dependency, version, 'peerDependencies')
 
 		fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson))
 
@@ -42,9 +40,19 @@ function updatePackageJson(packageJsonPath, peerDependency, peerVersion) {
 	}
 }
 
-function updateChangelog(changelogPath, newVersion, peerVersion) {
+function updateDependencies(packageJson, dependency, version, dependencyType) {
+	if (packageJson[dependencyType]) {
+		Object.keys(packageJson[dependencyType]).forEach((dep) => {
+			if (dep === dependency) {
+				packageJson[dependencyType][dep] = `~${version}`
+			}
+		})
+	}
+}
+
+function updateChangelog(changelogPath, newVersion, version) {
 	try {
-		const [peerMajor, peerMinor] = peerVersion.split('.').map(Number)
+		const [peerMajor, peerMinor] = version.split('.').map(Number)
 		const content = fs.readFileSync(changelogPath, 'utf-8')
 		const unreleasedIndex = content.indexOf('## [Unreleased]')
 		if (unreleasedIndex !== -1) {
@@ -62,7 +70,7 @@ function updateChangelog(changelogPath, newVersion, peerVersion) {
 	}
 }
 
-function updateTsFiles(packageRoot, peerVersion) {
+function updateTsFiles(packageRoot, version) {
 	try {
 		const tsFiles = glob.sync('**/*.ts', { cwd: packageRoot, absolute: true })
 
@@ -70,7 +78,7 @@ function updateTsFiles(packageRoot, peerVersion) {
 			const content = fs.readFileSync(tsFilePath, 'utf-8')
 			const newContent = content.replace(
 				/(meta\s*=\s*{[^}]*version\s*:\s*)'(\d+\.\d+\.\d+)'/g,
-				`$1'${peerVersion}'`
+				`$1'${version}'`
 			)
 
 			fs.writeFileSync(tsFilePath, newContent)
@@ -80,9 +88,9 @@ function updateTsFiles(packageRoot, peerVersion) {
 	}
 }
 
-function updateDemoFiles(packageRoot, peerVersion) {
+function updateDemoFiles(packageRoot, version) {
 	try {
-		const [peerMajor, peerMinor] = peerVersion.split('.').map(Number)
+		const [peerMajor, peerMinor] = version.split('.').map(Number)
 		const demoFiles = glob.sync('**/demo.js', { cwd: packageRoot, absolute: true })
 
 		for (const demoFilePath of demoFiles) {
@@ -119,18 +127,19 @@ function fixFormat(rootPath) {
 	})
 }
 
-async function update(rootPath, searchFolder, peerDependency, peerVersion) {
-	await processPackages(searchFolder, peerDependency, peerVersion)
+async function update(rootPath, searchFolder, dependency, version) {
+	await processPackages(searchFolder, dependency, version)
 	fixFormat(rootPath)
 }
 
 const rootPath = path.join(path.dirname(__filename), '..')
 const searchFolder = path.join(rootPath, 'plugins')
-const peerDependency = 'vizzu'
-const peerVersion = process.argv[2]
-if (!peerVersion) {
+const dependency = 'vizzu'
+const version = process.argv[2]
+if (!version) {
 	console.error('Please provide the new vizzu version as an argument.')
 	process.exit(1)
 }
 
-update(rootPath, searchFolder, peerDependency, peerVersion)
+update(rootPath, searchFolder, dependency, version)
+updatePackageJson(path.join(rootPath, 'package.json'), dependency, version)
