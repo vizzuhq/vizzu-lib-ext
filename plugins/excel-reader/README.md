@@ -43,12 +43,12 @@ The plugin accepts two input parameters as a data source:
 
 Additionally, it accepts an **'options'** parameter:
 
-| Name | Type | Default value | Description |
-| ---  | ---- | ------------- | ----------- |
-| **header** | Boolean | true | Has header |
-| **headerRow** | Number | 0 | Header row index |
-| **sheet** | Number | 0 | Selected sheet index |
-| **fileType** | Enum ('binary', 'base64', 'array', 'string', 'buffer', 'file') 'binary' | Input file type |
+| Name          | Type                                                           | Default value | Description          |
+| ------------- | -------------------------------------------------------------- | ------------- | -------------------- |
+| **header**    | Boolean                                                        | true          | Has header           |
+| **headerRow** | Number                                                         | 0             | Header row index     |
+| **sheet**     | Number                                                         | 0             | Selected sheet index |
+| **fileType**  | Enum ('binary', 'base64', 'array', 'string', 'buffer', 'file') | 'binary'      | Input file type      |
 
 All parameters are optional, with default values applied if not provided.
 
