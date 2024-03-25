@@ -21,19 +21,24 @@ globSync(__dirname + '/assets/fixtures/**/**.csv').forEach((file) => {
 	XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
 	XLSX.utils.book_append_sheet(mergedWB, worksheet, fileName)
 	XLSX.writeFile(workbook, destination)
-
 })
 XLSX.writeFile(mergedWB, path.join(__dirname, `/assets/fixtures/excel/merged.xlsx`))
 
 describe('generated excel read', () => {
-	test.each(generatedCases())('test file: $fileName', ({ fileName, expected, detected, sheet = 0 }) => {
-		const excelReader = new ExcelReader()
-		const response = excelReader.readContent(`${__dirname}/assets/fixtures/excel/${fileName}`, {
-			fileType: 'file',
-			selectedSheet: sheet
-		})
+	test.each(generatedCases())(
+		'test file: $fileName',
+		({ fileName, expected, detected, sheet = 0 }) => {
+			const excelReader = new ExcelReader()
+			const response = excelReader.readContent(
+				`${__dirname}/assets/fixtures/excel/${fileName}`,
+				{
+					fileType: 'file',
+					selectedSheet: sheet
+				}
+			)
 
-		expect(detected).toEqual(excelReader.detected)
-		expect(response).toEqual(expected)
-	})
+			expect(detected).toEqual(excelReader.detected)
+			expect(response).toEqual(expected)
+		}
+	)
 })

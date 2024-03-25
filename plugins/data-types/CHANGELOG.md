@@ -4,12 +4,8 @@
 
 ## [0.1.1]
 
-### Added
-
--   Add TypedSeries type and update Vizzu types this new type
+-   Export Meta type
 
 ## [0.1.0]
 
-### Added
-
--   First release, set vizzu-0.9.x as a peer dependency
+-   Set vizzu-0.10.x as a peer dependency

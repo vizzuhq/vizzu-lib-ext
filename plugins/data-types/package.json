@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/data-types",
 	"description": "Vizzu plugin for data types",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"type": "module",
 	"exports": {
 		".": {
@@ -41,16 +41,14 @@
 	},
 	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/data-types#readme",
 	"devDependencies": {
-		"@babel/core": "^7.23.0",
-		"esbuild": "^0.19.4",
+		"@babel/core": "^7.24.0",
+		"esbuild": "^0.20.1",
 		"esbuild-plugin-babel": "^0.2.3",
 		"esbuild-plugin-polyfill-node": "^0.3.0",
 		"glob": "^10.3.10",
 		"ts-standard": "^12.0.2",
-		"typescript": "^5.2.2",
-		"vitest": "^1.1.3"
-	},
-	"peerDependencies": {
-		"vizzu": "~0.9.3"
+		"typescript": "^5.4.2",
+		"vitest": "^1.3.1",
+		"vizzu": "~0.10.1"
 	}
 }

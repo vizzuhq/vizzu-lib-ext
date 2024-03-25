@@ -51,6 +51,14 @@ chart.feature.videoCapture.start()
 chart.feature.videoCapture.stop()
 ```
 
+## Contributing
+
+### Release
+
+If you need to change the `Vizzu` version number in the plugins, use the following command:
+
+`yarn node tools/updateVizzuMinorVersion.cjs <version>`
+
 ## License
 
 Copyright © 2021-2023 [Vizzu Inc.](https://vizzuhq.com)
