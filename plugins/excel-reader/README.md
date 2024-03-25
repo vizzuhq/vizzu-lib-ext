@@ -45,7 +45,10 @@ Additionally, it accepts an **'options'** parameter:
 
 | Name | Type | Default value | Description |
 | --------------------- | ------- | ------------- | ----------------------------------------------------------------------------------------- | |
-| **selectedSheet** | Number | 0 | Selected sheet index |
+| **header** | Boolean | true | Has header |
+| **headerRow** | Number | 0 | Header row index |
+| **sheet** | Number | 0 | Selected sheet index |
+| **fileType** | Enum ('binary', 'base64', 'array', 'string', 'buffer', 'file') 'binary' | Input file type |
 
 All parameters are optional, with default values applied if not provided.
 
@@ -54,6 +57,8 @@ All parameters are optional, with default values applied if not provided.
 You can easily extract specific details from the excel by requesting a parameter in the following way.
 
 ```javascript
+chart.feature.excelReader.headerRow
+chart.feature.excelReader.sheetNames
 chart.feature.excelReader.selectedSheet
 chart.feature.excelReader.data
 ```
