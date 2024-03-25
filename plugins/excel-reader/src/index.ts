@@ -5,11 +5,12 @@ import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
 import * as XLSX from 'xlsx'
 
+export type FileTypes = 'binary' | 'base64' | 'array' | 'string' | 'buffer' | 'file'
 export interface optionsTypes {
 	headers?: boolean
 	headerRow?: number
 	sheet?: string | number
-	fileType?: 'binary' | 'base64' | 'array' | 'string' | 'buffer' | 'file'
+	fileType?: FileTypes
 }
 
 export interface detectedTypes {
@@ -76,7 +77,7 @@ export class ExcelReader implements Plugin {
 	private _sheetNames: string[] = []
 	private _selectedSheet = 0
 	private _debug = false
-	private _fileType = 'binary'
+	private _fileType: FileTypes = 'binary'
 
 	public detected: detectedTypes = {
 		headers: [],
@@ -184,8 +185,8 @@ export class ExcelReader implements Plugin {
 		if ('headers' in options && options.headers && Array.isArray(options.headers)) {
 			this._headers = options.headers
 		}
-		if ('selectedSheet' in options && !isNaN(Number(options.selectedSheet))) {
-			this._selectedSheet = Number(options.selectedSheet) || 0
+		if ('sheet' in options && !isNaN(Number(options.sheet))) {
+			this._selectedSheet = Number(options.sheet) || 0
 		}
 		if ('fileType' in options && options.fileType) {
 			this._fileType = options.fileType
@@ -286,9 +287,13 @@ export class ExcelReader implements Plugin {
 
 		for (let row = 0; row < records.length; row++) {
 			const values = Object.values(records[row])
-			for (const key in values) {
-				const value: string | number = values[key]
-				series[key].values.push(value)
+			for (let key = 0; key < values.length; key++) {
+				const value = values[key]
+				if (typeof value === 'number' && typeof value === 'number') {
+					;(series[key].values as number[]).push(value)
+				} else {
+					;(series[key].values as string[]).push(value)
+				}
 			}
 		}
 		return { series: series }

@@ -1,8 +1,8 @@
-# Vizzu CSV parser plugin
+# Vizzu Excel reader plugin
 
-This plugin enables you to parse CSV files and transform them into Vizzu compatible data. It's designed with features like:
+This plugin enables you to read Excel files and transform them into Vizzu compatible data. It's designed with features like:
 
--   Automatic delimiter recognition
+-   Automatic sheet recognition
 -   Header availability check
 -   Flexible input parameters
 
@@ -41,7 +41,7 @@ The plugin accepts two input parameters as a data source:
 | ----------- | ---- | ------------------------ |
 | **content** | File | File content with reader |
 
-Additionally, it accepts an **'options'** parameter with various properties to customize the behavior of the parser:
+Additionally, it accepts an **'options'** parameter:
 
 | Name | Type | Default value | Description |
 | --------------------- | ------- | ------------- | ----------------------------------------------------------------------------------------- | |
