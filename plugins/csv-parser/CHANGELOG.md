@@ -5,6 +5,7 @@
 ## [0.2.2]
 
 -   Fixed: The empty series list type is dimension
+-   Remove native comment support in CSV files
 
 ## [0.2.1]
 
