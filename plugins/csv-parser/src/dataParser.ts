@@ -280,7 +280,6 @@ export class DataParser implements Plugin {
 			this._log(['parser options', this.parserOptions])
 			const parsedInput = parse(source, {
 				skip_empty_lines: true,
-				comment: '#',
 				relax_column_count: true,
 				skip_records_with_error: true,
 				...this.parserOptions
