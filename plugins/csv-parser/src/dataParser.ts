@@ -327,7 +327,7 @@ export class DataParser implements Plugin {
 
 			series.push({
 				name: headerName.trim(),
-				values: records.map((record) => record[column] || '')
+				values: records.map((record) => record[column].trim() || '')
 			})
 		}
 		return { series: series }
