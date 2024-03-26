@@ -32,7 +32,6 @@ const simpleParseData = (data: string, delimiter = ','): string[][] => {
 		delimiter: delimiter,
 		skip_empty_lines: true,
 		columns: false,
-		comment: '#',
 		relax_column_count: true,
 		skip_records_with_error: true,
 		trim: true

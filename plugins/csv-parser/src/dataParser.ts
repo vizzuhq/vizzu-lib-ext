@@ -227,7 +227,8 @@ export class DataParser implements Plugin {
 				if (
 					'values' in item &&
 					item.values &&
-					item.values.every((value: string | number | null) => !isNaN(Number(value)))
+					item.values.every((value: string | number | null) => !isNaN(Number(value))) &&
+					item.values.find((value: string | number | null) => value !== '')
 				) {
 					item.values = item.values.map((value: string | number | null) =>
 						typeof value === 'string' && value === '' ? null : Number(value)
@@ -279,7 +280,6 @@ export class DataParser implements Plugin {
 			this._log(['parser options', this.parserOptions])
 			const parsedInput = parse(source, {
 				skip_empty_lines: true,
-				comment: '#',
 				relax_column_count: true,
 				skip_records_with_error: true,
 				...this.parserOptions
