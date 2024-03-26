@@ -227,7 +227,8 @@ export class DataParser implements Plugin {
 				if (
 					'values' in item &&
 					item.values &&
-					item.values.every((value: string | number | null) => !isNaN(Number(value)))
+					item.values.every((value: string | number | null) => !isNaN(Number(value))) &&
+					item.values.find((value: string | number | null) => value !== '')
 				) {
 					item.values = item.values.map((value: string | number | null) =>
 						typeof value === 'string' && value === '' ? null : Number(value)
