@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.2.1]
+
+-   Fixed null number conversion
+-   Add parsed data trim
+
 ## [0.2.0]
 
 -   Set vizzu-0.10.x as a peer dependency
