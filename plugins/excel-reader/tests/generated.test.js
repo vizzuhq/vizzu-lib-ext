@@ -33,7 +33,7 @@ describe('generated excel read', () => {
 				`${__dirname}/assets/fixtures/excel/${fileName}`,
 				{
 					fileType: 'file',
-					selectedSheet: sheet
+					sheet: sheet
 				}
 			)
 
