@@ -5,7 +5,7 @@ import * as CA from 'vizzu/dist/module/canimctrl.js'
 import * as CC from 'vizzu/dist/module/cchart'
 import { Plugin, PluginHooks } from 'vizzu/dist/plugins.js'
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
-export interface optionsTypes {
+export interface OptionsTypes {
 	delimiter?: string
 	encoding?: BufferEncoding
 	headers?: boolean
@@ -13,29 +13,29 @@ export interface optionsTypes {
 	emptyColumnPrefix?: string
 	hasHeader?: boolean | null
 }
-export interface detectedTypes {
+export interface DetectedTypes {
 	delimiter: string
 	probability: number
 	headers: string[]
 	hasHeader: boolean
 }
-export interface csvTypes {
+export interface CSVTypes {
 	url?: string
 	content?: string
-	options?: optionsTypes
+	options?: OptionsTypes
 }
-export interface csvTarget {
+export interface CSVTarget {
 	target: {
 		data: {
-			csv: csvTypes
+			csv: CSVTypes
 		}
 	}
 }
-export interface csvDataType extends Data.Filter {
-	csv: csvTypes
+export interface CSVDataType extends Data.Filter {
+	csv: CSVTypes
 }
 export interface Target {
-	data?: Data.Set | csvDataType
+	data?: Data.Set | CSVDataType
 	config?: Config.Chart
 	style?: Styles.Chart | null
 }
@@ -50,15 +50,15 @@ declare module 'vizzu' {
 		animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting
 	}
 }
-export interface dataSeries {
+export interface DataSeries {
 	name: string
 	values: number[] | string[]
 }
-export interface dataType {
-	series: dataSeries[]
+export interface DataType {
+	series: DataSeries[]
 }
 export interface ConstructorParams {
-	options?: optionsTypes
+	options?: OptionsTypes
 }
 export declare class DataParser implements Plugin {
 	private _data
@@ -68,7 +68,7 @@ export declare class DataParser implements Plugin {
 	private _emptyColumnPrefix
 	private _probabilityVariable
 	private _debug
-	detected: detectedTypes
+	detected: DetectedTypes
 	parserOptions: Options
 	meta: {
 		name: string
@@ -77,19 +77,19 @@ export declare class DataParser implements Plugin {
 	}
 	constructor(params?: ConstructorParams)
 	get hasHeader(): boolean | null
-	get data(): dataType | null
+	get data(): DataType | null
 	get delimiter(): string
 	get detectedDelimiter(): string
 	get api(): {
 		hasHeader: boolean
 		detectedDelimiter: string
 		delimiter: string
-		data: dataType
+		data: DataType
 	}
 	get hooks(): PluginHooks
 	private _setOptions
-	convertNumbers(data: dataType): dataType
-	parse(input: string, options?: optionsTypes, convert?: boolean): Promise<dataType | null>
+	convertNumbers(data: DataType): DataType
+	parse(input: string, options?: OptionsTypes, convert?: boolean): Promise<DataType | null>
 	setSource(source: string): Promise<void>
 	fetchData(url: string): Promise<string>
 	getDelimiter(data: string): string

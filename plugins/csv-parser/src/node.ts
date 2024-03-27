@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import { DataParser } from './dataParser'
 import { Options } from 'csv-parse/.'
 
-interface dataType {
+interface DataType {
 	series: {
 		name: string
 		values: string[] | number[]
@@ -10,7 +10,7 @@ interface dataType {
 }
 
 export class CSVParser extends DataParser {
-	public async parse(input: string, options: Options = {}): Promise<dataType | null> {
+	public async parse(input: string, options: Options = {}): Promise<DataType | null> {
 		if (!input) return null
 
 		if (options) {
