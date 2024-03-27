@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.2.2]
+
+-   Fixed: The empty series list type is dimension
+-   Remove native comment support in CSV files
+
+## [0.2.1]
+
+-   Fixed null number conversion
+-   Add parsed data trim
+
 ## [0.2.0]
 
 -   Set vizzu-0.10.x as a peer dependency

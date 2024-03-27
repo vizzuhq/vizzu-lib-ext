@@ -60,7 +60,7 @@ declare module 'vizzu' {
 }
 export interface dataSeries {
 	name: string
-	values: number[] | string[]
+	values: (number | null | string)[]
 }
 export interface dataType {
 	series: dataSeries[]
@@ -222,14 +222,17 @@ export class DataParser implements Plugin {
 		data.series = data.series.map(
 			(item: {
 				name: string
-				values: number[] | string[]
-			}): { name: string; values: string[] | number[] } => {
+				values: (number | null | string)[]
+			}): { name: string; values: (number | null | string)[] } => {
 				if (
 					'values' in item &&
 					item.values &&
-					item.values.every((value: string | number) => !isNaN(Number(value)))
+					item.values.every((value: string | number | null) => !isNaN(Number(value))) &&
+					item.values.find((value: string | number | null) => value !== '')
 				) {
-					item.values = item.values.map((value: string | number) => Number(value))
+					item.values = item.values.map((value: string | number | null) =>
+						typeof value === 'string' && value === '' ? null : Number(value)
+					)
 				}
 				return item
 			}
@@ -277,7 +280,6 @@ export class DataParser implements Plugin {
 			this._log(['parser options', this.parserOptions])
 			const parsedInput = parse(source, {
 				skip_empty_lines: true,
-				comment: '#',
 				relax_column_count: true,
 				skip_records_with_error: true,
 				...this.parserOptions
@@ -325,7 +327,7 @@ export class DataParser implements Plugin {
 
 			series.push({
 				name: headerName.trim(),
-				values: records.map((record) => record[column] || '')
+				values: records.map((record) => record[column].trim() || '')
 			})
 		}
 		return { series: series }
