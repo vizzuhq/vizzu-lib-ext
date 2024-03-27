@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.2]
+
+-   Check empty data series
+
 ## [0.1.1]
 
 -   Export Meta type

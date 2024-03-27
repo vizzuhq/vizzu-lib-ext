@@ -102,7 +102,7 @@ export class DataTypes {
 	}
 
 	public checkTypes = (series: TypedSeries[]): series is TypedSeries[] => {
-		const seriesTypes = this._mainTypes(series)
+		const seriesTypes = this._mainTypes(series).filter((seriesData) => !('meta' in seriesData))
 
 		headerCheck(seriesTypes, this._addType)
 
@@ -130,6 +130,16 @@ export class DataTypes {
 	private _mainTypes = (series: TypedSeries[]): TypedSeries[] => {
 		return series.map((seriesData: TypedSeries) => {
 			if (!seriesData.values) return seriesData
+
+			if (
+				seriesData.values.every(
+					(value) => value === '' || value === undefined || value === null
+				)
+			) {
+				seriesData.type = 'dimension'
+				seriesData.meta = { type: 'string', format: 'empty' }
+				return seriesData
+			}
 			if (typeIsNumber(seriesData.values)) {
 				seriesData.values = convertToNumber(seriesData.values)
 				seriesData.type = 'measure'

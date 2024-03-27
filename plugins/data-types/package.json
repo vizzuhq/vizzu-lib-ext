@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/data-types",
 	"description": "Vizzu plugin for data types",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"type": "module",
 	"exports": {
 		".": {
