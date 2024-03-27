@@ -8,7 +8,7 @@ import * as CC from 'vizzu/dist/module/cchart'
 import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins.js'
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
 
-export interface optionsTypes {
+export interface OptionsTypes {
 	delimiter?: string
 	encoding?: BufferEncoding
 	headers?: boolean
@@ -17,32 +17,32 @@ export interface optionsTypes {
 	hasHeader?: boolean | null
 }
 
-export interface detectedTypes {
+export interface DetectedTypes {
 	delimiter: string
 	probability: number
 	headers: string[]
 	hasHeader: boolean
 }
-export interface csvTypes {
+export interface CSVTypes {
 	url?: string
 	content?: string
-	options?: optionsTypes
+	options?: OptionsTypes
 }
 
-export interface csvTarget {
+export interface CSVTarget {
 	target: {
 		data: {
-			csv: csvTypes
+			csv: CSVTypes
 		}
 	}
 }
 
-export interface csvDataType extends Data.Filter {
-	csv: csvTypes
+export interface CSVDataType extends Data.Filter {
+	csv: CSVTypes
 }
 
 export interface Target {
-	data?: Data.Set | csvDataType
+	data?: Data.Set | CSVDataType
 	config?: Config.Chart
 	style?: Styles.Chart | null
 }
@@ -58,16 +58,16 @@ declare module 'vizzu' {
 		animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting
 	}
 }
-export interface dataSeries {
+export interface DataSeries {
 	name: string
 	values: (number | null | string)[]
 }
-export interface dataType {
-	series: dataSeries[]
+export interface DataType {
+	series: DataSeries[]
 }
 
 export interface ConstructorParams {
-	options?: optionsTypes
+	options?: OptionsTypes
 }
 
 const LOG_PREFIX = [
@@ -77,7 +77,7 @@ const LOG_PREFIX = [
 ]
 
 export class DataParser implements Plugin {
-	private _data: dataType | null = null
+	private _data: DataType | null = null
 	private _headers: string[] | null = null
 	private _autoheader = true
 	private _hasHeader: boolean | null = null
@@ -85,7 +85,7 @@ export class DataParser implements Plugin {
 	private _probabilityVariable = 0.5
 	private _debug = false
 
-	public detected: detectedTypes = {
+	public detected: DetectedTypes = {
 		delimiter: ',',
 		probability: 1,
 		headers: [],
@@ -112,7 +112,7 @@ export class DataParser implements Plugin {
 		return this._hasHeader === null ? this.detected.hasHeader : this._hasHeader
 	}
 
-	get data(): dataType | null {
+	get data(): DataType | null {
 		return this._data
 	}
 
@@ -155,7 +155,7 @@ export class DataParser implements Plugin {
 
 						if (!('csv' in target.data) || !target.data.csv) continue
 
-						const csvOptions: csvTypes = target.data.csv
+						const csvOptions: CSVTypes = target.data.csv
 						if (!('url' in csvOptions) && !('content' in csvOptions)) continue
 
 						if ('options' in csvOptions && csvOptions.options) {
@@ -187,7 +187,7 @@ export class DataParser implements Plugin {
 		}
 	}
 
-	private _setOptions(options: optionsTypes) {
+	private _setOptions(options: OptionsTypes) {
 		if ('delimiter' in options && options.delimiter) {
 			this.parserOptions.delimiter = options.delimiter
 		}
@@ -216,7 +216,7 @@ export class DataParser implements Plugin {
 		}
 	}
 
-	public convertNumbers(data: dataType): dataType {
+	public convertNumbers(data: DataType): DataType {
 		if (!data || !('series' in data) || !data.series) return data
 
 		data.series = data.series.map(
@@ -242,9 +242,9 @@ export class DataParser implements Plugin {
 
 	public async parse(
 		input: string,
-		options: optionsTypes = {},
+		options: OptionsTypes = {},
 		convert = true
-	): Promise<dataType | null> {
+	): Promise<DataType | null> {
 		if (!input) return null
 
 		if (options) {
@@ -309,7 +309,7 @@ export class DataParser implements Plugin {
 		return this.parserOptions.delimiter?.toString() || this.detected.delimiter
 	}
 
-	private _buildData(records: string[][]): dataType | null {
+	private _buildData(records: string[][]): DataType | null {
 		if (records.length === 0) {
 			return null
 		}
