@@ -87,7 +87,7 @@ export class ExcelReader implements Plugin {
 	}
 	meta = {
 		name: 'excelReader',
-		version: '0.9.3',
+		version: '0.10.1',
 		depends: []
 	}
 
@@ -272,7 +272,6 @@ export class ExcelReader implements Plugin {
 		if (!this._isObjectArray(records)) {
 			return null
 		}
-		//this.detected.headers = this._getHeader(records)
 		const header: string[] = Array.isArray(this._headers)
 			? this._headers
 			: Object.keys(records[0])

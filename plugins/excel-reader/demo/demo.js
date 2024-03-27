@@ -50,7 +50,7 @@ window.addEventListener('load', async function () {
 
 	const updateData = async () => {
 		if (chart) chart.detach()
-		//create new chart and add csv parser
+		//create new chart and add excel reader
 		chart = new Vizzu('vizzu')
 		chart.feature(new ExcelReader(), true)
 		if (data) {
