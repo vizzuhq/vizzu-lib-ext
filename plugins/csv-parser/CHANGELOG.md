@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.2.3]
+
+-   Update ts types names
+
 ## [0.2.2]
 
 -   Fixed: The empty series list type is dimension
