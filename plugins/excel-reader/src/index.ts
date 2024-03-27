@@ -6,38 +6,38 @@ import { AnimCompleting } from 'vizzu/dist/animcompleting'
 import * as XLSX from 'xlsx'
 
 export type FileTypes = 'binary' | 'base64' | 'array' | 'string' | 'buffer' | 'file'
-export interface optionsTypes {
+export interface OptionsTypes {
 	headers?: boolean
 	headerRow?: number
 	sheet?: string | number
 	fileType?: FileTypes
 }
 
-export interface detectedTypes {
+export interface DetectedTypes {
 	headers: string[]
 	sheetNames: string[]
 	selectedSheet: string
 	headerRow: number
 }
-export interface excelTypes {
+export interface ExcelTypes {
 	content?: File
-	options?: optionsTypes
+	options?: OptionsTypes
 }
 
-export interface excelTarget {
+export interface ExcelTarget {
 	target: {
 		data: {
-			excel: excelTypes
+			excel: ExcelTypes
 		}
 	}
 }
 
-export interface excelDataType extends Data.Filter {
-	excel: excelTypes
+export interface ExcelDataType extends Data.Filter {
+	excel: ExcelTypes
 }
 
 export interface Target {
-	data?: Data.Set | excelDataType
+	data?: Data.Set | ExcelDataType
 	config?: Config.Chart
 	style?: Styles.Chart | null
 }
@@ -52,26 +52,26 @@ declare module 'vizzu' {
 		animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting
 	}
 }
-export interface dataSeries {
+export interface DataSeries {
 	name: string
 	values: number[] | string[]
 }
-export interface dataType {
-	series: dataSeries[]
+export interface DataType {
+	series: DataSeries[]
 }
 
 export interface ConstructorParams {
-	options?: optionsTypes
+	options?: OptionsTypes
 }
 
 const LOG_PREFIX = [
-	'%cVIZZU%EXCLE-READER%c',
+	'%cVIZZU%EXCEL-READER%c',
 	'background: #e2ae30; color: #3a60bf; font-weight: bold',
 	'background: #3a60bf; color: #e2ae30;'
 ]
 
 export class ExcelReader implements Plugin {
-	private _data: dataType | null = null
+	private _data: DataType | null = null
 	private _headers: string[] | null = null
 	private _headerRow = 1
 	private _sheetNames: string[] = []
@@ -79,7 +79,7 @@ export class ExcelReader implements Plugin {
 	private _debug = false
 	private _fileType: FileTypes = 'binary'
 
-	public detected: detectedTypes = {
+	public detected: DetectedTypes = {
 		headers: [],
 		sheetNames: [],
 		selectedSheet: '',
@@ -101,7 +101,7 @@ export class ExcelReader implements Plugin {
 		return this._headerRow === null ? this.detected.headerRow : this._headerRow
 	}
 
-	get data(): dataType | null {
+	get data(): DataType | null {
 		return this._data
 	}
 
@@ -141,7 +141,7 @@ export class ExcelReader implements Plugin {
 
 						if (!('excel' in target.data) || !target.data.excel) continue
 
-						const excelOptions: excelTypes = target.data.excel
+						const excelOptions: ExcelTypes = target.data.excel
 						if (!('content' in excelOptions)) continue
 						if ('options' in excelOptions && excelOptions.options) {
 							this._setOptions(excelOptions.options)
@@ -170,7 +170,7 @@ export class ExcelReader implements Plugin {
 		}
 	}
 
-	private _setOptions(options: optionsTypes) {
+	private _setOptions(options: OptionsTypes) {
 		if (
 			'headerRow' in options &&
 			typeof options.headerRow === 'number' &&
@@ -193,7 +193,7 @@ export class ExcelReader implements Plugin {
 		}
 	}
 
-	public convertNumbers(data: dataType): dataType {
+	public convertNumbers(data: DataType): DataType {
 		if (!data || !('series' in data) || !data.series) return data
 
 		data.series = data.series.map(
@@ -216,7 +216,7 @@ export class ExcelReader implements Plugin {
 		return data
 	}
 
-	public readContent(input: File, options: optionsTypes = {}, convert = true): dataType | null {
+	public readContent(input: File, options: OptionsTypes = {}, convert = true): DataType | null {
 		if (!input) return null
 
 		if (options) {
@@ -268,7 +268,7 @@ export class ExcelReader implements Plugin {
 		)
 	}
 
-	private _buildData(records: unknown[]): dataType | null {
+	private _buildData(records: unknown[]): DataType | null {
 		if (!this._isObjectArray(records)) {
 			return null
 		}
@@ -278,7 +278,7 @@ export class ExcelReader implements Plugin {
 		this._log(['header', header])
 
 		const series = header.map(
-			(headerName): dataSeries => ({
+			(headerName): DataSeries => ({
 				name: headerName.trim(),
 				values: []
 			})

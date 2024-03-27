@@ -22,7 +22,8 @@ import { ExcelReader } from '@vizzu/excel-reader'
 chart.features(new ExcelReader(), true)
 ```
 
-You can pass your data in one of two ways.<be></br>
+You can pass your data in one of two ways.
+
 **Via plain text:**
 
 ```javascript
@@ -35,11 +36,12 @@ chart.animate({
 })
 ```
 
-The plugin accepts two input parameters as a data source:
+The plugin accepts two input parameters:
 
-| Name        | Type | Description              |
-| ----------- | ---- | ------------------------ |
-| **content** | File | File content with reader |
+| Name        | Type   | Description                    |
+| ----------- | ------ | ------------------------------ |
+| **content** | File   | File content with reader       |
+| **options** | Object | Optional parsing configuration |
 
 Additionally, it accepts an **'options'** parameter:
 
