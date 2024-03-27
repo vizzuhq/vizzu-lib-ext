@@ -1895,7 +1895,7 @@ __metadata:
     vizzu: "npm:^0.9.2"
     xlsx: "npm:^0.18.5"
   peerDependencies:
-    vizzu: ~0.9.3
+    vizzu: ~0.10.1
   languageName: unknown
   linkType: soft
 
