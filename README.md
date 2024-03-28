@@ -4,8 +4,6 @@
   </a>
   <p align="center"><b>Vizzu Plugins Repository</b> - External plugins for Vizzu.</p>
   <p align="center">
-<!--     <a href="https://lib.vizzuhq.com/latest/">Documentation</a>
-    · <a href="https://lib.vizzuhq.com/latest/examples/">Examples</a> · -->
      <a href="https://github.com/vizzuhq/vizzu-lib-ext">Repository</a>
     · <a href="https://blog.vizzuhq.com">Blog</a>
   </p>
@@ -33,6 +31,8 @@ In this readme, you’ll find useful resources to help you navigate through and 
 Each plugin resides in its own folder, complete with documentation and usage guidelines.
 
 -   [Vizzu CSV Parser](plugins/csv-parser/): Parses and converts data from a CSV source into a Vizzu data series structure.
+-   [Vizzu Data Types](plugins/data-types/): Detect parsed data types and more meta information in data series.
+-   [Vizzu Excel Reader](plugins/excel-reader/): Read and converts data from a Excel source into a Vizzu data series structure.
 -   [Vizzu Marker Drop Shadow](plugins/marker-dropshadow): Provides the option to give markers a shadow
 -   [Vizzu Video Capture](plugins/video-capture/): Record your vizualization and create simple video.
 
