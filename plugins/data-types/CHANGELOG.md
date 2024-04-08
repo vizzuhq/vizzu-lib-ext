@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.3]
+
+-   Fix clear value is empty
+
 ## [0.1.2]
 
 -   Check empty data series
