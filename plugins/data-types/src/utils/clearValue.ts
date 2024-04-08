@@ -1,4 +1,5 @@
-export const clearValue = (value: string) => {
+export const clearValue = (value: string | null | undefined) => {
+	if (!value) return value
 	return value
 		.trim()
 		.replace(/\s/g, '')
