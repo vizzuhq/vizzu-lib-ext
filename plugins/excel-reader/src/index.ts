@@ -248,7 +248,8 @@ export class ExcelReader implements Plugin {
 			this.detected.sheetNames = this._sheetNames
 
 			const parsedInput = XLSX.utils.sheet_to_json(
-				workbook.Sheets[this.detected.selectedSheet]
+				workbook.Sheets[this.detected.selectedSheet],
+				{ header: this._headerRow ?? 1 }
 			)
 			this._data = this._buildData(parsedInput)
 		} catch (error: unknown) {
@@ -274,12 +275,12 @@ export class ExcelReader implements Plugin {
 		}
 		const header: string[] = Array.isArray(this._headers)
 			? this._headers
-			: Object.keys(records[0])
+			: Object.values(records.shift() ?? [])
 		this._log(['header', header])
 
 		const series = header.map(
-			(headerName): DataSeries => ({
-				name: headerName.trim(),
+			(headerName, key): DataSeries => ({
+				name: headerName.trim() || `Column ${key + 1}`,
 				values: []
 			})
 		)
@@ -288,6 +289,14 @@ export class ExcelReader implements Plugin {
 			const values = Object.values(records[row])
 			for (let key = 0; key < values.length; key++) {
 				const value = values[key]
+				if (!(key in series)) {
+					{
+						series[key] = {
+							name: `Column ${key + 1}`,
+							values: []
+						}
+					}
+				}
 				if (typeof value === 'number' && typeof value === 'number') {
 					;(series[key].values as number[]).push(value)
 				} else {
