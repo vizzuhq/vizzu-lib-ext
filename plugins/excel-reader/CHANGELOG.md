@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.2]
+
+-   Check empty cells and fix parsing
+
 ## [0.1.1]
 
 -   Fix data header read

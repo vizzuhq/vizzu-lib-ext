@@ -59,7 +59,7 @@ window.addEventListener('load', async function () {
 					excel: {
 						content: data,
 						options: {
-							selectedSheet: selectedSheet
+							sheet: selectedSheet
 						}
 					}
 				}
@@ -93,7 +93,6 @@ window.addEventListener('load', async function () {
 		vizzu.classList.remove('hide')
 		let content = ''
 		const data = chart.data
-		console.log(data)
 		// show series information
 		data.series.forEach((seriesItem) => {
 			content += `Name: <b>${seriesItem.name}</b><br>`
