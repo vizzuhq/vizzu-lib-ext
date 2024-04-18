@@ -52,12 +52,8 @@ declare module 'vizzu' {
 		animate(target: AnimTarget, options?: Anim.ControlOptions): AnimCompleting
 	}
 }
-export interface DataSeries {
-	name: string
-	values: number[] | string[]
-}
 export interface DataType {
-	series: DataSeries[]
+	series: Data.Series[]
 }
 
 export interface ConstructorParams {
@@ -154,12 +150,11 @@ export class ExcelReader implements Plugin {
 							if (!data || !('series' in data) || !data.series) {
 								throw new Error('Invalid data')
 							}
-
-							target.data = data
 						} catch (error: unknown) {
 							if (error instanceof Error) {
 								console.error(error.message)
 							}
+							target.data = { series: [] }
 							continue
 						}
 					}
@@ -196,23 +191,18 @@ export class ExcelReader implements Plugin {
 	public convertNumbers(data: DataType): DataType {
 		if (!data || !('series' in data) || !data.series) return data
 
-		data.series = data.series.map(
-			(item: {
-				name: string
-				values: number[] | string[]
-			}): { name: string; values: string[] | number[] } => {
-				if (
-					'values' in item &&
-					item.values &&
-					item.values.every((value: string | number) => !isNaN(Number(value)))
-				) {
-					item.values = item.values.map((value: string | number) => Number(value))
-				} else {
-					item.values = item.values.map((value: string | number) => String(value))
-				}
-				return item
+		data.series = data.series.map((item) => {
+			if (
+				'values' in item &&
+				item.values &&
+				item.values.every((value) => !isNaN(Number(value)))
+			) {
+				item.values = item.values.map((value) => Number(value))
+			} else {
+				item.values = item.values?.map((value) => String(value) ?? '') ?? []
 			}
-		)
+			return item
+		})
 		return data
 	}
 
@@ -247,10 +237,22 @@ export class ExcelReader implements Plugin {
 			this.detected.selectedSheet = this._sheetNames[this._selectedSheet]
 			this.detected.sheetNames = this._sheetNames
 
+			const sheet = workbook.Sheets[this.detected.selectedSheet]
 			const parsedInput = XLSX.utils.sheet_to_json(
 				workbook.Sheets[this.detected.selectedSheet],
-				{ header: this._headerRow ?? 1 }
+				{
+					defval: null
+				}
 			)
+
+			this._headers = Array.isArray(this._headers)
+				? this._headers
+				: (XLSX.utils.sheet_to_json(sheet, {
+						header: 1,
+						defval: '',
+						blankrows: true
+					})?.[this.headerRow - 1] as string[]) ?? []
+
 			this._data = this._buildData(parsedInput)
 		} catch (error: unknown) {
 			if (error instanceof Error) {
@@ -273,13 +275,9 @@ export class ExcelReader implements Plugin {
 		if (!this._isObjectArray(records)) {
 			return null
 		}
-		const header: string[] = Array.isArray(this._headers)
-			? this._headers
-			: Object.values(records.shift() ?? [])
-		this._log(['header', header])
 
-		const series = header.map(
-			(headerName, key): DataSeries => ({
+		const series = this._headers!.map(
+			(headerName, key): Data.Series => ({
 				name: headerName.trim() || `Column ${key + 1}`,
 				values: []
 			})
@@ -297,14 +295,21 @@ export class ExcelReader implements Plugin {
 						}
 					}
 				}
-				if (typeof value === 'number' && typeof value === 'number') {
-					;(series[key].values as number[]).push(value)
+				if (value === null || typeof value === 'number') {
+					;(series[key].values as (null | number)[]).push(value)
 				} else {
-					;(series[key].values as string[]).push(value)
+					;(series[key].values as string[]).push((value as string) ?? '')
 				}
 			}
 		}
-		return { series: series }
+		return {
+			series: series.map((item) => {
+				if (item.values?.find((el) => typeof el === 'string')) {
+					item.values = item.values.map((el) => (el === null ? '' : el)) as string[]
+				}
+				return item
+			})
+		}
 	}
 
 	private _log(...message: unknown[]) {
