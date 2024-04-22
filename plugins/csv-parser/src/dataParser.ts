@@ -139,8 +139,7 @@ export class DataParser implements Plugin {
 		this._hasHeader = null
 		this._emptyColumnPrefix = 'Column'
 		this.parserOptions = {
-			encoding: 'utf-8',
-			skip_empty_lines: true
+			encoding: 'utf-8'
 		}
 
 		return {
