@@ -95,6 +95,13 @@ describe('parser load data from files', () => {
 		})
 	})
 
+	test('reads file with empty data rows', async () => {
+		const source = './tests/fixtures/headers/music-with-empty-lines.csv'
+		const sourceContent = parser.readCSVFile(source)
+		const data = await parser.parse(sourceContent)
+		expect(data.series.length).toEqual(3)
+	})
+
 	test('load data from url', async () => {
 		const url =
 			'https://raw.githubusercontent.com/vizzuhq/vizzu-lib-doc/gh-pages/0.3.0/content/howtos/csv-input/population_total_long.csv'
