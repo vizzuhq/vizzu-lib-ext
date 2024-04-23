@@ -44,19 +44,35 @@ export interface target {
 	}
 }
 
-export interface hookContex {
+export interface HookContex {
 	target: target
 }
 
+export interface TypesOptions {
+	units?: boolean
+}
+
+export interface DataTypesParams {
+	options?: TypesOptions
+}
+
 export class DataTypes {
+	private dataTypesOptions: TypesOptions = {
+		units: true
+	}
+
 	meta = {
 		name: 'dataTypes',
 		version: '0.10.1',
 		depends: ['csvParser']
 	}
 
-	constructor(params = {}) {
-		if (params) return
+	constructor(params: DataTypesParams = {}) {
+		if (!params?.options) return
+
+		if ('units' in params.options) {
+			this.dataTypesOptions.units = !!params.options.units
+		}
 	}
 
 	private _types: { name: string; type: string }[] = []
@@ -80,7 +96,7 @@ export class DataTypes {
 	}
 
 	get hooks() {
-		const callCheckTypes = (target: hookContex[]) => {
+		const callCheckTypes = (target: HookContex[]) => {
 			target.forEach(({ target: target }) => {
 				if (target?.data?.series && Array.isArray(target.data.series)) {
 					this.checkTypes(target.data.series)
@@ -90,7 +106,7 @@ export class DataTypes {
 
 		return {
 			setAnimParams: Object.assign(
-				(ctx: hookContex, next: () => void): void => {
+				(ctx: HookContex, next: () => void): void => {
 					if (Array.isArray(ctx.target)) {
 						callCheckTypes(ctx.target)
 					}
@@ -149,7 +165,9 @@ export class DataTypes {
 			seriesData.values = convertToString(seriesData.values)
 			seriesData.type = 'dimension'
 
-			unitCheck(seriesData)
+			if (this.dataTypesOptions.units !== false) {
+				unitCheck(seriesData)
+			}
 			return seriesData
 		})
 	}
