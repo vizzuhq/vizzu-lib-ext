@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.4]
+
+-   Add optional unit check
+
 ## [0.1.3]
 
 -   Fix clear value is empty
