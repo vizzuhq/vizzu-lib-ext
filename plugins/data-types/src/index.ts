@@ -49,7 +49,7 @@ export interface HookContex {
 }
 
 export interface TypesOptions {
-	units?: boolean
+	unitDiscovery?: boolean
 }
 
 export interface DataTypesParams {
@@ -58,7 +58,7 @@ export interface DataTypesParams {
 
 export class DataTypes {
 	private dataTypesOptions: TypesOptions = {
-		units: true
+		unitDiscovery: true
 	}
 
 	meta = {
@@ -70,8 +70,8 @@ export class DataTypes {
 	constructor(params: DataTypesParams = {}) {
 		if (!params?.options) return
 
-		if ('units' in params.options) {
-			this.dataTypesOptions.units = !!params.options.units
+		if ('unitDiscovery' in params.options) {
+			this.dataTypesOptions.unitDiscovery = !!params.options.unitDiscovery
 		}
 	}
 
@@ -154,6 +154,7 @@ export class DataTypes {
 			) {
 				seriesData.type = 'dimension'
 				seriesData.meta = { type: 'string', format: 'empty' }
+
 				return seriesData
 			}
 			if (typeIsNumber(seriesData.values)) {
@@ -165,7 +166,7 @@ export class DataTypes {
 			seriesData.values = convertToString(seriesData.values)
 			seriesData.type = 'dimension'
 
-			if (this.dataTypesOptions.units !== false) {
+			if (this.dataTypesOptions.unitDiscovery) {
 				unitCheck(seriesData)
 			}
 			return seriesData
