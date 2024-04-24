@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.2.4]
+
+-   Fixed: The empty lines ignored in the CSV file
+
 ## [0.2.3]
 
 -   Update ts types names
