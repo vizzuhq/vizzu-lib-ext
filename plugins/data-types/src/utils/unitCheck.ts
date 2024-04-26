@@ -22,7 +22,12 @@ export const unitCheck = (series: TypedSeries): void => {
 	}
 
 	const unit = test[1]
-	if (!unit || ignored.includes(unit)) return
+	if (
+		!unit ||
+		ignored.includes(unit.toUpperCase()) ||
+		ignored.includes(series.name.toUpperCase())
+	)
+		return
 
 	const hasUnit = (series: TypedSeries): series is Data.Measure =>
 		series.values.every(
