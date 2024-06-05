@@ -63,7 +63,7 @@ export class DataTypes {
 
 	meta = {
 		name: 'dataTypes',
-		version: '0.10.1',
+		version: '0.11.1',
 		depends: ['csvParser']
 	}
 
