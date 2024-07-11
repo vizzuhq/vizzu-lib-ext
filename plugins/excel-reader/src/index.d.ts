@@ -72,7 +72,7 @@ export declare class ExcelReader implements Plugin {
 	meta: {
 		name: string
 		version: string
-		depends: unknown[]
+		depends: string[]
 	}
 	constructor(params?: ConstructorParams)
 	get headerRow(): number
