@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.2.1]
+
+-   Fix vizzu data change
+-   Add strict types
+
 ## [0.2.0]
 
 -   Set vizzu-0.11.x as a peer dependency

@@ -5,7 +5,16 @@ import { Plugin, PluginHooks, PrepareAnimationContext } from 'vizzu/dist/plugins
 import { AnimCompleting } from 'vizzu/dist/animcompleting'
 import * as XLSX from 'xlsx'
 
-export type FileTypes = 'binary' | 'base64' | 'array' | 'string' | 'buffer' | 'file'
+export enum FileTypes {
+	BINARY = 'binary',
+	BASE64 = 'base64',
+	ARRAY = 'array',
+	STRING = 'string',
+	BUFFER = 'buffer',
+	FILE = 'file'
+}
+
+export type EnabledFiles = ArrayBuffer | string | Uint8Array | Buffer | Blob | File | null
 export interface OptionsTypes {
 	headers?: boolean
 	headerRow?: number
@@ -20,7 +29,7 @@ export interface DetectedTypes {
 	headerRow: number
 }
 export interface ExcelTypes {
-	content?: File
+	content?: EnabledFiles
 	options?: OptionsTypes
 }
 
@@ -73,7 +82,7 @@ export class ExcelReader implements Plugin {
 	private _sheetNames: string[] = []
 	private _selectedSheet = 0
 	private _debug = false
-	private _fileType: FileTypes = 'binary'
+	private _fileType: FileTypes = FileTypes.BINARY
 
 	public detected: DetectedTypes = {
 		headers: [],
@@ -150,6 +159,7 @@ export class ExcelReader implements Plugin {
 							if (!data || !('series' in data) || !data.series) {
 								throw new Error('Invalid data')
 							}
+							target.data = { series: data.series }
 						} catch (error: unknown) {
 							if (error instanceof Error) {
 								console.error(error.message)
@@ -206,7 +216,11 @@ export class ExcelReader implements Plugin {
 		return data
 	}
 
-	public readContent(input: File, options: OptionsTypes = {}, convert = true): DataType | null {
+	public readContent(
+		input: EnabledFiles,
+		options: OptionsTypes = {},
+		convert = true
+	): DataType | null {
 		if (!input) return null
 
 		if (options) {
@@ -221,7 +235,7 @@ export class ExcelReader implements Plugin {
 		return this.convertNumbers(this.data)
 	}
 
-	public setSource(source: File) {
+	public setSource(source: EnabledFiles) {
 		try {
 			const workbook = XLSX.read(source, {
 				type: this._fileType
