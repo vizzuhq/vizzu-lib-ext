@@ -1,5 +1,5 @@
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@0.11/dist/vizzu.min.js'
-import { data } from 'https://lib.vizzuhq.com/0.11/assets/data/chart_types_eu.js'
+import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@0.12/dist/vizzu.min.js'
+import { data } from 'https://lib.vizzuhq.com/0.12/assets/data/chart_types_eu.js'
 import { MarkerDropshadow } from '../dist/mjs/index.js'
 
 window.addEventListener('load', async function () {
