@@ -4,7 +4,7 @@
 
 ## [0.3.1]
 
--   Remove build not used polifill
+-   Fix build script and remove unused polyfillNode functions
 
 ## [0.3.0]
 
