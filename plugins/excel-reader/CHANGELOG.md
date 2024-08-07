@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.3.1]
+
+-   Remove build not used polifill
+
 ## [0.3.0]
 
 -   Set vizzu-0.12.x as a peer dependency
