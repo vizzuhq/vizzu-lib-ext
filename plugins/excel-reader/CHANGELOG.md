@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.3.1]
+
+-   Fix build script and remove unused polyfillNode functions
+
 ## [0.3.0]
 
 -   Set vizzu-0.12.x as a peer dependency

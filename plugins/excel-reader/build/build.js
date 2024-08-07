@@ -12,8 +12,9 @@ await esbuild.build({
 	plugins: [
 		polyfillNode({
 			globals: {
-				process: true,
-				Buffer: true
+				stream: true,
+				navigator: false,
+				process: false
 			}
 		}),
 		copy({
@@ -39,8 +40,9 @@ await esbuild.build({
 	plugins: [
 		polyfillNode({
 			globals: {
-				process: true,
-				Buffer: true
+				stream: true,
+				navigator: false,
+				process: false
 			}
 		})
 	],
