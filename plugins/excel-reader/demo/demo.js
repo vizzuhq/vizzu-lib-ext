@@ -1,4 +1,4 @@
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@0.12/dist/vizzu.min.js'
+import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@0.13/dist/vizzu.min.js'
 import { ExcelReader } from '../dist/mjs/index.js'
 let chart
 let data
