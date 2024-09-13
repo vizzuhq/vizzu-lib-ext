@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/excel-reader",
 	"description": "Vizzu plugin for excel reader",
-	"version": "0.3.1",
+	"version": "0.4.0",
 	"type": "module",
 	"exports": {
 		".": {
@@ -52,12 +52,12 @@
 		"ts-standard": "^12.0.2",
 		"typescript": "^5.2.2",
 		"vitest": "^0.34.2",
-		"vizzu": "~0.12.0"
+		"vizzu": "~0.13.0"
 	},
 	"dependencies": {
 		"xlsx": "^0.18.5"
 	},
 	"peerDependencies": {
-		"vizzu": "~0.12.0"
+		"vizzu": "~0.13.0"
 	}
 }
