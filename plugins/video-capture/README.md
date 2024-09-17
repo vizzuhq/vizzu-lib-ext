@@ -16,7 +16,7 @@ To use the plugin, simply add it to your Vizzu instance as a feature:
 import { VideoCapture } from '@vizzu/video-capture'
 
 await chart.initializing
-chart.features(new VideoCapture(), true)
+chart.feature(new VideoCapture(), true)
 ```
 
 Once registered, you can start and stop the recording as needed:

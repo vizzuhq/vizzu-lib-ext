@@ -19,7 +19,7 @@ To use the plugin, simply add it to your Vizzu instance as a feature:
 ```javascript
 import { ExcelReader } from '@vizzu/excel-reader'
 
-chart.features(new ExcelReader(), true)
+chart.feature(new ExcelReader(), true)
 ```
 
 You can pass your data in one of two ways.
