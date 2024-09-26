@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.4.1]
+
+-   Added stricter rules for unit checking.
+
 ## [0.4.0]
 
 -   Set vizzu-0.13.x as a peer dependency
