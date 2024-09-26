@@ -19,7 +19,7 @@ To use the plugin, simply add it to your Vizzu instance as a feature:
 ```javascript
 import { CSVParser } from '@vizzu/csv-parser'
 
-chart.features(new CSVParser(), true)
+chart.feature(new CSVParser(), true)
 ```
 
 You can pass your data in one of two ways.<be></br>

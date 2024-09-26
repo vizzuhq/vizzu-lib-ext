@@ -15,7 +15,7 @@ To use the plugin, simply add it to your Vizzu instance as a feature and configu
 ```javascript
 import { MarkerDropshadow } from '@vizzu/marker-dropshadow'
 
-chart.features(new MarkerDropshadow(), true)
+chart.feature(new MarkerDropshadow(), true)
 
 chart.animate({
 	config: Vizzu.presets.column({
