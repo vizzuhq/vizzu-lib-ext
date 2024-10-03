@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/video-capture",
 	"description": "Vizzu plugin for video capture",
-	"version": "0.5.1",
+	"version": "0.6.0",
 	"type": "module",
 	"exports": {
 		".": {
@@ -45,6 +45,6 @@
 		"vitest": "^2.1.2"
 	},
 	"peerDependencies": {
-		"vizzu": "~0.13.0"
+		"vizzu": "~0.14.0"
 	}
 }

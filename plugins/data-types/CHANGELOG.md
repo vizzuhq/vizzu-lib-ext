@@ -2,8 +2,9 @@
 
 ## [Unreleased]
 
-## [0.4.2]
+## [0.5.0]
 
+-   Set vizzu-0.14.x as a peer dependency
 -   Update yarn and used packages
 
 ## [0.4.1]
