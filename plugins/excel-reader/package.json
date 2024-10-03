@@ -7,8 +7,7 @@
 		".": {
 			"types": "./dist/types/index.d.ts",
 			"import": "./dist/mjs/index.js",
-			"default": "./dist/mjs/index.js",
-			"require": "./dist/cjs/index.js"
+			"default": "./dist/mjs/index.js"
 		}
 	},
 	"files": [
@@ -41,17 +40,17 @@
 	},
 	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/excel-reader#readme",
 	"devDependencies": {
-		"@aternus/csv-to-xlsx": "^2.1.2",
-		"@babel/core": "^7.23.0",
-		"@types/node": "^20.8.4",
-		"csv-parse": "^5.5.3",
-		"esbuild": "^0.19.8",
+		"@aternus/csv-to-xlsx": "^2.1.5",
+		"@babel/core": "^7.25.7",
+		"@types/node": "^22.7.4",
+		"csv-parse": "^5.5.6",
+		"esbuild": "^0.24.0",
 		"esbuild-plugin-copy": "^2.1.1",
 		"esbuild-plugin-polyfill-node": "^0.3.0",
-		"glob": "^10.3.10",
+		"glob": "^11.0.0",
 		"ts-standard": "^12.0.2",
-		"typescript": "^5.2.2",
-		"vitest": "^0.34.2",
+		"typescript": "^5.6.2",
+		"vitest": "^2.1.2",
 		"vizzu": "~0.13.0"
 	},
 	"dependencies": {

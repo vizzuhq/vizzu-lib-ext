@@ -261,11 +261,11 @@ export class ExcelReader implements Plugin {
 
 			this._headers = Array.isArray(this._headers)
 				? this._headers
-				: (XLSX.utils.sheet_to_json(sheet, {
+				: ((XLSX.utils.sheet_to_json(sheet, {
 						header: 1,
 						defval: '',
 						blankrows: true
-					})?.[this.headerRow - 1] as string[]) ?? []
+					})?.[this.headerRow - 1] as string[]) ?? [])
 
 			this._data = this._buildData(parsedInput)
 		} catch (error: unknown) {
