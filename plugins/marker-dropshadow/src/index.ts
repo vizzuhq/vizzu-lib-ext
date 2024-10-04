@@ -116,7 +116,7 @@ export class MarkerDropshadow {
 				continue
 			}
 			if (key === 'color') {
-				result[key] = tinycolor
+				result.color = tinycolor
 					.mix(
 						this.style[key]?.toString() || this.defaultStyle.color,
 						this.nextStyle[key]?.toString() || this.defaultStyle.color,
