@@ -291,7 +291,6 @@ export class DataParser implements Plugin {
 				console.error(error.message)
 			}
 			this._data = null
-			
 		}
 	}
 
