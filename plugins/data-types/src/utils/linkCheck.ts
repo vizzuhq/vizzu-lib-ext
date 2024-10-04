@@ -18,7 +18,7 @@ export const linkCheck = (series: TypedSeries[], addType: (name: string, type: s
 		if (seriesData.meta) {
 			seriesData.meta.type = type
 		} else {
-			seriesData.meta = { type: type }
+			seriesData.meta = { type }
 		}
 
 		seriesData.type = 'dimension'

@@ -29,7 +29,7 @@ const getType = (value: string | number): string => {
 
 const simpleParseData = (data: string, delimiter = ','): string[][] => {
 	return parse(data, {
-		delimiter: delimiter,
+		delimiter,
 		skip_empty_lines: true,
 		columns: false,
 		relax_column_count: true,

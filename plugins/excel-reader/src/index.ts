@@ -90,6 +90,7 @@ export class ExcelReader implements Plugin {
 		selectedSheet: '',
 		headerRow: 1
 	}
+
 	meta = {
 		name: 'excelReader',
 		version: '0.14.0',

@@ -331,7 +331,7 @@ export class DataParser implements Plugin {
 				values: records.map((record) => record[column].trim() || '')
 			})
 		}
-		return { series: series }
+		return { series }
 	}
 
 	private _getHeader(records: string[][]): string[] {

@@ -140,7 +140,7 @@ export class DataTypes {
 	}
 
 	private _addType = (name: string, type: string) => {
-		this._types.push({ name: name, type: type })
+		this._types.push({ name, type })
 	}
 
 	private _mainTypes = (series: TypedSeries[]): TypedSeries[] => {
