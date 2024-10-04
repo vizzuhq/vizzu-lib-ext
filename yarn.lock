@@ -2795,7 +2795,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.25.2, eslint-plugin-import@npm:^2.29.1, eslint-plugin-import@npm:^2.30.0":
+"eslint-plugin-import@npm:^2.25.2, eslint-plugin-import@npm:^2.29.1, eslint-plugin-import@npm:^2.31.0":
   version: 2.31.0
   resolution: "eslint-plugin-import@npm:2.31.0"
   dependencies:
@@ -5483,7 +5483,7 @@ __metadata:
     eslint: "npm:^9.11.1"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-config-standard: "npm:^17.1.0"
-    eslint-plugin-import: "npm:^2.30.0"
+    eslint-plugin-import: "npm:^2.31.0"
     eslint-plugin-n: "npm:^17.10.3"
     eslint-plugin-promise: "npm:^7.1.0"
     glob: "npm:^11.0.0"
