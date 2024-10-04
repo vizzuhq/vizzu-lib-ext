@@ -97,7 +97,7 @@ export class DataTypes {
 
 	get hooks() {
 		const callCheckTypes = (target: HookContex[]) => {
-			target.forEach(({ target: target }) => {
+			target.forEach(({ target }) => {
 				if (target?.data?.series && Array.isArray(target.data.series)) {
 					this.checkTypes(target.data.series)
 				}

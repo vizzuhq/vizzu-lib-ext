@@ -10,7 +10,7 @@ const getType = (value: string | number): string => {
 		const formattedValue = clearValue(value)
 
 		return !isNaN(Number(formattedValue)) ? 'number' : 'string'
-	} catch (e) {
+	} catch {
 		return 'string'
 	}
 }

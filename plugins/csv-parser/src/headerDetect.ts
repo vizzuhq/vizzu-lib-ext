@@ -22,7 +22,7 @@ const getType = (value: string | number): string => {
 			.replace(/[\u2012\u2013\u2014\u2015]/g, '-')
 
 		return !isNaN(Number(formattedValue)) ? 'number' : 'string'
-	} catch (e) {
+	} catch {
 		return 'string'
 	}
 }
@@ -35,7 +35,7 @@ const simpleParseData = (data: string, delimiter = ','): string[][] => {
 		relax_column_count: true,
 		skip_records_with_error: true,
 		trim: true
-	})
+	}) as string[][]
 }
 
 const percentOfUniqueItems = (clearedHeader: string[]): number => {

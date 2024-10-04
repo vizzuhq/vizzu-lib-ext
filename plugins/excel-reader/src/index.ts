@@ -136,7 +136,7 @@ export class ExcelReader implements Plugin {
 
 		return {
 			prepareAnimation: Object.assign(
-				async (ctx: PrepareAnimationContext, next: () => void) => {
+				(ctx: PrepareAnimationContext, next: () => void) => {
 					if (!ctx.target || !Array.isArray(ctx.target)) {
 						next()
 						return
@@ -210,7 +210,7 @@ export class ExcelReader implements Plugin {
 			) {
 				item.values = item.values.map((value) => Number(value))
 			} else {
-				item.values = item.values?.map((value) => String(value) ?? '') ?? []
+				item.values = item.values?.map((value) => String(value)) ?? []
 			}
 			return item
 		})
@@ -274,7 +274,7 @@ export class ExcelReader implements Plugin {
 				console.error(error.message)
 			}
 			this._data = null
-			return
+			
 		}
 	}
 
@@ -301,13 +301,11 @@ export class ExcelReader implements Plugin {
 		for (let row = 0; row < records.length; row++) {
 			const values = Object.values(records[row])
 			for (let key = 0; key < values.length; key++) {
-				const value = values[key]
+				const value: unknown = values[key]
 				if (!(key in series)) {
-					{
-						series[key] = {
-							name: `Column ${key + 1}`,
-							values: []
-						}
+					series[key] = {
+						name: `Column ${key + 1}`,
+						values: []
 					}
 				}
 				if (value === null || typeof value === 'number') {

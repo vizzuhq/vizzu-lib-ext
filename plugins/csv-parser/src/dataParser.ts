@@ -144,7 +144,7 @@ export class DataParser implements Plugin {
 
 		return {
 			prepareAnimation: Object.assign(
-				async (ctx: PrepareAnimationContext, next: () => void) => {
+				(ctx: PrepareAnimationContext, next: () => void) => {
 					if (!Array.isArray(ctx.target)) {
 						next()
 						return
@@ -284,14 +284,14 @@ export class DataParser implements Plugin {
 				skip_records_with_error: true,
 				skip_records_with_empty_values: true,
 				...this.parserOptions
-			})
+			}) as string[][]
 			this._data = this._buildData(parsedInput)
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				console.error(error.message)
 			}
 			this._data = null
-			return
+			
 		}
 	}
 
