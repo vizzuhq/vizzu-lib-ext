@@ -1479,7 +1479,7 @@ __metadata:
     esbuild-plugin-polyfill-node: "npm:^0.3.0"
     glob: "npm:^11.0.0"
     ts-standard: "npm:^12.0.2"
-    typescript: "npm:^5.6.2"
+    typescript: "npm:^5.5.2"
     vitest: "npm:^2.1.2"
     vizzu: "npm:~0.14.0"
   peerDependencies:
@@ -1497,7 +1497,6 @@ __metadata:
     esbuild-plugin-polyfill-node: "npm:^0.3.0"
     glob: "npm:^11.0.0"
     ts-standard: "npm:^12.0.2"
-    typescript: "npm:^5.6.2"
     vitest: "npm:^2.1.2"
     vizzu: "npm:~0.14.0"
   languageName: unknown
@@ -1516,7 +1515,7 @@ __metadata:
     eslint-plugin-n: "npm:^17.10.2"
     eslint-plugin-promise: "npm:^7.1.0"
     globals: "npm:^15.9.0"
-    typescript: "npm:^5.6.2"
+    typescript: "npm:^5.5.2"
     typescript-eslint: "npm:^8.8.0"
   checksum: 10c0/30c1bf781016f897925198cd105b58c36dedd5f4fb34ceeb59fed4a6cf888b86195fdb1063517759c5686565d512930bce321777530b036b85dc87396abe9412
   languageName: node
@@ -1535,7 +1534,7 @@ __metadata:
     esbuild-plugin-polyfill-node: "npm:^0.3.0"
     glob: "npm:^11.0.0"
     ts-standard: "npm:^12.0.2"
-    typescript: "npm:^5.6.2"
+    typescript: "npm:^5.5.2"
     vitest: "npm:^2.1.2"
     vizzu: "npm:~0.14.0"
     xlsx: "npm:^0.18.5"
@@ -1552,7 +1551,7 @@ __metadata:
     glob: "npm:^11.0.0"
     tinycolor2: "npm:^1.6.0"
     ts-standard: "npm:^12.0.2"
-    typescript: "npm:^5.6.2"
+    typescript: "npm:^5.5.2"
     vitest: "npm:^2.1.2"
   peerDependencies:
     vizzu: ~0.14.0
@@ -1573,7 +1572,7 @@ __metadata:
   resolution: "@vizzu/video-capture@workspace:plugins/video-capture"
   dependencies:
     ts-standard: "npm:^12.0.2"
-    typescript: "npm:^5.6.2"
+    typescript: "npm:^5.5.2"
     vitest: "npm:^2.1.2"
   peerDependencies:
     vizzu: ~0.14.0
@@ -6020,7 +6019,7 @@ __metadata:
     husky: "npm:^9.1.6"
     lint-staged: "npm:^15.2.10"
     prettier: "npm:^3.3.3"
-    typescript: "npm:^5.6.2"
+    typescript: "npm:^5.5.2"
     vizzu: "npm:~0.14.0"
   languageName: unknown
   linkType: soft
@@ -6801,9 +6800,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.6.2":
-  version: 5.6.2
-  resolution: "typescript@npm:5.6.2"
+"typescript@npm:^5.5.2":
+  version: 5.5.2
+  resolution: "typescript@npm:5.5.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -6811,9 +6810,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.6.2#optional!builtin<compat/typescript>":
-  version: 5.6.2
-  resolution: "typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=379a07"
+"typescript@patch:typescript@npm%3A^5.5.2#optional!builtin<compat/typescript>":
+  version: 5.5.2
+  resolution: "typescript@patch:typescript@npm%3A5.5.2#optional!builtin<compat/typescript>::version=5.5.2&hash=379a07"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver

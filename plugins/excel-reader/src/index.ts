@@ -290,7 +290,7 @@ export class ExcelReader implements Plugin {
 			return null
 		}
 
-		const series = this._headers!.map(
+		const series = (this._headers ?? []).map(
 			(headerName, key): Data.Series => ({
 				name: headerName.trim() || `Column ${key + 1}`,
 				values: []
@@ -316,8 +316,8 @@ export class ExcelReader implements Plugin {
 		}
 		return {
 			series: series.map((item) => {
-				if (item.values?.find((el) => typeof el === 'string')) {
-					item.values = item.values.map((el) => (el === null ? '' : el)) as string[]
+				if (item.values?.find((value) => typeof value === 'string')) {
+					item.values = item.values.map((item) => (item === null ? '' : (item as string)))
 				}
 				return item
 			})

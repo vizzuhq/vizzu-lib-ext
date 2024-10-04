@@ -144,7 +144,7 @@ export class DataParser implements Plugin {
 
 		return {
 			prepareAnimation: Object.assign(
-				(ctx: PrepareAnimationContext, next: () => void) => {
+				async (ctx: PrepareAnimationContext, next: () => void): void => {
 					if (!Array.isArray(ctx.target)) {
 						next()
 						return
@@ -318,7 +318,7 @@ export class DataParser implements Plugin {
 			? this._headers
 			: this.detected.headers
 		this._log(['header', header])
-		const series = []
+		const series: DataSeries[] = []
 		for (let column = 0; column < records[0].length; column++) {
 			const headerName =
 				header[column] && header[column].length > 0

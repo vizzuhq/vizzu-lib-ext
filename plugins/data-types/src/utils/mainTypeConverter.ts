@@ -2,7 +2,7 @@ import { clearValue } from './clearValue'
 
 export const convertToNumber = (values: string[] | number[] | undefined): number[] => {
 	if (!values) return []
-	return values.map((value) => {
+	return values.map((value: string | number | undefined) => {
 		if (typeof value === 'number') return value
 
 		const celaredValue = clearValue(value)
@@ -13,7 +13,7 @@ export const convertToNumber = (values: string[] | number[] | undefined): number
 
 export const convertToString = (values: string[] | number[] | undefined): string[] => {
 	if (!values) return []
-	return values.map((value) => {
+	return values.map((value: string | number | undefined) => {
 		if (typeof value === 'string') return value
 
 		return value.toString()

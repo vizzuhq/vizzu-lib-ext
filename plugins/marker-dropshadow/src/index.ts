@@ -99,7 +99,7 @@ export class MarkerDropshadow {
 		return style
 	}
 
-	_setDropshadow(event: { renderingContext: CanvasRenderingContext2D | ShadowedMarker }) {
+	_setDropshadow(event: { renderingContext: CanvasRenderingContext2D | ShadowedMarker }): void {
 		const ctx = event.renderingContext
 		const style: ShadowedMarker = this._actStyle()
 		ctx.shadowColor = style.color
@@ -109,10 +109,10 @@ export class MarkerDropshadow {
 	}
 
 	_actStyle() {
-		const result = {}
+		const result: ShadowedMarker = {}
 		for (const key in this.style) {
 			if (!this.nextStyle) {
-				result[key] = this.style[key]
+				result[key] = this.style[key] as string | number
 				continue
 			}
 			if (key === 'color') {
@@ -125,7 +125,8 @@ export class MarkerDropshadow {
 					.toRgbString()
 				continue
 			}
-			result[key] = this.style[key] + (this.nextStyle[key] - this.style[key]) * this.progress
+			result[key] = (this.style[key] +
+				(this.nextStyle[key] - this.style[key]) * this.progress) as string | number
 		}
 		return result
 	}

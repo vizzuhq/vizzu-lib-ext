@@ -74,16 +74,18 @@ export const unitCheck = (series: TypedSeries): void => {
 
 	const hasUnit = (series: TypedSeries): series is Data.Measure =>
 		series.values.every(
-			(e) =>
-				e === '' ||
-				(typeof e === 'string' &&
-					(e.endsWith(unit) || e.startsWith(unit)) &&
-					!isNaN(Number(clearValue(e.replace(unit, '')))))
+			(value) =>
+				value === '' ||
+				(typeof value === 'string' &&
+					(value.endsWith(unit) || value.startsWith(unit)) &&
+					!isNaN(Number(clearValue(value.replace(unit, '')))))
 		)
 
 	if (series?.values && hasUnit(series)) {
-		series.values = values.map((e) =>
-			typeof e === 'number' ? e : Number(clearValue(e.replace(unit, '')))
+		series.values = values.map((value) =>
+			typeof value === 'number'
+				? value
+				: Number(clearValue((value as string)?.replace(unit, '')))
 		)
 		series.unit = unit
 		series.type = 'measure'

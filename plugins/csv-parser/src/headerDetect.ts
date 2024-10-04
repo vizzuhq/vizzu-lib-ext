@@ -110,7 +110,7 @@ export const headerDetect = (data: string, delimiter = ','): number => {
 	const headers = parsedData.shift()
 	if (!headers) return 0
 
-	const missingHeaderElements = []
+	const missingHeaderElements: number[] = []
 	for (let headerKey = 0; headerKey < headers.length; headerKey++) {
 		const header = headers[headerKey]
 		if (!header) {
