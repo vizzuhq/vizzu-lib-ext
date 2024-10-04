@@ -8,7 +8,7 @@ export default [
 			parserOptions: {
 				ecmaVersion: 2022,
 				project: './tsconfig.eslint.json',
-				projectService: false,
+				projectService: false
 			}
 		}
 	},
