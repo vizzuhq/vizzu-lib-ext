@@ -1,7 +1,4 @@
 {
-	"compilerOptions": {
-		"noEmit": true,
-		"skipLibCheck": true
-	},
+	"extends": "./tsconfig.json",
 	"include": ["plugins/**/*"]
 }

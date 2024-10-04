@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"noEmit": true,
+		"skipLibCheck": true,
+		"strictBindCallApply": true,
+	},
+	"include": ["plugins/**/*"]
+}
