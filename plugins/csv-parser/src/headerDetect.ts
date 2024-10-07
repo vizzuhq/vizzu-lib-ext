@@ -1,5 +1,11 @@
 import { parse } from 'csv-parse/sync'
 
+export enum Type {
+	NUMBER = 'number',
+	STRING = 'string',
+	UNDEFINED = 'undefined'
+}
+
 const IMPORTANCEWEIGHT = {
 	uniqueHeaderProbalility: 1,
 	headerTypesProbability: 5,
@@ -7,10 +13,10 @@ const IMPORTANCEWEIGHT = {
 	dataTypesDifference: 5
 }
 
-const getType = (value: string | number): string => {
-	if (!value || value === '') return 'undefined'
-	if (typeof value === 'number') return 'number'
-	if (typeof value !== 'string') return 'string'
+const getType = (value: string | number): Type => {
+	if (!value || value === '') return Type.UNDEFINED
+	if (typeof value === 'number') return Type.NUMBER
+	if (typeof value !== 'string') return Type.STRING
 
 	try {
 		// remove special langue number formatters (e.g. 1 000 000,01)
@@ -21,9 +27,9 @@ const getType = (value: string | number): string => {
 			.replace(/^[−–—]/, '-')
 			.replace(/[\u2012\u2013\u2014\u2015]/g, '-')
 
-		return !isNaN(Number(formattedValue)) ? 'number' : 'string'
+		return !isNaN(Number(formattedValue)) ? Type.NUMBER : Type.STRING
 	} catch {
-		return 'string'
+		return Type.STRING
 	}
 }
 
@@ -50,8 +56,8 @@ const percentOfUniqueItems = (clearedHeader: string[]): number => {
 	return (uniqueValueCount / totalValues) * 100
 }
 
-const percentOfTypes = (rowValues: string[]): number => {
-	const filteredItems = rowValues.filter((element) => element && element === 'string')
+const percentOfTypes = (rowValues: Type[]): number => {
+	const filteredItems = rowValues.filter((element) => element && element === Type.STRING)
 
 	if (filteredItems.length === 0) return 0
 
@@ -94,7 +100,7 @@ const convertValuesToTypes = (
 		return rowData.map((element, dataIndex) => {
 			const currentType = getType(element)
 
-			if (currentType === 'undefined' && rowKey > 0) {
+			if (currentType === Type.UNDEFINED && rowKey > 0) {
 				return getType(filteredValues[rowKey - 1][dataIndex])
 			}
 
@@ -128,7 +134,7 @@ export const headerDetect = (data: string, delimiter = ','): number => {
 	probabilitesCount += IMPORTANCEWEIGHT.uniqueHeaderProbalility | 1
 
 	const headerTypes = clearedHeader.map((header) => getType(header))
-	const clearHeaderTypes = headerTypes.filter((header) => header !== 'undefined')
+	const clearHeaderTypes = headerTypes.filter((header) => header !== Type.UNDEFINED)
 
 	const headerTypesProbability = percentOfTypes(
 		clearHeaderTypes.length > 0 ? clearHeaderTypes : headerTypes
