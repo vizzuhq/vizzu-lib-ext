@@ -24,7 +24,7 @@ export const headerCheck = (
 		seriesData.values = convertToString(values)
 		seriesData.type = seriesType as Data.SeriesType
 		const meta = {
-			type: type,
+			type,
 			format: dataType,
 			dependencies: matchedHeaders?.dependencies ?? []
 		}
@@ -33,7 +33,7 @@ export const headerCheck = (
 		if (seriesData.meta) {
 			seriesData.meta.type = type
 		} else {
-			seriesData.meta = { type: type }
+			seriesData.meta = { type }
 		}
 
 		addType(name, type)

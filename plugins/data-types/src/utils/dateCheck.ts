@@ -20,7 +20,7 @@ export const dateFormatCheck = (
 		const includesTimes = values.every((value) => /\d{1,2}:\d{1,2}/.test(value.toString()))
 
 		const meta: { type: string; format: string; dependencies: string[] } = {
-			type: type,
+			type,
 			format: includesTimes ? 'datetime' : 'date',
 			dependencies: []
 		}
@@ -59,7 +59,7 @@ export const timeFormatCheck = (
 		if (!allMath) return
 
 		const meta = {
-			type: type,
+			type,
 			format: 'time',
 			dependencies: []
 		}
@@ -112,7 +112,7 @@ export const datesCheck = (
 
 			if (match(seriesData.values, fixed)) {
 				const meta = {
-					type: type,
+					type,
 					dependencies: dependencies && Array.isArray(dependencies) ? dependencies : []
 				}
 				seriesData.meta = {

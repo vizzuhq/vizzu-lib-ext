@@ -98,7 +98,7 @@ export class DataParser implements Plugin {
 
 	meta = {
 		name: 'csvParser',
-		version: '0.13.0',
+		version: '0.14.0',
 		depends: []
 	}
 
@@ -144,7 +144,7 @@ export class DataParser implements Plugin {
 
 		return {
 			prepareAnimation: Object.assign(
-				async (ctx: PrepareAnimationContext, next: () => void) => {
+				async (ctx: PrepareAnimationContext, next: () => void): void => {
 					if (!Array.isArray(ctx.target)) {
 						next()
 						return
@@ -284,14 +284,13 @@ export class DataParser implements Plugin {
 				skip_records_with_error: true,
 				skip_records_with_empty_values: true,
 				...this.parserOptions
-			})
+			}) as string[][]
 			this._data = this._buildData(parsedInput)
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				console.error(error.message)
 			}
 			this._data = null
-			return
 		}
 	}
 
@@ -319,7 +318,7 @@ export class DataParser implements Plugin {
 			? this._headers
 			: this.detected.headers
 		this._log(['header', header])
-		const series = []
+		const series: DataSeries[] = []
 		for (let column = 0; column < records[0].length; column++) {
 			const headerName =
 				header[column] && header[column].length > 0
@@ -331,7 +330,7 @@ export class DataParser implements Plugin {
 				values: records.map((record) => record[column].trim() || '')
 			})
 		}
-		return { series: series }
+		return { series }
 	}
 
 	private _getHeader(records: string[][]): string[] {

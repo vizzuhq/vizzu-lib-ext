@@ -1,14 +1,13 @@
 {
 	"name": "@vizzu/video-capture",
 	"description": "Vizzu plugin for video capture",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"type": "module",
 	"exports": {
 		".": {
 			"types": "./dist/types/index.d.ts",
 			"import": "./dist/mjs/index.js",
-			"default": "./dist/mjs/index.js",
-			"require": "./dist/cjs/index.js"
+			"default": "./dist/mjs/index.js"
 		}
 	},
 	"files": [
@@ -42,10 +41,10 @@
 	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/video-capture#readme",
 	"devDependencies": {
 		"ts-standard": "^12.0.2",
-		"typescript": "^5.4.2",
-		"vitest": "^1.3.1"
+		"typescript": "^5.5.2",
+		"vitest": "^2.1.2"
 	},
 	"peerDependencies": {
-		"vizzu": "~0.13.0"
+		"vizzu": "~0.14.0"
 	}
 }
