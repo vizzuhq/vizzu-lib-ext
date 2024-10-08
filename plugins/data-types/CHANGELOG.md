@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.5.1]
+
+-   Fix unit detect with negative number
+-   Unit detect from complicated local formatted number
+
 ## [0.5.0]
 
 -   Set vizzu-0.14.x as a peer dependency

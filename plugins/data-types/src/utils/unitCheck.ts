@@ -45,16 +45,17 @@ export const unitCheck = (series: TypedSeries): void => {
 		'SWIFT',
 		'BIC'
 	]
-	const suffixRegexp = /^\d+([\D]+)$/
-	const prefixRegexp = /^([\D]+)\d+$/
+	const suffixRegexp = /^-?[\d.]+([\D]+)$/
+	const prefixRegexp = /^([\D]+)-?[\d.]+$/
 
 	const values = series.values
 
 	if (!values) return
 
-	const firstData = values.filter((e) => e && e !== '').shift()
+	const firstDataRaw = values.filter((e) => e && e !== '').shift()
 
-	if (!firstData || typeof firstData !== 'string') return
+	if (!firstDataRaw || typeof firstDataRaw !== 'string') return
+	const firstData = clearValue(firstDataRaw)
 
 	let test = prefixRegexp.exec(firstData)
 	if (!test) {
