@@ -10,6 +10,6 @@ export const clearValue = (value: string | null | undefined): string | null | un
 	if (cleanedValue.includes('.')) {
 		return cleanedValue.replace(/[,](?=\d{3})/g, '')
 	} else {
-		return cleanedValue.replace(/,(?=\d{3}(,|$))/g, '').replace(',', '.')
+		return cleanedValue.replace(/,/g, '')
 	}
 }
