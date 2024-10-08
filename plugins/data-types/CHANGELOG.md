@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.4.2]
+
+-   Fix unit detect with negative number
+-   Unit detect from complicated local formatted number
+
 ## [0.4.1]
 
 -   Added stricter rules for unit checking.
