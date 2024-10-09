@@ -47,7 +47,7 @@ window.addEventListener('load', async function () {
 				content += `Name: <b>${seriesItem.name}</b><br>`
 				content += `Type: <b>${seriesItem.type}</b><br>`
 				if (seriesItem.unit) {
-					content += `Unit: <b>${seriesItem.unit}</b><br>`
+					content += `Unit: '<b>${seriesItem.unit}</b>'<br>`
 				}
 				content += `Data Meta: <b>${JSON.stringify(seriesItem.meta)}</b><br>`
 				content += '</p>'

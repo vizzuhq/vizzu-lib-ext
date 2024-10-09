@@ -3,7 +3,7 @@ export const clearValue = (value: string | null | undefined): string | null | un
 
 	const cleanedValue = value
 		.trim()
-		.replace(/\s/g, '')
+		.replace(/(\d)\s(\d)/g, '$1$2')
 		.replace(/\u00A0/g, '')
 		.replace(/^[−–—]/, '-')
 		.replace(/[\u2012\u2013\u2014\u2015]/g, '-')
