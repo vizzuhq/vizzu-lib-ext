@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.4.3]
+
+-   Add unit detected position ( prefix / suffix ) in meta
+-   Fix unit trimmed whitespace
+
 ## [0.4.2]
 
 -   Fix unit detect with negative number
