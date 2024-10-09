@@ -30,6 +30,7 @@ export class CSVParser extends DataParser {
 		await this.setSource(input)
 		return this.convertNumbers(this.data)
 	}
+
 	public readCSVFile(fileName: string): string {
 		if (!fileName) {
 			return ''

@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### [0.5.1]
+
+-   Includes changes from `0.4.2` and `0.4.3`, which were missing from `0.5.0`
+
+## [0.5.0]
+
+-   Set vizzu-0.14.x as a peer dependency
+-   Update yarn and used packages
+
 ## [0.4.3]
 
 -   Add unit detected position ( prefix / suffix ) in meta

@@ -69,7 +69,7 @@ export class DataTypes {
 
 	meta = {
 		name: 'dataTypes',
-		version: '0.13.0',
+		version: '0.14.0',
 		depends: ['csvParser']
 	}
 
@@ -103,7 +103,7 @@ export class DataTypes {
 
 	get hooks() {
 		const callCheckTypes = (target: HookContex[]) => {
-			target.forEach(({ target: target }) => {
+			target.forEach(({ target }) => {
 				if (target?.data?.series && Array.isArray(target.data.series)) {
 					this.checkTypes(target.data.series)
 				}
@@ -146,7 +146,7 @@ export class DataTypes {
 	}
 
 	private _addType = (name: string, type: string) => {
-		this._types.push({ name: name, type: type })
+		this._types.push({ name, type })
 	}
 
 	private _mainTypes = (series: TypedSeries[]): TypedSeries[] => {
