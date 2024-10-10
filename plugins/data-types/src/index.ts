@@ -8,9 +8,15 @@ import * as CA from 'vizzu/dist/module/canimctrl.js'
 import * as CC from 'vizzu/dist/module/cchart'
 import type { Data, Config, Anim, Styles, AnimCompleting } from 'vizzu'
 
+export enum UnitPosition {
+	PREFIX = 'prefix',
+	SUFFIX = 'suffix'
+}
+
 export type Meta = {
 	type?: string
 	format?: string
+	unitType?: UnitPosition
 }
 
 export type TypedSeries = Data.Series & {
@@ -118,7 +124,7 @@ export class DataTypes {
 	}
 
 	public checkTypes = (series: TypedSeries[]): series is TypedSeries[] => {
-		const seriesTypes = this._mainTypes(series).filter((seriesData) => !('meta' in seriesData))
+		const seriesTypes = this._mainTypes(series).filter((seriesData) => !seriesData?.meta?.type)
 
 		headerCheck(seriesTypes, this._addType)
 

@@ -74,7 +74,8 @@ export const testCases = () => {
 					meta: {
 						type: 'number',
 						format: 'number',
-						dependencies: []
+						dependencies: [],
+						unitType: 'suffix'
 					}
 				},
 				{
