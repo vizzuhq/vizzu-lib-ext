@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.6.0]
+
+-   Set vizzu-0.15.x as a peer dependency
+
 ### [0.5.1]
 
 -   Includes changes from `0.4.2` and `0.4.3`, which were missing from `0.5.0`
