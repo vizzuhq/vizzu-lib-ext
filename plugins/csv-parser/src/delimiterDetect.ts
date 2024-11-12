@@ -13,72 +13,40 @@ export const delimiterDetect = (data: string): string => {
 	}
 
 	const standardDelimiters = ['\t', ';', ',', '|', '^', '~', ':', ' ', '`']
-	const results: { [key: string]: number } = {}
-	const resultByLine: { [key: string]: number[] } = {}
 
-	lines.forEach((line) => {
-		standardDelimiters.forEach((delimiter) => {
-			const count = line.split(delimiter).length
-			if (count === 1) return
+	const filteredLines = lines.filter((line) => line.trim().length > 0)
+	if (filteredLines.length < 2) {
+		return ','
+	}
 
-			if (!results[delimiter]) {
-				results[delimiter] = 0
-				resultByLine[delimiter] = []
-			}
+	const countChars = (line: string) => {
+		const charCount = {}
+		for (const char of line) {
+			charCount[char] = (charCount[char] || 0) + 1
+		}
+		return charCount
+	}
 
-			results[delimiter] += count - 1
-			resultByLine[delimiter].push(count - 1)
-		})
+	const lineCharCounts = filteredLines.map(countChars)
+
+	const commonChars = Object.keys(lineCharCounts[0]).filter((char) =>
+		lineCharCounts.every((count) => count[char])
+	)
+
+	const charsWithEqualFrequency = commonChars.filter((char) =>
+		lineCharCounts.every((count) => count[char] === lineCharCounts[0][char])
+	)
+
+	const charFrequency = {}
+	charsWithEqualFrequency.forEach((char) => {
+		charFrequency[char] = filteredLines.reduce(
+			(count, line) => count + (line.includes(char) ? 1 : 0),
+			0
+		)
 	})
+	const sortedChars = Object.entries(charFrequency)
+		.sort((a, b) => b[1] - a[1])
+		.map((entry) => entry[0])
 
-	const possibleDelimiters = Object.keys(results)
-	if (possibleDelimiters.length === 1) {
-		return possibleDelimiters[0]
-	}
-
-	const calculateMean = (values: number[]): number => {
-		const mean = values.reduce((sum, current) => sum + current) / values.length
-		return mean
-	}
-
-	const calculateVariance = (values: number[]): number => {
-		const average = calculateMean(values)
-		const squareDiffs = values.map((value: number): number => {
-			const diff = value - average
-			return diff * diff
-		})
-
-		const variance = calculateMean(squareDiffs)
-		return variance
-	}
-
-	const calculateSD = (variance: number): number => {
-		return Math.sqrt(variance)
-	}
-
-	const varianceElements = Object.keys(resultByLine)
-		.map((key) => {
-			const line = resultByLine[key]
-
-			const variance = calculateVariance(line)
-			const sd = calculateSD(variance)
-			return { delimiter: key, value: sd }
-		})
-		.filter((sd) => sd.value < 0.1)
-		.sort((element) => element.value)
-
-	if (varianceElements.length === 1) {
-		return varianceElements[0].delimiter
-	}
-
-	if (varianceElements.length > 1) {
-		const variancedKeys = varianceElements.map((element) => element.delimiter)
-		standardDelimiters.forEach((delimiter) => {
-			if (variancedKeys.includes(delimiter)) {
-				return delimiter
-			}
-		})
-	}
-
-	return ','
+	return sortedChars.find((char) => standardDelimiters.includes(char)) || ','
 }
