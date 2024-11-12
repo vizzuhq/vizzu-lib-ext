@@ -6,7 +6,6 @@ export const delimiterDetect = (data: string): string => {
 	content = content.replace(/".*?"/gs, '0')
 	// Remove all empty lines
 	content = content.replace(/^\s*[\r\n]/gm, '')
-	// Split by new line
 	const lines = content.split(/[\r\n]/)
 	if (lines.at(-1) === '') {
 		lines.pop()
