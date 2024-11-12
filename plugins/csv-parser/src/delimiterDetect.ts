@@ -19,7 +19,7 @@ export const delimiterDetect = (data: string): string => {
 	}
 
 	const countChars = (line: string) => {
-		const charCount = {}
+		const charCount: { [key: string]: number } = {}
 		for (const char of line) {
 			if (standardDelimiters.includes(char)) {
 				charCount[char] = (charCount[char] || 0) + 1
