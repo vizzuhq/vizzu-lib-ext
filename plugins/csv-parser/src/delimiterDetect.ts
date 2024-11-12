@@ -21,7 +21,9 @@ export const delimiterDetect = (data: string): string => {
 	const countChars = (line: string) => {
 		const charCount = {}
 		for (const char of line) {
-			charCount[char] = (charCount[char] || 0) + 1
+			if (standardDelimiters.includes(char)) {
+				charCount[char] = (charCount[char] || 0) + 1
+			}
 		}
 		return charCount
 	}
@@ -47,5 +49,5 @@ export const delimiterDetect = (data: string): string => {
 		.sort((a, b) => b[1] - a[1])
 		.map((entry) => entry[0])
 
-	return sortedChars.find((char) => standardDelimiters.includes(char)) || ','
+	return sortedChars?.pop() ?? ','
 }
