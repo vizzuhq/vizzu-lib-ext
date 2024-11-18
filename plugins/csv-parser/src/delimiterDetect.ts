@@ -12,10 +12,11 @@ export const delimiterDetect = (data: string): string => {
 	}
 
 	const standardDelimiters = ['\t', ';', ',', '|', '^', '~', ':', ' ', '`']
+	const defaultResponseDelimiter = ','
 
 	const filteredLines = lines.filter((line) => line.trim().length > 0)
 	if (filteredLines.length < 2) {
-		return ','
+		return defaultResponseDelimiter
 	}
 
 	const countChars = (line: string) => {
@@ -49,5 +50,5 @@ export const delimiterDetect = (data: string): string => {
 		.sort((a, b) => b[1] - a[1])
 		.map((entry) => entry[0])
 
-	return sortedChars?.pop() ?? ','
+	return sortedChars?.pop() ?? defaultResponseDelimiter
 }
