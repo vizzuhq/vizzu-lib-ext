@@ -18,7 +18,7 @@ export class VideoCapture implements Plugin {
 
 	meta = {
 		name: 'videoCapture',
-		version: '0.15.0',
+		version: '0.16.0',
 		depends: ['htmlCanvas']
 	}
 
