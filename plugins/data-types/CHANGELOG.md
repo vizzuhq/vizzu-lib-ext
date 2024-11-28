@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.7.0]
+
+-   Set vizzu-0.16.x as a peer dependency
+
 ## [0.6.0]
 
 -   Set vizzu-0.15.x as a peer dependency

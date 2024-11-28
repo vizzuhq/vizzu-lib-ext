@@ -1,7 +1,7 @@
 {
 	"name": "@vizzu/marker-dropshadow",
 	"description": "Vizzu charting library marker plugin for drop shadow",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"type": "module",
 	"exports": {
 		".": {
@@ -50,6 +50,6 @@
 		"tinycolor2": "^1.6.0"
 	},
 	"peerDependencies": {
-		"vizzu": "~0.15.0"
+		"vizzu": "~0.16.0"
 	}
 }
