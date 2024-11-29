@@ -1,5 +1,5 @@
 import { type Data } from 'vizzu'
-import { type TypedSeries } from '../index'
+import { UnitPosition, type TypedSeries } from '../index'
 import { clearValue } from './clearValue'
 
 export const unitCheck = (series: TypedSeries): void => {
@@ -45,20 +45,25 @@ export const unitCheck = (series: TypedSeries): void => {
 		'SWIFT',
 		'BIC'
 	]
-	const suffixRegexp = /^\d+([\D]+)$/
-	const prefixRegexp = /^([\D]+)\d+$/
+	const suffixRegexp = /^-?[\d.]+([\D]+)$/
+	const prefixRegexp = /^([\D]+)-?[\d.]+$/
 
 	const values = series.values
 
 	if (!values) return
 
-	const firstData = values.filter((e) => e && e !== '').shift()
+	const firstDataRaw = values.filter((e) => e && e !== '').shift()
+
+	if (!firstDataRaw || typeof firstDataRaw !== 'string') return
+	const firstData = clearValue(firstDataRaw)
 
 	if (!firstData || typeof firstData !== 'string') return
 
 	let test = prefixRegexp.exec(firstData)
+	let unitType = UnitPosition.PREFIX
 	if (!test) {
 		test = suffixRegexp.exec(firstData)
+		unitType = UnitPosition.SUFFIX
 		if (!test) return
 	}
 
@@ -88,6 +93,7 @@ export const unitCheck = (series: TypedSeries): void => {
 				: Number(clearValue((value as string)?.replace(unit, '')))
 		)
 		series.unit = unit
+		series.meta = { ...(series.meta ?? {}), unitType }
 		series.type = 'measure'
 	}
 }
