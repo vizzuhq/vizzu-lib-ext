@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.8.1]
+
+-   Update csv delimiter detect
+
 ## [0.8.0]
 
 -   Set vizzu-0.16.x as a peer dependency
