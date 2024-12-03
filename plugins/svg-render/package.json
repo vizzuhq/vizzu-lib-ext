@@ -1,0 +1,50 @@
+{
+	"name": "@vizzu/svg-render",
+	"description": "SVG rendering plugin",
+	"version": "0.2.0",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/mjs/index.js",
+			"default": "./dist/mjs/index.js",
+			"require": "./dist/cjs/index.js"
+		}
+	},
+	"files": [
+		"dist/**",
+		"package.json"
+	],
+	"main": "dist/cjs/index.js",
+	"module": "dist/mjs/index.js",
+	"types": "dist/types/index.d.ts",
+	"scripts": {
+		"build": "run clear && node build/build.js",
+		"clear": "node build/clear.js",
+		"test": "vitest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vizzuhq/vizzu-lib-ext#workspace=@vizzu/svg-render"
+	},
+	"keywords": [
+		"vizzu",
+		"plugin",
+		"svg"
+	],
+	"email": "hello@vizzuhq.com",
+	"license": "Apache-2.0",
+	"author": "Vizzu Inc.",
+	"bugs": {
+		"url": "https://github.com/vizzuhq/vizzu-lib-ext/issues"
+	},
+	"homepage": "https://github.com/vizzuhq/vizzu-lib-ext/tree/main/plugins/svg-render#readme",
+	"devDependencies": {
+		"ts-standard": "^12.0.2",
+		"typescript": "^5.4.2",
+		"vitest": "^1.3.1"
+	},
+	"peerDependencies": {
+		"vizzu": "~0.10.1"
+	}
+}
