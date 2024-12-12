@@ -6,7 +6,7 @@
 
 -   Add N/A protection in number detect
 -   Fix unit detection with negative numbers
--   Add Excel excel error text cases
+-   Add Excel error text cases
 
 ## [0.7.0]
 
