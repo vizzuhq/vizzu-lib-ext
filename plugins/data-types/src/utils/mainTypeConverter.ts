@@ -1,4 +1,4 @@
-import { clearValue, fixErrorValues } from './clearValue'
+import { clearValue } from './clearValue'
 
 export const convertToNumber = (values: string[] | number[] | undefined): number[] => {
 	if (!values) return []
@@ -14,7 +14,7 @@ export const convertToNumber = (values: string[] | number[] | undefined): number
 export const convertToString = (values: string[] | number[] | undefined): string[] => {
 	if (!values) return []
 	return values.map((value: string | number) => {
-		if (typeof value === 'string') return fixErrorValues(value)
+		if (typeof value === 'string') return value
 
 		return value.toString()
 	})

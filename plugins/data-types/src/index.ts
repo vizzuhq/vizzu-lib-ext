@@ -1,4 +1,5 @@
 import { convertToNumber, convertToString } from './utils/mainTypeConverter'
+import { fixErrorValues } from './utils/clearValue'
 import { typeIsNumber } from './utils/mainTypeDetection'
 import { unitCheck } from './utils/unitCheck'
 import { headerCheck } from './utils/headerCheck'
@@ -153,6 +154,12 @@ export class DataTypes {
 		return series.map((seriesData: TypedSeries) => {
 			if (!seriesData.values) return seriesData
 
+			seriesData.values = seriesData.values.map((value) => {
+				if (typeof value === 'string') {
+					return fixErrorValues(value)
+				}
+				return value
+			})
 			if (
 				seriesData.values.every(
 					(value) => value === '' || value === undefined || value === null
