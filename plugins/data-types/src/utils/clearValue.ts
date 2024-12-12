@@ -9,11 +9,11 @@ export const clearValue = (value: string | null | undefined): string | null | un
 		.replace(/\u00A0/g, '')
 		.replace(/^[−–—]/, '-')
 		.replace(/[\u2012\u2013\u2014\u2015]/g, '-')
-	naVariants.forEach((na) => {
-		if (cleanedValue === na) {
-			cleanedValue = ''
-		}
-	})
+
+	const naText = naVariants.find((na) => cleanedValue === na)
+	if (naText) {
+		return ''
+	}
 	if (cleanedValue.includes('.')) {
 		return cleanedValue.replace(/[,](?=\d{3})/g, '')
 	} else {
@@ -38,10 +38,9 @@ const excelErrors = [
 ]
 
 export const fixErrorValues = (value: string): string => {
-	excelErrors.forEach((error) => {
-		if (value === error) {
-			value = ''
-		}
-	})
+	const errorText = excelErrors.find((error) => value === error)
+	if (errorText) {
+		return ''
+	}
 	return value
 }
