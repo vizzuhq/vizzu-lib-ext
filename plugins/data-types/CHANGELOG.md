@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.7.1]
+
+-   Add N/A protection in number detect
+-   Fix unit detection with negative numbers
+-   Add Excel error text cases
+
 ## [0.7.0]
 
 -   Set vizzu-0.16.x as a peer dependency

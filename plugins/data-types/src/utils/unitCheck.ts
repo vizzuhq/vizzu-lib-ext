@@ -46,7 +46,7 @@ export const unitCheck = (series: TypedSeries): void => {
 		'BIC'
 	]
 	const suffixRegexp = /^-?[\d.]+([\D]+)$/
-	const prefixRegexp = /^([\D]+)-?[\d.]+$/
+	const prefixRegexp = /^([\D]+?)\s*(-?[\d.]+)$/
 
 	const values = series.values
 
