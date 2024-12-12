@@ -3,7 +3,7 @@ const naVariants = ['N/A', 'NA', 'n/a', 'n.a.', 'N.A.', 'n.d.', 's/n']
 export const clearValue = (value: string | null | undefined): string | null | undefined => {
 	if (!value) return value
 
-	let cleanedValue = value
+	const cleanedValue = value
 		.trim()
 		.replace(/(\d)\s(\d)/g, '$1$2')
 		.replace(/\u00A0/g, '')
