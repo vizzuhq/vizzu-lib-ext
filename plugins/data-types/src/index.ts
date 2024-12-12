@@ -154,12 +154,14 @@ export class DataTypes {
 		return series.map((seriesData: TypedSeries) => {
 			if (!seriesData.values) return seriesData
 
-			seriesData.values = seriesData.values.map((value) => {
-				if (typeof value === 'string') {
-					return fixErrorValues(value)
+			seriesData.values = seriesData.values.map<string | Data.MeasureValue>(
+				(value: string | Data.MeasureValue) => {
+					if (typeof value === 'string') {
+						return fixErrorValues(value)
+					}
+					return value
 				}
-				return value
-			})
+			)
 			if (
 				seriesData.values.every(
 					(value) => value === '' || value === undefined || value === null
