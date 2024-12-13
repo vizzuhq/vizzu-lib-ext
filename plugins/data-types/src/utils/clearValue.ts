@@ -10,8 +10,7 @@ export const clearValue = (value: string | null | undefined): string | null | un
 		.replace(/^[−–—]/, '-')
 		.replace(/[\u2012\u2013\u2014\u2015]/g, '-')
 
-	const naText = naVariants.find((na) => cleanedValue === na)
-	if (naText) {
+	if (naVariants.includes(cleanedValue)) {
 		return ''
 	}
 	if (cleanedValue.includes('.')) {
@@ -38,8 +37,7 @@ const excelErrors = [
 ]
 
 export const fixErrorValues = (value: string): string => {
-	const errorText = excelErrors.find((error) => value === error)
-	if (errorText) {
+	if (excelErrors.includes(value)) {
 		return ''
 	}
 	return value

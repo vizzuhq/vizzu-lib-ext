@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.7.2]
+
+-   Add N/A detection in unit check
+
 ## [0.7.1]
 
 -   Add N/A protection in number detect
