@@ -82,8 +82,9 @@ export const unitCheck = (series: TypedSeries): void => {
 			(value) =>
 				value === '' ||
 				(typeof value === 'string' &&
-					(value.endsWith(unit) || value.startsWith(unit)) &&
-					!isNaN(Number(clearValue(value.replace(unit, '')))))
+					(clearValue(value) === '' ||
+						((value.endsWith(unit) || value.startsWith(unit)) &&
+							!isNaN(Number(clearValue(value.replace(unit, '')))))))
 		)
 
 	if (series?.values && hasUnit(series)) {
