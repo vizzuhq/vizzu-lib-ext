@@ -1409,9 +1409,9 @@ __metadata:
     ts-standard: "npm:^12.0.2"
     typescript: "npm:^5.5.2"
     vitest: "npm:^2.1.2"
-    vizzu: "npm:~0.16.0"
+    vizzu: "npm:~0.17.0"
   peerDependencies:
-    vizzu: ~0.16.0
+    vizzu: ~0.17.0
   languageName: unknown
   linkType: soft
 
@@ -1427,7 +1427,7 @@ __metadata:
     ts-standard: "npm:^12.0.2"
     typescript: "npm:^5.5.2"
     vitest: "npm:^2.1.2"
-    vizzu: "npm:~0.16.0"
+    vizzu: "npm:~0.17.0"
   languageName: unknown
   linkType: soft
 
@@ -1465,10 +1465,10 @@ __metadata:
     ts-standard: "npm:^12.0.2"
     typescript: "npm:^5.5.2"
     vitest: "npm:^2.1.2"
-    vizzu: "npm:~0.16.0"
+    vizzu: "npm:~0.17.0"
     xlsx: "npm:^0.18.5"
   peerDependencies:
-    vizzu: ~0.16.0
+    vizzu: ~0.17.0
   languageName: unknown
   linkType: soft
 
@@ -1483,7 +1483,7 @@ __metadata:
     typescript: "npm:^5.5.2"
     vitest: "npm:^2.1.2"
   peerDependencies:
-    vizzu: ~0.16.0
+    vizzu: ~0.17.0
   languageName: unknown
   linkType: soft
 
@@ -1504,7 +1504,7 @@ __metadata:
     typescript: "npm:^5.5.2"
     vitest: "npm:^2.1.2"
   peerDependencies:
-    vizzu: ~0.16.0
+    vizzu: ~0.17.0
   languageName: unknown
   linkType: soft
 
@@ -5491,7 +5491,7 @@ __metadata:
     lint-staged: "npm:^15.2.10"
     prettier: "npm:^3.3.3"
     typescript: "npm:^5.5.2"
-    vizzu: "npm:~0.16.0"
+    vizzu: "npm:~0.17.0"
   languageName: unknown
   linkType: soft
 
@@ -6082,10 +6082,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.12.0":
-  version: 4.26.1
-  resolution: "type-fest@npm:4.26.1"
-  checksum: 10c0/d2719ff8d380befe8a3c61068f37f28d6fa2849fd140c5d2f0f143099e371da6856aad7c97e56b83329d45bfe504afe9fd936a7cff600cc0d46aa9ffb008d6c6
+"type-fest@npm:^4.33.0":
+  version: 4.41.0
+  resolution: "type-fest@npm:4.41.0"
+  checksum: 10c0/f5ca697797ed5e88d33ac8f1fec21921839871f808dc59345c9cf67345bfb958ce41bd821165dbf3ae591cedec2bf6fe8882098dfdd8dc54320b859711a2c1e4
   languageName: node
   linkType: hard
 
@@ -6348,12 +6348,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vizzu@npm:~0.16.0":
-  version: 0.16.0
-  resolution: "vizzu@npm:0.16.0"
+"vizzu@npm:~0.17.0":
+  version: 0.17.0
+  resolution: "vizzu@npm:0.17.0"
   dependencies:
-    type-fest: "npm:^4.12.0"
-  checksum: 10c0/98c5f7aba858795c27fd928dd8d36e5c58dfebd15cc8120f532c344a5e047fac235ba1f12c37e5a0bcc7e9b294caa1b0b60d2ddf43714a58d0c5420184b6de77
+    type-fest: "npm:^4.33.0"
+  checksum: 10c0/b365b598ee5bef5cc73298778e0e503aecd604a76d60e03da140d187a61a539c93bb874902f081ff1633a22d5c4ac469983066faa29e5d44a50fd2211e478db9
   languageName: node
   linkType: hard
 

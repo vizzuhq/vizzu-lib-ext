@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.8.0]
+
+-   Set vizzu-0.17.x as a peer dependency
+
 ## [0.7.2]
 
 -   Add N/A detection in unit check
