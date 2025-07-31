@@ -1,4 +1,4 @@
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@0.16/dist/vizzu.min.js'
+import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@0.17/dist/vizzu.min.js'
 import { CSVParser } from '../dist/mjs/index.js'
 let chart
 
