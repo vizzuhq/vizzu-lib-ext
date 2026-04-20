@@ -93,7 +93,7 @@ export class ExcelReader implements Plugin {
 
 	meta = {
 		name: 'excelReader',
-		version: '0.17.0',
+		version: '0.18.0',
 		depends: []
 	}
 

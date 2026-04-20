@@ -1,5 +1,5 @@
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@0.17/dist/vizzu.min.js'
-import { data } from 'https://lib.vizzuhq.com/0.17/assets/data/chart_types_eu.js'
+import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@0.18/dist/vizzu.min.js'
+import { data } from 'https://lib.vizzuhq.com/0.18/assets/data/chart_types_eu.js'
 import { VideoCapture } from '../dist/mjs/index.js'
 
 window.addEventListener('load', async function () {

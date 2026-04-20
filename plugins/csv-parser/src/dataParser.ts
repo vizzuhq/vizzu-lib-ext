@@ -98,7 +98,7 @@ export class DataParser implements Plugin {
 
 	meta = {
 		name: 'csvParser',
-		version: '0.17.0',
+		version: '0.18.0',
 		depends: []
 	}
 
